@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_column",
+    "textures": {
+        "side": "yuzukitools:blocks/instant_house",
+        "end": "yuzukitools:blocks/instant_house_top"
+    }
+}

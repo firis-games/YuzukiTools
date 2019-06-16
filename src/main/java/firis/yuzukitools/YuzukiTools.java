@@ -5,16 +5,26 @@ import java.lang.reflect.Modifier;
 
 import org.apache.logging.log4j.Logger;
 
+import firis.core.client.ShaderHelper;
+import firis.yuzukitools.client.tesr.YKTileInstantHouseSpRenderer;
+import firis.yuzukitools.common.block.YKBlockInstantHouse;
 import firis.yuzukitools.common.item.YKItemToolHammeraxe;
+import firis.yuzukitools.common.tileentity.YKTileInstantHouse;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.SimpleReloadableResourceManager;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -23,6 +33,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -84,14 +95,24 @@ public class YuzukiTools
      */
     @ObjectHolder(YuzukiTools.MODID)
     public static class YKBlocks{
+    	public final static Block INSTANT_HOUSE = null;
     }
-
+    
+    
+    /**
+     * GLSL
+     */
+    public static int shader_alpha = 0;
+    
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
         logger = event.getModLog();
         
         logger.info("YuzukiTools Starting...");
+        
+        GameRegistry.registerTileEntity(YKTileInstantHouse.class, 
+        		new ResourceLocation(YuzukiTools.MODID, "te_instant_house"));
                 
     }
     
@@ -111,7 +132,12 @@ public class YuzukiTools
     @SubscribeEvent
     protected static void registerBlocks(RegistryEvent.Register<Block> event)
     {
-    	
+    	// インスタントハウス
+        event.getRegistry().register(
+                new YKBlockInstantHouse()
+                .setRegistryName(MODID, "instant_house")
+                .setUnlocalizedName("instant_house")
+        );
     }
     
     /**
@@ -151,6 +177,10 @@ public class YuzukiTools
     	event.getRegistry().register(new YKItemToolHammeraxe(ToolMaterial.DIAMOND)
     			.setRegistryName(MODID, "diamond_hammeraxe")
     			.setUnlocalizedName("diamond_hammeraxe"));
+    	
+    	//インスタントハウス
+    	event.getRegistry().register(new ItemBlock(YKBlocks.INSTANT_HOUSE)
+    			.setRegistryName(MODID, "instant_house"));
     }
     
     /**
@@ -176,5 +206,22 @@ public class YuzukiTools
 				logger.info("registerModels error " + filed.getName());
 			}
     	}
+    	
+    	ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(YKBlocks.INSTANT_HOUSE), 0,
+    			new ModelResourceLocation(YKBlocks.INSTANT_HOUSE.getRegistryName(), "inventory"));
+    	
+    	//インスタントハウスTESR
+    	ClientRegistry.bindTileEntitySpecialRenderer(YKTileInstantHouse.class, new YKTileInstantHouseSpRenderer());
+    	
+    	//GLSLロード
+    	if (Minecraft.getMinecraft().getResourceManager() 
+    			instanceof SimpleReloadableResourceManager) {
+	    	if(OpenGlHelper.shadersSupported) {
+	    		shader_alpha = ShaderHelper.createProgram(
+	    				"/assets/yuzukitools/shader/alpha.vert", 
+	    				"/assets/yuzukitools/shader/alpha.frag");
+	    	}
+    	}
     }
+    
 }
