@@ -8,7 +8,9 @@ import firis.yuzukitools.YuzukiTools;
 import firis.yuzukitools.YuzukiTools.YKItems;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -132,13 +134,25 @@ public class WorldGenHouse extends WorldGenerator {
 	        		toolStack.addEnchantment(unbreaking, 1);
         		}
         		stackList.add(toolStack);
-
+        		
         		//防具
         		stackList.add(new ItemStack(Items.LEATHER_HELMET));
         		stackList.add(new ItemStack(Items.LEATHER_CHESTPLATE));
         		stackList.add(new ItemStack(Items.LEATHER_LEGGINGS));
         		stackList.add(new ItemStack(Items.LEATHER_BOOTS));
-
+        		
+        		//防具に色を設定する
+        		for (ItemStack stack : stackList) {
+        			if (stack.getItem() instanceof ItemArmor) {
+        				NBTTagCompound nbt = new NBTTagCompound();
+        				NBTTagCompound color = new NBTTagCompound();
+        				color.setInteger("color", 8991416); 
+        				//紫色
+        				nbt.setTag("display", color);
+        				stack.setTagCompound(nbt);
+        			}
+        		}
+        		
         		//チェストへアイテムを追加する
         		for (ItemStack stack : stackList) {
         			for (int slot = 0; slot < handler.getSlots(); slot++) {
