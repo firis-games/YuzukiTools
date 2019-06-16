@@ -1,0 +1,16 @@
+[
+{
+  "modid": "yuzukitools",
+  "name": "Yuzuki Tools",
+  "description": "Yuzuki Yukari's tools.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Yuzuki Yukari", "Kotonoha Akane", "Kotonoha Aoi", "Kizuna Akari", "firis-games"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

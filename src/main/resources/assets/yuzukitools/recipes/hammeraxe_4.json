@@ -1,0 +1,20 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"xxx",
+		"xy ",
+		" y "
+	],
+	"key": {
+		"x": {
+			"item": "minecraft:diamond",
+			"data": 0
+		},
+		"y": {
+			"item": "minecraft:stick"
+		}
+	},
+	"result": {
+		"item": "yuzukitools:diamond_hammeraxe"
+	}
+}
