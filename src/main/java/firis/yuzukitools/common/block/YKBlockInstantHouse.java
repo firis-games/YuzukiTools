@@ -20,7 +20,9 @@ import net.minecraft.world.World;
 public class YKBlockInstantHouse extends BlockContainer {
 
 	public YKBlockInstantHouse() {
-		super(Material.ROCK);
+		super(Material.PISTON);
+		this.setHardness(0.1F);
+		this.setResistance(20.0F);
 		this.setCreativeTab(YuzukiTools.YKCreativeTab);
 	}
 
