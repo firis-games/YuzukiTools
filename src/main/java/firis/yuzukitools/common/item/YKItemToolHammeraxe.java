@@ -10,12 +10,15 @@ import com.google.common.collect.Sets;
 
 import firis.yuzukitools.YuzukiTools;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemSpade;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 
 /**
@@ -83,5 +86,18 @@ public class YKItemToolHammeraxe extends ItemTool {
             				"Tool modifier", 1.0F, 0));
         }
         return multimap;
+    }
+	
+	/**
+	 * 石製品と木製製品の破壊スピード調整
+	 */
+	@Override
+    public float getDestroySpeed(ItemStack stack, IBlockState state)
+    {
+        Material material = state.getMaterial();
+        //石製品と木製製品の破壊速度
+        return material != Material.WOOD && material != Material.PLANTS && material != Material.VINE
+        		&& material != Material.IRON && material != Material.ANVIL && material != Material.ROCK
+        		? super.getDestroySpeed(stack, state) : this.efficiency;
     }
 }
