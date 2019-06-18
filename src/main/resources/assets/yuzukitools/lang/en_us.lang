@@ -8,5 +8,11 @@ item.iron_hammeraxe.name=Iron Hammeraxe
 item.gold_hammeraxe.name=Gold Hammeraxe
 item.diamond_hammeraxe.name=Diamond Hammeraxe
 
+item.wood_shield_sword.name=Wood Shield Sword
+item.stone_shield_sword.name=Stone Shield Sword
+item.iron_shield_sword.name=Iron Shield Sword
+item.gold_shield_sword.name=Gold Shield Sword
+item.diamond_shield_sword.name=Diamond Shield Sword
+
 tile.instant_house.name=Instant House
 

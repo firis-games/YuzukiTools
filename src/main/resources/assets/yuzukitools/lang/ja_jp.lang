@@ -8,5 +8,11 @@ item.iron_hammeraxe.name=鉄のハンマーアックス
 item.gold_hammeraxe.name=金のハンマーアックス
 item.diamond_hammeraxe.name=ダイヤモンドのハンマーアックス
 
+item.wood_shield_sword.name=木のシールドソード
+item.stone_shield_sword.name=石のシールドソード
+item.iron_shield_sword.name=鉄のシールドソード
+item.gold_shield_sword.name=金のシールドソード
+item.diamond_shield_sword.name=ダイヤモンドのシールドソード
+
 tile.instant_house.name=インスタントハウス
 

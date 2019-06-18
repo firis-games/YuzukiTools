@@ -1,0 +1,20 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" x ",
+		"xx ",
+		" y "
+	],
+	"key": {
+		"x": {
+			"item": "minecraft:cobblestone",
+			"data": 0
+		},
+		"y": {
+			"item": "minecraft:stick"
+		}
+	},
+	"result": {
+		"item": "yuzukitools:stone_shield_sword"
+	}
+}

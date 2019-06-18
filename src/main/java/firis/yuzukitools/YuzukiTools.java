@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import firis.core.client.ShaderHelper;
 import firis.yuzukitools.client.tesr.YKTileInstantHouseSpRenderer;
 import firis.yuzukitools.common.block.YKBlockInstantHouse;
+import firis.yuzukitools.common.item.YKItemShieldSword;
 import firis.yuzukitools.common.item.YKItemToolHammeraxe;
 import firis.yuzukitools.common.tileentity.YKTileInstantHouse;
 import net.minecraft.block.Block;
@@ -60,8 +61,8 @@ public class YuzukiTools
     public static YuzukiTools INSTANCE;
     
     /*
-    @SidedProxy(serverSide = "firis.YuzukiTools.common.proxy.CommonProxy", 
-    		clientSide = "firis.YuzukiTools.client.proxy.ClientProxy")
+    @SidedProxy(serverSide = "firis.yuzukitools.common.proxy.CommonProxy", 
+    		clientSide = "firis.yuzukitools.client.proxy.ClientProxy")
     public static CommonProxy proxy;
     */
     
@@ -88,6 +89,11 @@ public class YuzukiTools
     	public final static Item IRON_HAMMERAXE = null;
     	public final static Item GOLD_HAMMERAXE = null;
     	public final static Item DIAMOND_HAMMERAXE = null;
+    	public final static Item WOOD_SHIELD_SWORD = null;
+    	public final static Item STONE_SHIELD_SWORD = null;
+    	public final static Item IRON_SHIELD_SWORD = null;
+    	public final static Item GOLD_SHIELD_SWORD = null;
+    	public final static Item DIAMOND_SHIELD_SWORD = null;
     }
     
     /**
@@ -177,6 +183,31 @@ public class YuzukiTools
     	event.getRegistry().register(new YKItemToolHammeraxe(ToolMaterial.DIAMOND)
     			.setRegistryName(MODID, "diamond_hammeraxe")
     			.setUnlocalizedName("diamond_hammeraxe"));
+    	
+    	//木のシールドソード
+    	event.getRegistry().register(new YKItemShieldSword(ToolMaterial.WOOD)
+    			.setRegistryName(MODID, "wood_shield_sword")
+    			.setUnlocalizedName("wood_shield_sword"));
+
+    	//石のシールドソード
+    	event.getRegistry().register(new YKItemShieldSword(ToolMaterial.STONE)
+    			.setRegistryName(MODID, "stone_shield_sword")
+    			.setUnlocalizedName("stone_shield_sword"));
+    	
+    	//鉄のシールドソード
+    	event.getRegistry().register(new YKItemShieldSword(ToolMaterial.IRON)
+    			.setRegistryName(MODID, "iron_shield_sword")
+    			.setUnlocalizedName("iron_shield_sword"));
+    	
+    	//金のシールドソード
+    	event.getRegistry().register(new YKItemShieldSword(ToolMaterial.GOLD)
+    			.setRegistryName(MODID, "gold_shield_sword")
+    			.setUnlocalizedName("gold_shield_sword"));
+    	
+    	//ダイヤのシールドソード
+    	event.getRegistry().register(new YKItemShieldSword(ToolMaterial.DIAMOND)
+    			.setRegistryName(MODID, "diamond_shield_sword")
+    			.setUnlocalizedName("diamond_shield_sword"));
     	
     	//インスタントハウス
     	event.getRegistry().register(new ItemBlock(YKBlocks.INSTANT_HOUSE)

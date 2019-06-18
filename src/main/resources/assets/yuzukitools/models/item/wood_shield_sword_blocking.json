@@ -1,0 +1,6 @@
+{
+    "parent": "yuzukitools:item/shield_sword_blocking",
+    "textures": {
+        "layer0": "yuzukitools:items/wood_shield_sword"
+    }
+}
