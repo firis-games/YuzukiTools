@@ -38,8 +38,12 @@ public class YKBlockBackpack extends BlockContainer {
 
 	
     protected final AxisAlignedBB BLOCK_AABB = new AxisAlignedBB(
-    		0.0D, 0.0D, 4.0D / 16.0D, 
+    		0.0D / 16.0D, 0.0D / 16.0D, 4.0D / 16.0D, 
     		16.0D / 16.0D, 12.0D / 16.0D, 12.0D / 16.0D);
+
+    protected final AxisAlignedBB BLOCK_AABB_SIDE = new AxisAlignedBB(
+    		4.0D / 16.0D, 0.0D / 16.0D, 0.0D / 16.0D, 
+    		12.0D / 16.0D, 12.0D / 16.0D, 16.0D / 16.0D);
 
 	public YKBlockBackpack() {
 		super(Material.PISTON);
@@ -66,7 +70,13 @@ public class YKBlockBackpack extends BlockContainer {
 	@Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
-        return BLOCK_AABB;
+		EnumFacing facing = (EnumFacing) state.getProperties().get(FACING);
+		
+		if (facing == EnumFacing.NORTH || facing == EnumFacing.SOUTH) {
+			return BLOCK_AABB;
+		} else {
+			return BLOCK_AABB_SIDE;
+		}
     }
 	
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
