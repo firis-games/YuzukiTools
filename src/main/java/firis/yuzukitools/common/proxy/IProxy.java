@@ -4,4 +4,5 @@ public interface IProxy {
 
 	public void registerKeyBinding();
 	
+	public void initLayerRenderer();
 }

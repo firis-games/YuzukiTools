@@ -141,8 +141,11 @@ public class YuzukiTools
     	//GUI登録
     	NetworkRegistry.INSTANCE.registerGuiHandler(YuzukiTools.INSTANCE, new ModGuiHandler());
     	
-    	//キー登録
+    	//キーバインディング登録
     	proxy.registerKeyBinding();
+    	
+    	//レイヤー登録
+    	proxy.initLayerRenderer();
     }
     
     @EventHandler
