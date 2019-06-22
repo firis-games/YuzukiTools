@@ -8,12 +8,21 @@ import net.minecraft.util.ResourceLocation;
 
 public class YKGuiContainerBackpack extends AbstractGuiContainer {
 
+	/**
+	 * コンストラクタ
+	 */
 	public YKGuiContainerBackpack(IInventory inventory, InventoryPlayer playerInv) {
+		this(inventory, playerInv, -1);
+	}
+	
+	/**
+	 * コンストラクタ ロック制御
+	 */
+	public YKGuiContainerBackpack(IInventory inventory, InventoryPlayer playerInv, int lockedSlot) {
 		
-		super(new YKContainerBackpack(inventory, playerInv));
-		
+		super(new YKContainerBackpack(inventory, playerInv, lockedSlot));
+
 		this.inventory = inventory;
-		
 		//GUIテクスチャ
 		this.guiTextures = new ResourceLocation(YuzukiTools.MODID, 
 				"textures/gui/backpack.png");
@@ -25,6 +34,6 @@ public class YKGuiContainerBackpack extends AbstractGuiContainer {
 		this.guiHeight = 221;
 		this.xSize = this.guiWidth;
 		this.ySize = this.guiHeight;
-		
 	}
+	
 }

@@ -33,7 +33,7 @@ public class ModGuiHandler implements IGuiHandler {
 		case ModGuiHandler.BACKPACK_ITEM :
 			hand = x == 1 ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND;
 			inventory = new CapabilityInventory(player.getHeldItem(hand));
-			return new YKContainerBackpack(inventory, player.inventory);
+			return new YKContainerBackpack(inventory, player.inventory, y);
 		}
 		
 		return null;
@@ -55,7 +55,7 @@ public class ModGuiHandler implements IGuiHandler {
 		case ModGuiHandler.BACKPACK_ITEM :
 			hand = x == 1 ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND;
 			inventory = new CapabilityInventory(player.getHeldItem(hand));
-			return new YKGuiContainerBackpack(inventory, player.inventory);
+			return new YKGuiContainerBackpack(inventory, player.inventory, y);
 		}
 		
 		return null;
