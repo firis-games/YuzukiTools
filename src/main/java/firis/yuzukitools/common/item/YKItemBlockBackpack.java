@@ -71,7 +71,7 @@ public class YKItemBlockBackpack extends ItemBlock {
     	
     	if (!player.isSneaking()) {
     		//GUIをオープンする
-    		if (openGui(player, hand)) {
+    		if (openGui(player, player.getHeldItem(hand), hand)) {
         		return EnumActionResult.SUCCESS;
     		} else {
         		return EnumActionResult.FAIL;
@@ -88,7 +88,7 @@ public class YKItemBlockBackpack extends ItemBlock {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
     	if (!playerIn.isSneaking()) {
     		//GUIをオープンする
-    		if (openGui(playerIn, handIn)) {
+    		if (openGui(playerIn, playerIn.getHeldItem(handIn), handIn)) {
     			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
     		} else {
         		return new ActionResult<ItemStack>(EnumActionResult.FAIL, playerIn.getHeldItem(handIn));
@@ -100,13 +100,11 @@ public class YKItemBlockBackpack extends ItemBlock {
     /**
      * バックパックGUI表示処理
      */
-    public static boolean openGui(EntityPlayer player, EnumHand hand) {
+    public static boolean openGui(EntityPlayer player, ItemStack stack, EnumHand hand) {
     	
     	boolean ret = false;
     	
-    	ItemStack stack = player.getHeldItem(hand);
-    	
-		if (!stack.isEmpty()) {
+		if (!stack.isEmpty() && stack.getItem() instanceof YKItemBlockBackpack) {
 			ret = true;
 			
 			int gui_id = ModGuiHandler.BACKPACK_ITEM;
@@ -124,6 +122,11 @@ public class YKItemBlockBackpack extends ItemBlock {
 					}
 				}
 			}
+			
+			if (lockSlot == -1) {
+				gui_id = ModGuiHandler.BACKPACK_KEY;
+			}
+			
 			player.openGui(YuzukiTools.INSTANCE, gui_id,
 					player.getEntityWorld(), handMode, lockSlot, 0);
 		}

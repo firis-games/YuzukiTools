@@ -19,3 +19,5 @@ tile.instant_house.name=Instant House
 tile.backpack.name=Backpack
 gui.backpack.name=Backpack
 
+key.open_gui_backpack=Open Backpack
+

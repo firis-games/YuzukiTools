@@ -12,6 +12,7 @@ import firis.yuzukitools.common.block.YKBlockInstantHouse;
 import firis.yuzukitools.common.item.YKItemBlockBackpack;
 import firis.yuzukitools.common.item.YKItemShieldSword;
 import firis.yuzukitools.common.item.YKItemToolHammeraxe;
+import firis.yuzukitools.common.network.NetworkHandler;
 import firis.yuzukitools.common.proxy.IProxy;
 import firis.yuzukitools.common.proxy.ModGuiHandler;
 import firis.yuzukitools.common.tileentity.YKTileBackpack;
@@ -128,6 +129,9 @@ public class YuzukiTools
         
         GameRegistry.registerTileEntity(YKTileBackpack.class, 
         		new ResourceLocation(YuzukiTools.MODID, "te_backpack"));
+        
+        //ネットワーク登録
+        NetworkHandler.init();
                 
     }
     
@@ -136,6 +140,9 @@ public class YuzukiTools
     {
     	//GUI登録
     	NetworkRegistry.INSTANCE.registerGuiHandler(YuzukiTools.INSTANCE, new ModGuiHandler());
+    	
+    	//キー登録
+    	proxy.registerKeyBinding();
     }
     
     @EventHandler

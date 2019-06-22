@@ -19,4 +19,5 @@ tile.instant_house.name=インスタントハウス
 tile.backpack.name=バックパック
 gui.backpack.name=バックパック
 
+key.open_gui_backpack=バックパックを開く
 
