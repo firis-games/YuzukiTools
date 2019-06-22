@@ -11,7 +11,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -20,7 +19,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 
 public class YKBlockBackpack extends BlockContainer {
 
@@ -114,7 +114,14 @@ public class YKBlockBackpack extends BlockContainer {
 		
 		TileEntity tile = world.getTileEntity(pos);
 		if (tile != null) {
-		
+			
+			ItemStackHandler itemCapability = (ItemStackHandler) stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+			ItemStackHandler tileCapability = (ItemStackHandler) tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+			
+			NBTTagCompound nbt = tileCapability.serializeNBT();
+			itemCapability.deserializeNBT(nbt);
+			
+			/*
 			NBTTagCompound nbt = tile.serializeNBT();
 			
 			//座標情報をクリア
@@ -127,6 +134,7 @@ public class YKBlockBackpack extends BlockContainer {
         	if (items.tagCount() != 0) {
         		stack.setTagInfo("BlockEntityTag", nbt);
         	}
+        	*/
 		}		
 		return stack;
 	}

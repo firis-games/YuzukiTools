@@ -9,6 +9,7 @@ import firis.core.client.ShaderHelper;
 import firis.yuzukitools.client.tesr.YKTileInstantHouseSpRenderer;
 import firis.yuzukitools.common.block.YKBlockBackpack;
 import firis.yuzukitools.common.block.YKBlockInstantHouse;
+import firis.yuzukitools.common.item.YKItemBlockBackpack;
 import firis.yuzukitools.common.item.YKItemShieldSword;
 import firis.yuzukitools.common.item.YKItemToolHammeraxe;
 import firis.yuzukitools.common.proxy.IProxy;
@@ -231,7 +232,7 @@ public class YuzukiTools
     			.setRegistryName(MODID, "instant_house"));
     	
     	//バックパック
-    	event.getRegistry().register(new ItemBlock(YKBlocks.BACKPACK)
+    	event.getRegistry().register(new YKItemBlockBackpack()
     			.setRegistryName(MODID, "backpack"));
     }
     

@@ -12,10 +12,20 @@ import net.minecraftforge.items.IItemHandler;
 public class CapabilityInventory implements IInventory {
 
 	/**
-	 * コンストラクタ
+	 * コンストラクタ(Block)
 	 */
 	public CapabilityInventory(TileEntity tile) {
 		this.tile = tile;
+		this.itemStack = null;
+	}
+	
+	/**
+	 * コンストラクタ(ItemStack)
+	 * @param tile
+	 */
+	public CapabilityInventory(ItemStack stack) {
+		this.tile = null;
+		this.itemStack = stack;
 	}
 	
 	/**
@@ -24,11 +34,24 @@ public class CapabilityInventory implements IInventory {
 	protected TileEntity tile;
 	
 	/**
+	 * ItemHandlerをもつTileEntity
+	 */
+	protected ItemStack itemStack;
+	
+	/**
+	 * ItemHandlerをもつItemStack
+	 */
+	
+	/**
 	 * 内部インベントリ
 	 */
 	protected IItemHandler getInventory() {
-		if (tile == null) return null;
-		IItemHandler capability = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+		IItemHandler capability = null;
+		if (this.tile != null) {
+			capability = this.tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+		} else if (this.itemStack != null) {
+			capability = this.itemStack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+		}
 		return capability;
 	}
 	
