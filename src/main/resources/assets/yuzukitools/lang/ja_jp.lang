@@ -16,3 +16,7 @@ item.diamond_shield_sword.name=ダイヤモンドのシールドソード
 
 tile.instant_house.name=インスタントハウス
 
+tile.backpack.name=バックパック
+gui.backpack.name=バックパック
+
+

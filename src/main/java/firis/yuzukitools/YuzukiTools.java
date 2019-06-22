@@ -7,9 +7,13 @@ import org.apache.logging.log4j.Logger;
 
 import firis.core.client.ShaderHelper;
 import firis.yuzukitools.client.tesr.YKTileInstantHouseSpRenderer;
+import firis.yuzukitools.common.block.YKBlockBackpack;
 import firis.yuzukitools.common.block.YKBlockInstantHouse;
 import firis.yuzukitools.common.item.YKItemShieldSword;
 import firis.yuzukitools.common.item.YKItemToolHammeraxe;
+import firis.yuzukitools.common.proxy.IProxy;
+import firis.yuzukitools.common.proxy.ModGuiHandler;
+import firis.yuzukitools.common.tileentity.YKTileBackpack;
 import firis.yuzukitools.common.tileentity.YKTileInstantHouse;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -30,10 +34,12 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
@@ -60,11 +66,9 @@ public class YuzukiTools
     @Instance(YuzukiTools.MODID)
     public static YuzukiTools INSTANCE;
     
-    /*
     @SidedProxy(serverSide = "firis.yuzukitools.common.proxy.CommonProxy", 
     		clientSide = "firis.yuzukitools.client.proxy.ClientProxy")
-    public static CommonProxy proxy;
-    */
+    public static IProxy proxy;
     
     /**
      * クリエイティブタブ
@@ -102,6 +106,7 @@ public class YuzukiTools
     @ObjectHolder(YuzukiTools.MODID)
     public static class YKBlocks{
     	public final static Block INSTANT_HOUSE = null;
+    	public final static Block BACKPACK = null;
     }
     
     
@@ -119,12 +124,17 @@ public class YuzukiTools
         
         GameRegistry.registerTileEntity(YKTileInstantHouse.class, 
         		new ResourceLocation(YuzukiTools.MODID, "te_instant_house"));
+        
+        GameRegistry.registerTileEntity(YKTileBackpack.class, 
+        		new ResourceLocation(YuzukiTools.MODID, "te_backpack"));
                 
     }
     
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
+    	//GUI登録
+    	NetworkRegistry.INSTANCE.registerGuiHandler(YuzukiTools.INSTANCE, new ModGuiHandler());
     }
     
     @EventHandler
@@ -143,6 +153,13 @@ public class YuzukiTools
                 new YKBlockInstantHouse()
                 .setRegistryName(MODID, "instant_house")
                 .setUnlocalizedName("instant_house")
+        );
+        
+    	// バックパック
+        event.getRegistry().register(
+                new YKBlockBackpack()
+                .setRegistryName(MODID, "backpack")
+                .setUnlocalizedName("backpack")
         );
     }
     
@@ -212,6 +229,10 @@ public class YuzukiTools
     	//インスタントハウス
     	event.getRegistry().register(new ItemBlock(YKBlocks.INSTANT_HOUSE)
     			.setRegistryName(MODID, "instant_house"));
+    	
+    	//バックパック
+    	event.getRegistry().register(new ItemBlock(YKBlocks.BACKPACK)
+    			.setRegistryName(MODID, "backpack"));
     }
     
     /**
@@ -234,13 +255,27 @@ public class YuzukiTools
     				}
     			}
 			} catch (IllegalArgumentException | IllegalAccessException e) {
-				logger.info("registerModels error " + filed.getName());
+				logger.info("registerModels Item error " + filed.getName());
 			}
     	}
     	
-    	ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(YKBlocks.INSTANT_HOUSE), 0,
-    			new ModelResourceLocation(YKBlocks.INSTANT_HOUSE.getRegistryName(), "inventory"));
-    	
+    	//YKBlocksから自動でModelを登録する(メタデータは非対応)
+    	for (Field filed : YKBlocks.class.getFields()) {
+    		try {
+    			int mod = filed.getModifiers();
+    			//final かつ static
+    			if (Modifier.isFinal(mod) && Modifier.isStatic(mod)) {
+    				if(filed.get(null) instanceof Block) {
+    					Block regBlock = (Block) filed.get(null);
+    					ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(regBlock), 0,
+    			    			new ModelResourceLocation(regBlock.getRegistryName(), "inventory"));
+    				}
+    			}
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				logger.info("registerModels Block error " + filed.getName());
+			}
+    	}
+
     	//インスタントハウスTESR
     	ClientRegistry.bindTileEntitySpecialRenderer(YKTileInstantHouse.class, new YKTileInstantHouseSpRenderer());
     	

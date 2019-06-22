@@ -1,0 +1,62 @@
+{
+    "parent": "block/block",
+    "elements": [
+        {   "--comment" : "ベース",
+        	"from": [ 2, 0, 6 ],
+            "to": [ 14, 12, 12 ],
+            "faces": {
+                "down":  {"texture": "#base", "cullface": "down" },
+                "up":    {"texture": "#base", "cullface": "up"},
+                "north": {"texture": "#front", "cullface": "north" },
+                "south": {"texture": "#side", "cullface": "south" },
+                "west":  {"texture": "#side", "cullface": "west" },
+                "east":  {"texture": "#side", "cullface": "east" }
+            }
+        },
+        {   "--comment" : "フロントベース",
+        	"from": [ 4, 0, 4 ],
+            "to": [ 12, 5, 6 ],
+            "faces": {
+                "down":  {"texture": "#base", "cullface": "down" },
+                "up":    {"texture": "#base", "cullface": "up"},
+                "north": {"texture": "#mfront", "cullface": "north" },
+                "south": {"texture": "#mside", "cullface": "south" },
+                "west":  {"texture": "#mside", "cullface": "west" },
+                "east":  {"texture": "#mside", "cullface": "east" }
+            }
+        },
+        {   "--comment" : "サイドベース1",
+        	"from": [ 0, 0, 7 ],
+            "to": [ 2, 8, 11 ],
+            "faces": {
+                "down":  {"texture": "#base", "cullface": "down" },
+                "up":    {"texture": "#base", "cullface": "up"},
+                "north": {"texture": "#sside", "cullface": "north" },
+                "south": {"texture": "#sside", "cullface": "south" },
+                "west":  {"texture": "#sside", "cullface": "west" },
+                "east":  {"texture": "#sside", "cullface": "east" }
+            }
+        },
+        {   "--comment" : "サイドベース2",
+        	"from": [ 14, 0, 7 ],
+            "to": [ 16, 8, 11 ],
+            "faces": {
+                "down":  {"texture": "#base", "cullface": "down" },
+                "up":    {"texture": "#base", "cullface": "up"},
+                "north": {"texture": "#sside", "cullface": "north" },
+                "south": {"texture": "#sside", "cullface": "south" },
+                "west":  {"texture": "#sside", "cullface": "west" },
+                "east":  {"texture": "#sside", "cullface": "east" }
+            }
+        }
+    ],
+    "textures": {
+        "particle": "yuzukitools:blocks/backpack_base",
+        "base": "yuzukitools:blocks/backpack_base",
+        "front": "yuzukitools:blocks/backpack_front",
+        "side": "yuzukitools:blocks/backpack_side",
+        "mfront": "yuzukitools:blocks/backpack_mfront",
+        "mside": "yuzukitools:blocks/backpack_mside",
+        "sside": "yuzukitools:blocks/backpack_sside"        
+    }
+}

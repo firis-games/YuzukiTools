@@ -16,3 +16,6 @@ item.diamond_shield_sword.name=Diamond Shield Sword
 
 tile.instant_house.name=Instant House
 
+tile.backpack.name=Backpack
+gui.backpack.name=Backpack
+
