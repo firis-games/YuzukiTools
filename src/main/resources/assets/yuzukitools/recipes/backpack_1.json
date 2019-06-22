@@ -1,0 +1,20 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"yxy",
+		"yyy",
+		"yxy"
+	],
+	"key": {
+		"x": {
+			"item": "minecraft:chest"
+		},
+		"y": {
+			"item": "minecraft:wool",
+			"data": 32767
+		}
+	},
+	"result": {
+		"item": "yuzukitools:backpack"
+	}
+}

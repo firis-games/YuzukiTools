@@ -1,0 +1,22 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+	{
+		"item": "yuzukitools:yuzuki_medal"
+	},
+	{
+		"item": "minecraft:planks",
+		"data": 32767
+	},
+	{
+		"item": "minecraft:planks",
+		"data": 32767
+	},
+	{
+		"item": "minecraft:cobblestone"
+	}
+	],
+	"result": {
+		"item": "yuzukitools:instant_house"
+	}
+}

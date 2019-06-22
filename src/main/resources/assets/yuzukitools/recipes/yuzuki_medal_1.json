@@ -1,0 +1,20 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" x ",
+		"xyx",
+		" x "
+	],
+	"key": {
+		"x": {
+			"item": "minecraft:diamond"
+		},
+		"y": {
+			"item": "yuzukitools:yuzuki_medal"
+		}
+	},
+	"result": {
+		"item": "yuzukitools:yuzuki_medal",
+		"count": 2
+	}
+}
