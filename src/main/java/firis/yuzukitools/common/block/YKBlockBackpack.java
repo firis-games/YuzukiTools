@@ -75,7 +75,7 @@ public class YKBlockBackpack extends BlockContainer {
 		
 		if (!worldIn.isRemote) {
 	    	//右クリックでGUIを開く
-			playerIn.openGui(YuzukiTools.INSTANCE, ModGuiHandler.BACKPACK,
+			playerIn.openGui(YuzukiTools.INSTANCE, ModGuiHandler.BACKPACK_BLOCK,
 					worldIn, pos.getX(), pos.getY(), pos.getZ());
 		}
     	return true;

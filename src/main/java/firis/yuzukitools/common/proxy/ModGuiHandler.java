@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 public class ModGuiHandler implements IGuiHandler {
 
 	//バックパック
-	public final static int BACKPACK = 0;
+	public final static int BACKPACK_BLOCK = 0;
 	
 	//バックパック(アイテム)
 	public final static int BACKPACK_ITEM = 1;
@@ -25,7 +25,7 @@ public class ModGuiHandler implements IGuiHandler {
 		
 		switch (ID) {
 		//バックパック
-		case ModGuiHandler.BACKPACK :
+		case ModGuiHandler.BACKPACK_BLOCK :
 			inventory = new CapabilityInventory(world.getTileEntity(new BlockPos(x, y, z)));
 			return new YKContainerBackpack(inventory, player.inventory);
 		
@@ -47,7 +47,7 @@ public class ModGuiHandler implements IGuiHandler {
 		
 		switch (ID) {
 		//バックパック
-		case ModGuiHandler.BACKPACK :
+		case ModGuiHandler.BACKPACK_BLOCK :
 			inventory = new CapabilityInventory(world.getTileEntity(new BlockPos(x, y, z)));
 			return new YKGuiContainerBackpack(inventory, player.inventory);
 			
