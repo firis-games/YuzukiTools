@@ -1,21 +1,22 @@
 {
-	"type": "forge:ore_shapeless",
-	"ingredients": [
-	{
-		"item": "yuzukitools:yuzuki_medal"
-	},
-	{
-		"item": "minecraft:planks",
-		"data": 32767
-	},
-	{
-		"item": "minecraft:planks",
-		"data": 32767
-	},
-	{
-		"item": "minecraft:cobblestone"
-	}
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"yyy",
+		"yxy",
+		"zzz"
 	],
+	"key": {
+		"x": {
+			"item": "yuzukitools:yuzuki_medal"
+		},
+		"y": {
+			"item": "minecraft:planks",
+			"data": 32767
+		},
+		"z": {
+			"item": "minecraft:cobblestone"
+		}
+	},
 	"result": {
 		"item": "yuzukitools:instant_house"
 	}
