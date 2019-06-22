@@ -26,6 +26,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -100,6 +101,7 @@ public class YuzukiTools
     	public final static Item IRON_SHIELD_SWORD = null;
     	public final static Item GOLD_SHIELD_SWORD = null;
     	public final static Item DIAMOND_SHIELD_SWORD = null;
+    	public final static Item STONE_SHEARS = null;
     }
     
     /**
@@ -237,13 +239,20 @@ public class YuzukiTools
     			.setRegistryName(MODID, "diamond_shield_sword")
     			.setUnlocalizedName("diamond_shield_sword"));
     	
-    	//インスタントハウス
-    	event.getRegistry().register(new ItemBlock(YKBlocks.INSTANT_HOUSE)
-    			.setRegistryName(MODID, "instant_house"));
-    	
+    	//石のハサミ
+    	event.getRegistry().register(new ItemShears()
+    			.setRegistryName(MODID, "stone_shears")
+    			.setUnlocalizedName("stone_shears")
+    			.setCreativeTab(YuzukiTools.YKCreativeTab)
+    			.setMaxDamage(32));
+
     	//バックパック
     	event.getRegistry().register(new YKItemBlockBackpack()
     			.setRegistryName(MODID, "backpack"));
+    	
+    	//インスタントハウス
+    	event.getRegistry().register(new ItemBlock(YKBlocks.INSTANT_HOUSE)
+    			.setRegistryName(MODID, "instant_house"));
     }
     
     /**
