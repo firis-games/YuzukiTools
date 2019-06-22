@@ -1,5 +1,8 @@
 {
     "variants": {
-		"normal": { "model": "yuzukitools:backpack" }
+        "facing=north": { "model": "yuzukitools:backpack"},
+        "facing=south": { "model": "yuzukitools:backpack", "y": 180 },
+        "facing=west":  { "model": "yuzukitools:backpack", "y": 270 },
+        "facing=east":  { "model": "yuzukitools:backpack", "y": 90 }
     }
 }

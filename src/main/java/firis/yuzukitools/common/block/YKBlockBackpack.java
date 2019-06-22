@@ -5,8 +5,14 @@ import firis.yuzukitools.common.proxy.ModGuiHandler;
 import firis.yuzukitools.common.tileentity.YKTileBackpack;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.BlockHorizontal;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,6 +21,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -24,6 +31,12 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class YKBlockBackpack extends BlockContainer {
 
+	/**
+	 * 方角
+	 */
+	public static final PropertyDirection FACING = BlockHorizontal.FACING;
+
+	
     protected final AxisAlignedBB BLOCK_AABB = new AxisAlignedBB(
     		0.0D, 0.0D, 4.0D / 16.0D, 
     		16.0D / 16.0D, 12.0D / 16.0D, 12.0D / 16.0D);
@@ -33,6 +46,9 @@ public class YKBlockBackpack extends BlockContainer {
 		this.setHardness(0.1F);
 		this.setResistance(20.0F);
 		this.setCreativeTab(YuzukiTools.YKCreativeTab);
+		this.setSoundType(SoundType.CLOTH);
+		
+		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 	}
 
 	@Override
@@ -121,21 +137,47 @@ public class YKBlockBackpack extends BlockContainer {
 			NBTTagCompound nbt = tileCapability.serializeNBT();
 			itemCapability.deserializeNBT(nbt);
 			
-			/*
-			NBTTagCompound nbt = tile.serializeNBT();
-			
-			//座標情報をクリア
-        	nbt.removeTag("x");
-        	nbt.removeTag("y");
-        	nbt.removeTag("z");
-        	
-        	//空の場合はNBTタグを付与しない
-        	NBTTagList items = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND);
-        	if (items.tagCount() != 0) {
-        		stack.setTagInfo("BlockEntityTag", nbt);
-        	}
-        	*/
 		}		
 		return stack;
 	}
+		
+	/**
+	 * 方角ブロック対応
+	 */
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] {FACING});
+	}
+	
+    @Override
+    public IBlockState getStateFromMeta(int meta)
+    {
+        EnumFacing enumfacing = EnumFacing.getFront(meta);
+
+        if (enumfacing.getAxis() == EnumFacing.Axis.Y)
+        {
+            enumfacing = EnumFacing.NORTH;
+        }
+
+        return this.getDefaultState().withProperty(FACING, enumfacing);
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState state)
+    {
+        return ((EnumFacing)state.getValue(FACING)).getIndex();
+    }
+
+    @Override
+    public IBlockState withRotation(IBlockState state, Rotation rot)
+    {
+        return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+    }
+    
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    {
+        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+    }
+
 }
