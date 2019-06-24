@@ -6,12 +6,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import firis.yuzukitools.YuzukiTools;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
@@ -46,9 +48,13 @@ public abstract class AbstractEnergyItem extends Item {
 		IEnergyStorage capability = stack.getCapability(CapabilityEnergy.ENERGY, null);
 		if (capability == null) return;
 		
-		Integer fe = capability.getEnergyStored();
-		Integer maxFe = capability.getMaxEnergyStored();
-		tooltip.add(fe.toString() + "FE / " + maxFe.toString() + "FE");
+		Integer energy = capability.getEnergyStored();
+		Integer maxEnergy = capability.getMaxEnergyStored();
+		String battery = I18n.format("info.energy_battery.name");
+		String unit = I18n.format("info.energy_unit.name");
+		
+		tooltip.add(battery + " " 
+				+ TextFormatting.LIGHT_PURPLE + energy.toString() + "/" + maxEnergy.toString() + " " + unit);
     }
 	
 	/**

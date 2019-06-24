@@ -28,3 +28,6 @@ item.redstone_axe.name=レッドストーンの斧
 item.redstone_shovel.name=レッドストーンのシャベル
 item.redstone_hoe.name=レッドストーンのクワ
 
+info.energy_battery.name=エナジー：
+info.energy_unit.name=YF
+

@@ -28,3 +28,6 @@ item.redstone_axe.name=Redstone Axe
 item.redstone_shovel.name=Redstone Shovel
 item.redstone_hoe.name=Redstone Hoe
 
+info.energy_battery.name=Battery:
+info.energy_unit.name=YF
+
