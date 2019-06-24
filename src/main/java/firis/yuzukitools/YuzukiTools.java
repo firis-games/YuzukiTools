@@ -10,6 +10,10 @@ import firis.yuzukitools.client.tesr.YKTileInstantHouseSpRenderer;
 import firis.yuzukitools.common.block.YKBlockBackpack;
 import firis.yuzukitools.common.block.YKBlockInstantHouse;
 import firis.yuzukitools.common.item.YKItemBlockBackpack;
+import firis.yuzukitools.common.item.YKItemRedstoneAxe;
+import firis.yuzukitools.common.item.YKItemRedstoneHoe;
+import firis.yuzukitools.common.item.YKItemRedstonePickaxe;
+import firis.yuzukitools.common.item.YKItemRedstoneShovel;
 import firis.yuzukitools.common.item.YKItemShieldSword;
 import firis.yuzukitools.common.item.YKItemToolHammeraxe;
 import firis.yuzukitools.common.network.NetworkHandler;
@@ -102,6 +106,10 @@ public class YuzukiTools
     	public final static Item GOLD_SHIELD_SWORD = null;
     	public final static Item DIAMOND_SHIELD_SWORD = null;
     	public final static Item STONE_SHEARS = null;
+    	public final static Item REDSTONE_PICKAXE = null;
+    	public final static Item REDSTONE_AXE = null;
+    	public final static Item REDSTONE_SHOVEL = null;
+    	public final static Item REDSTONE_HOE = null;
     }
     
     /**
@@ -253,6 +261,27 @@ public class YuzukiTools
     	//インスタントハウス
     	event.getRegistry().register(new ItemBlock(YKBlocks.INSTANT_HOUSE)
     			.setRegistryName(MODID, "instant_house"));
+    	
+    	//レッドストーンのツルハシ
+    	event.getRegistry().register(new YKItemRedstonePickaxe(ToolMaterial.IRON)
+    			.setRegistryName(MODID, "redstone_pickaxe")
+    			.setUnlocalizedName("redstone_pickaxe"));
+    	
+    	//レッドストーンの斧
+    	event.getRegistry().register(new YKItemRedstoneAxe(ToolMaterial.IRON)
+    			.setRegistryName(MODID, "redstone_axe")
+    			.setUnlocalizedName("redstone_axe"));
+    	
+    	//レッドストーンのシャベル
+    	event.getRegistry().register(new YKItemRedstoneShovel(ToolMaterial.IRON)
+    			.setRegistryName(MODID, "redstone_shovel")
+    			.setUnlocalizedName("redstone_shovel"));
+
+    	//レッドストーンのクワ
+    	event.getRegistry().register(new YKItemRedstoneHoe(ToolMaterial.IRON)
+    			.setRegistryName(MODID, "redstone_hoe")
+    			.setUnlocalizedName("redstone_hoe"));
+    	
     }
     
     /**

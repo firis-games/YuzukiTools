@@ -23,3 +23,8 @@ key.open_gui_backpack=バックパックを開く
 
 item.stone_shears.name=石のハサミ
 
+item.redstone_pickaxe.name=レッドストーンのツルハシ
+item.redstone_axe.name=レッドストーンの斧
+item.redstone_shovel.name=レッドストーンのシャベル
+item.redstone_hoe.name=レッドストーンのクワ
+
