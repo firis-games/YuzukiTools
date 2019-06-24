@@ -100,4 +100,24 @@ public class YKItemToolHammeraxe extends ItemTool {
         		&& material != Material.IRON && material != Material.ANVIL && material != Material.ROCK
         		? super.getDestroySpeed(stack, state) : this.efficiency;
     }
+	
+	/**
+	 * アンビルなどの鉄製品の取得判定
+	 */
+	@Override
+	public boolean canHarvestBlock(IBlockState blockIn) {
+		
+		Block block = blockIn.getBlock();
+		int level = block.getHarvestLevel(blockIn);
+		
+		if (level <= this.toolMaterial.getHarvestLevel()) {
+			Material material = blockIn.getMaterial();
+			if (material == Material.ROCK
+					|| material == Material.IRON
+					|| material == Material.ANVIL) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
