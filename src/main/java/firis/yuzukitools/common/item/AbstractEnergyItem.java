@@ -6,19 +6,18 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import firis.yuzukitools.YuzukiTools;
+import firis.yuzukitools.common.capability.ItemStackEnergyStorage;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -108,21 +107,21 @@ public abstract class AbstractEnergyItem extends Item {
     @Nullable
     public net.minecraftforge.common.capabilities.ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt)
     {
-        return new ForgeEnergyProvider(this.capacity);
+        return new ForgeEnergyProvider(this.capacity, stack);
     }
     
     /**
      * ForgeEnergyCapability制御用クラス
      */
-	private static class ForgeEnergyProvider implements ICapabilitySerializable<NBTBase> {
+	private static class ForgeEnergyProvider implements ICapabilityProvider {
 
 		private final IEnergyStorage energyStorage;
 
 		/**
 		 * コンストラクタ
 		 */
-		public ForgeEnergyProvider(int capacity) {
-			this.energyStorage = new EnergyStorage(capacity);
+		public ForgeEnergyProvider(int capacity, ItemStack stack) {
+			this.energyStorage = new ItemStackEnergyStorage(capacity, stack);
 		}
 		
 		@Override
@@ -136,15 +135,6 @@ public abstract class AbstractEnergyItem extends Item {
 				return CapabilityEnergy.ENERGY.cast(energyStorage);
 			else return null;
 		}
-
-		@Override
-		public NBTBase serializeNBT() {
-			return CapabilityEnergy.ENERGY.writeNBT(energyStorage, null);
-		}
-
-		@Override
-		public void deserializeNBT(NBTBase nbt) {
-			CapabilityEnergy.ENERGY.readNBT(energyStorage, null, nbt);
-		}
-	}	
+	}
+	
 }
