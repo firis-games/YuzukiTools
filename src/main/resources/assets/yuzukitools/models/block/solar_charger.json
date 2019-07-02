@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_column",
+    "textures": {
+        "side": "yuzukitools:blocks/solar_charger_side",
+        "end": "yuzukitools:blocks/solar_charger_top"
+    }
+}

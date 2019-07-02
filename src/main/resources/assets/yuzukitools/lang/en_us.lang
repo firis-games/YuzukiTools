@@ -31,3 +31,6 @@ item.redstone_hoe.name=Redstone Hoe
 info.energy_battery.name=Battery:
 info.energy_unit.name=YF
 
+tile.solar_charger.name=Solar Charger
+gui.solar_charger.name=Solar Charger
+

@@ -32,6 +32,9 @@ public class CapabilityInventory implements IInventory {
 	 * ItemHandlerをもつTileEntity
 	 */
 	protected TileEntity tile;
+	public TileEntity getTileEntity() {
+		return this.tile;
+	}
 	
 	/**
 	 * ItemHandlerをもつTileEntity

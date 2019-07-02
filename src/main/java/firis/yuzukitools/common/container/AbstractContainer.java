@@ -91,5 +91,34 @@ public abstract class AbstractContainer extends Container {
 	public boolean canInteractWith(EntityPlayer playerIn) {
 		return true;
 	}
+	
+	/**
+	 * 標準的なPlayerInventory生成
+	 */
+	protected void initPlayerInventorySlotStandard(InventoryPlayer playerInv, int x, int y) {
+		
+		//playerインベントリ基準座標設定
+		int xBasePos = x;
+		int yBasePos = y;
+		
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 9; j++) {
+            	int slotIndex = j + i * 9 + 9; //index 9 からスタート
+            	int xPos = xBasePos + j * 18;
+            	int yPos = yBasePos + i * 18;
+            	this.addSlotToContainer(new Slot(playerInv, slotIndex, xPos, yPos));
+            }
+        }
+        
+        //playerホットバー
+        yBasePos = yBasePos + 58;
+		for (int i = 0; i < 9; i++) {
+			int slotIndex = i; //index 0 からスタート
+        	int xPos = xBasePos + i * 18;
+        	int yPos = yBasePos;
+        	this.addSlotToContainer(new Slot(playerInv, slotIndex, xPos, yPos));
+		}
+		
+	}
 
 }

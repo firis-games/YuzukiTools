@@ -21,6 +21,8 @@ public abstract class AbstractGuiContainer extends GuiContainer {
 	 * GUIタイトル
 	 */
 	protected String guiTitle = "";
+	
+	protected boolean guiTitleCenter = false;
 
 	/**
 	 * GUIサイズ
@@ -68,12 +70,21 @@ public abstract class AbstractGuiContainer extends GuiContainer {
 				new TextComponentTranslation(this.guiTitle, new Object[0]);
         String text = langtext.getFormattedText();
 
-        //左寄せ
-        int x = 8;
-        int y = 6;
         
-        //タイトル文字
-        this.fontRenderer.drawString(text, x, y, 4210752);
+        if (guiTitleCenter) {
+        	int x = this.xSize / 2 - this.fontRenderer.getStringWidth(text) / 2;
+            int y = 6;
+            
+            //タイトル文字
+            this.fontRenderer.drawString(text, x, y, 4210752);
+        }else {
+	        //左寄せ
+	        int x = 8;
+	        int y = 6;
+	        
+	        //タイトル文字
+	        this.fontRenderer.drawString(text, x, y, 4210752);
+        }
         
         RenderHelper.enableGUIStandardItemLighting();
     }

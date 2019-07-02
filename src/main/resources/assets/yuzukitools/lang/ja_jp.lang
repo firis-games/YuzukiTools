@@ -31,3 +31,6 @@ item.redstone_hoe.name=レッドストーンのクワ
 info.energy_battery.name=エナジー：
 info.energy_unit.name=YF
 
+tile.solar_charger.name=ソーラー充電器
+gui.solar_charger.name=ソーラー充電器
+

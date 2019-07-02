@@ -9,6 +9,7 @@ import firis.core.client.ShaderHelper;
 import firis.yuzukitools.client.tesr.YKTileInstantHouseSpRenderer;
 import firis.yuzukitools.common.block.YKBlockBackpack;
 import firis.yuzukitools.common.block.YKBlockInstantHouse;
+import firis.yuzukitools.common.block.YKBlockSolarCharger;
 import firis.yuzukitools.common.item.YKItemBlockBackpack;
 import firis.yuzukitools.common.item.YKItemRedstoneAxe;
 import firis.yuzukitools.common.item.YKItemRedstoneHoe;
@@ -21,6 +22,7 @@ import firis.yuzukitools.common.proxy.IProxy;
 import firis.yuzukitools.common.proxy.ModGuiHandler;
 import firis.yuzukitools.common.tileentity.YKTileBackpack;
 import firis.yuzukitools.common.tileentity.YKTileInstantHouse;
+import firis.yuzukitools.common.tileentity.YKTileSolarCharger;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -119,6 +121,7 @@ public class YuzukiTools
     public static class YKBlocks{
     	public final static Block INSTANT_HOUSE = null;
     	public final static Block BACKPACK = null;
+    	public final static Block SOLAR_CHARGER = null;
     }
     
     
@@ -139,6 +142,9 @@ public class YuzukiTools
         
         GameRegistry.registerTileEntity(YKTileBackpack.class, 
         		new ResourceLocation(YuzukiTools.MODID, "te_backpack"));
+        
+        GameRegistry.registerTileEntity(YKTileSolarCharger.class, 
+        		new ResourceLocation(YuzukiTools.MODID, "te_solar_charger"));
         
         //ネットワーク登録
         NetworkHandler.init();
@@ -181,6 +187,13 @@ public class YuzukiTools
                 new YKBlockBackpack()
                 .setRegistryName(MODID, "backpack")
                 .setUnlocalizedName("backpack")
+        );
+        
+    	// ソーラー充電器
+        event.getRegistry().register(
+                new YKBlockSolarCharger()
+                .setRegistryName(MODID, "solar_charger")
+                .setUnlocalizedName("solar_charger")
         );
     }
     
@@ -281,6 +294,10 @@ public class YuzukiTools
     	event.getRegistry().register(new YKItemRedstoneHoe(ToolMaterial.IRON)
     			.setRegistryName(MODID, "redstone_hoe")
     			.setUnlocalizedName("redstone_hoe"));
+    	
+    	//ソーラー充電器
+    	event.getRegistry().register(new ItemBlock(YKBlocks.SOLAR_CHARGER)
+    			.setRegistryName(MODID, "solar_charger"));
     	
     }
     
