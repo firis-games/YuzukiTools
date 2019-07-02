@@ -1,0 +1,25 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"xlx",
+		"xzx",
+		"xyx"
+	],
+	"key": {
+		"x": {
+			"item": "minecraft:iron_ingot"
+		},
+		"y": {
+			"item": "minecraft:redstone_block"
+		},
+		"z": {
+			"item": "minecraft:lapis_block"
+		},
+		"l": {
+			"item": "minecraft:glass"
+		}
+	},
+	"result": {
+		"item": "yuzukitools:solar_charger"
+	}
+}
