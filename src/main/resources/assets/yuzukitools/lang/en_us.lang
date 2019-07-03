@@ -23,6 +23,8 @@ key.open_gui_backpack=Open Backpack
 
 item.stone_shears.name=Stone Shears
 
+item.redstone_ingot.name=Redstone Ingot
+
 item.redstone_pickaxe.name=Redstone Pickaxe
 item.redstone_axe.name=Redstone Axe
 item.redstone_shovel.name=Redstone Shovel

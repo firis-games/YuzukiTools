@@ -108,6 +108,7 @@ public class YuzukiTools
     	public final static Item GOLD_SHIELD_SWORD = null;
     	public final static Item DIAMOND_SHIELD_SWORD = null;
     	public final static Item STONE_SHEARS = null;
+    	public final static Item REDSTONE_INGOT = null;
     	public final static Item REDSTONE_PICKAXE = null;
     	public final static Item REDSTONE_AXE = null;
     	public final static Item REDSTONE_SHOVEL = null;
@@ -274,6 +275,12 @@ public class YuzukiTools
     	//インスタントハウス
     	event.getRegistry().register(new ItemBlock(YKBlocks.INSTANT_HOUSE)
     			.setRegistryName(MODID, "instant_house"));
+    	
+    	//レッドストーンインゴット
+    	event.getRegistry().register(new Item()
+    			.setRegistryName(MODID, "redstone_ingot")
+    			.setUnlocalizedName("redstone_ingot")
+    			.setCreativeTab(YKCreativeTab));
     	
     	//レッドストーンのツルハシ
     	event.getRegistry().register(new YKItemRedstonePickaxe(ToolMaterial.IRON)

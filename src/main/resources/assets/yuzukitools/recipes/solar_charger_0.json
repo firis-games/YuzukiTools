@@ -10,7 +10,7 @@
 			"item": "minecraft:iron_ingot"
 		},
 		"y": {
-			"item": "minecraft:redstone_block"
+			"item": "yuzukitools:redstone_ingot"
 		},
 		"z": {
 			"item": "minecraft:lapis_block"

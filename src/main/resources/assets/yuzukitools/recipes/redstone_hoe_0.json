@@ -1,0 +1,19 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"xx ",
+		" y ",
+		" y "
+	],
+	"key": {
+		"x": {
+			"item": "yuzukitools:redstone_ingot"
+		},
+		"y": {
+			"item": "minecraft:stick"
+		}
+	},
+	"result": {
+		"item": "yuzukitools:redstone_hoe"
+	}
+}
