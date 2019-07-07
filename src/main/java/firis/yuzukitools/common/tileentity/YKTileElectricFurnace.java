@@ -12,6 +12,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
@@ -110,6 +111,9 @@ public class YKTileElectricFurnace extends AbstractTileEntity implements ITickab
 	@Override
 	public void update() {
 
+		//隣接するバッテリーからエネルギー取得
+		updateBatteryCharge();
+		
 		//ツール放電
 		updateToolDischarge();
 		
@@ -118,6 +122,31 @@ public class YKTileElectricFurnace extends AbstractTileEntity implements ITickab
 		
 		//電気炉
 		updateFurnace();
+		
+	}
+	
+	/**
+	 * 隣接するバッテリーからエネルギー取得
+	 */
+	public void updateBatteryCharge() {
+		
+		for (EnumFacing facing : EnumFacing.VALUES) {
+
+			//充電済みの場合は何もしない
+			if(this.energy.getMaxEnergyStored() <= this.energy.getEnergyStored()) break;
+			
+			TileEntity tile = this.getWorld().getTileEntity(this.pos.offset(facing));
+
+			//自身でない
+			if (tile == null || tile instanceof YKTileElectricFurnace) continue;
+			
+			//方角を反転してCapability取得
+			IEnergyStorage storage = tile.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
+			if (storage == null) continue;
+			
+			//エネルギーの移動
+			EnergyHelper.moveEnergy(storage, this.energy, 50000);
+		}
 		
 	}
 	
