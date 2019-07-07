@@ -39,3 +39,5 @@ gui.solar_charger.name=Solar Charger
 tile.electric_furnace.name=Electric Furnace
 gui.electric_furnace.name=Electric Furnace
 
+yuzukitools.jei.electric_furnace.title=Electric Furnace
+
