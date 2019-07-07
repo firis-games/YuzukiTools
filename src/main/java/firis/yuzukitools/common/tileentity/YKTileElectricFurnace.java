@@ -183,7 +183,7 @@ public class YKTileElectricFurnace extends AbstractTileEntity implements ITickab
 	/**
 	 * 1tickあたりの消費エネルギー
 	 */
-	private final int ENERGY_UNIT = 50;
+	private final int ENERGY_UNIT = 40;
 	
 	/**
 	 * 燃焼時間

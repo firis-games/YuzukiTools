@@ -3,6 +3,7 @@ package firis.yuzukitools.common.tileentity;
 import javax.annotation.Nullable;
 
 import firis.yuzukitools.common.capability.TileEntityEnergyStorage;
+import firis.yuzukitools.common.helpler.EnergyHelper;
 import firis.yuzukitools.common.helpler.VanillaNetworkHelper;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -137,7 +138,7 @@ public class YKTileSolarCharger extends AbstractTileEntity implements ITickable 
 		IEnergyStorage stackStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
 		if (stackStorage == null) return;
 		
-		moveEnergy(stackStorage, this.energy);
+		EnergyHelper.moveEnergy(stackStorage, this.energy, 50000);
 	}
 	
 	/**
@@ -151,33 +152,8 @@ public class YKTileSolarCharger extends AbstractTileEntity implements ITickable 
 		IEnergyStorage stackStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
 		if (stackStorage == null) return;
 		
-		moveEnergy(this.energy, stackStorage);
+		EnergyHelper.moveEnergy(this.energy, stackStorage, 50000);
 
-	}
-	
-	/**
-	 * FromからToへエネルギーを移動する
-	 * @param fromEnergy
-	 * @param toEnergy
-	 */
-	protected void moveEnergy(IEnergyStorage fromEnergy, IEnergyStorage toEnergy) {
-		
-		//満充電または充電出来ない場合は何もしない
-		if(toEnergy.getMaxEnergyStored() <= toEnergy.getEnergyStored()
-				|| !toEnergy.canReceive()) return;
-		
-		//最大チャージ数
-		int charge = toEnergy.getMaxEnergyStored() - toEnergy.getEnergyStored();
-		charge = Math.min(charge, 50000);
-		charge = Math.min(charge, fromEnergy.getEnergyStored());
-		
-		//シミュレート
-		charge = toEnergy.receiveEnergy(charge, true);
-		
-		//実行
-		toEnergy.receiveEnergy(charge, false);
-		fromEnergy.extractEnergy(charge, false);
-				
 	}
 	
 	protected int redstonePower = 0;
@@ -191,7 +167,7 @@ public class YKTileSolarCharger extends AbstractTileEntity implements ITickable 
 	 */
 	public void updateSolarCharger() {
 		
-		int bTick = 2;
+		int bTick = 1;
 		
 		//bTickに1回処理を行う
 		if (tick % bTick != 0) return;
@@ -205,12 +181,12 @@ public class YKTileSolarCharger extends AbstractTileEntity implements ITickable 
 		//レッドストーン活性化
 		avtiveRedstonePower(bTick);
 		
-		//発電(10tickあたり40FE)
+		//発電(1tickあたり4FE)
 		this.energy.receiveEnergy(4 * bTick, false);
 		
-		//レッドストーン活性化分(10tickあたり160FE)
+		//レッドストーン活性化分(1tickあたり36FE)
 		if (redstonePower > 0) {
-			this.energy.receiveEnergy(16 * bTick, false);
+			this.energy.receiveEnergy(36 * bTick, false);
 			redstonePower--;
 			//レッドストーン活性化
 			avtiveRedstonePower(bTick);
@@ -255,8 +231,8 @@ public class YKTileSolarCharger extends AbstractTileEntity implements ITickable 
 			ItemStack stack = this.inventory.getStackInSlot(0);
 			//レッドストーンの場合消費して
 			if (!stack.isEmpty() && stack.getItem() == Items.REDSTONE && stack.getCount() > 0) {
-				//40秒分ブースト(800tick)
-				redstonePower = 800 / bTick;
+				//60秒分ブースト(1200tick)
+				redstonePower = 1200 / bTick;
 				stack.shrink(1);
 			}
 		}
