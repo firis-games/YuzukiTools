@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 
 import firis.yuzukitools.api.client.jei.electricfurnace.JEIElectricFurnaceRecipeCategory;
 import firis.yuzukitools.api.client.jei.electricfurnace.JEIElectricFurnaceRecipeWrapper;
+import firis.yuzukitools.client.gui.YKGuiElectricFurnace;
 import firis.yuzukitools.common.recipe.RecipesElectricFurnace;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
@@ -38,6 +39,9 @@ public class JEIYuzukiToolsPlugin implements IModPlugin {
 				JEIElectricFurnaceRecipeCategory.UID);
 		
 		registry.addRecipes(RecipesElectricFurnace.recipes, JEIElectricFurnaceRecipeCategory.UID);
+		
+		//「レシピを見る」の設定
+		registry.addRecipeClickArea(YKGuiElectricFurnace.class, 79, 34, 24, 17, JEIElectricFurnaceRecipeCategory.UID);
 		
 	}
 }
