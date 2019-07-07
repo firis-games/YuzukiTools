@@ -3,6 +3,7 @@ package firis.yuzukitools.common.recipe;
 import java.util.ArrayList;
 import java.util.List;
 
+import firis.yuzukitools.YuzukiTools.YKItems;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -35,7 +36,7 @@ public class RecipesElectricFurnace {
 		//ダイヤ鉱石増量
 		recipes.add(new RecipesElectricFurnace(
 				new ItemStack(Blocks.DIAMOND_ORE), 
-				new ItemStack(Items.DIAMOND, 6)));
+				new ItemStack(Items.DIAMOND, 5)));
 		
 		//レッドストーン鉱石増量
 		recipes.add(new RecipesElectricFurnace(
@@ -45,7 +46,7 @@ public class RecipesElectricFurnace {
 		//ラピスラズリ鉱石増量
 		recipes.add(new RecipesElectricFurnace(
 				new ItemStack(Blocks.LAPIS_ORE), 
-				new ItemStack(Items.DYE, 12, 4)));
+				new ItemStack(Items.DYE, 10, 4)));
 		
 		//鉄の斧
 		recipes.add(new RecipesElectricFurnace(
@@ -140,6 +141,100 @@ public class RecipesElectricFurnace {
 		recipes.add(new RecipesElectricFurnace(
 				new ItemStack(Items.GOLDEN_BOOTS, 1, 32767), 
 				new ItemStack(Items.GOLD_INGOT, 4),
+				800));
+		
+		//チェイン防具
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(Items.CHAINMAIL_HELMET, 1, 32767), 
+				new ItemStack(Items.IRON_NUGGET, 5),
+				800));
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(Items.CHAINMAIL_CHESTPLATE, 1, 32767), 
+				new ItemStack(Items.IRON_NUGGET, 8),
+				800));
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(Items.CHAINMAIL_LEGGINGS, 1, 32767), 
+				new ItemStack(Items.IRON_NUGGET, 7),
+				800));
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(Items.CHAINMAIL_BOOTS, 1, 32767), 
+				new ItemStack(Items.IRON_NUGGET, 4),
+				800));
+		
+		//ハンマーアックス
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(YKItems.IRON_HAMMERAXE, 1, 32767), 
+				new ItemStack(Items.IRON_INGOT, 4),
+				800));
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(YKItems.GOLD_HAMMERAXE, 1, 32767), 
+				new ItemStack(Items.GOLD_INGOT, 4),
+				800));
+		
+		//シールドソード
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(YKItems.IRON_SHIELD_SWORD, 1, 32767), 
+				new ItemStack(Items.IRON_INGOT, 3),
+				800));
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(YKItems.GOLD_SHIELD_SWORD, 1, 32767), 
+				new ItemStack(Items.GOLD_INGOT, 3),
+				800));
+		
+		//レッドストーンツール
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(YKItems.REDSTONE_AXE, 1, 32767), 
+				new ItemStack(YKItems.REDSTONE_INGOT, 3),
+				800));
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(YKItems.REDSTONE_HOE, 1, 32767), 
+				new ItemStack(YKItems.REDSTONE_INGOT, 2),
+				800));
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(YKItems.REDSTONE_PICKAXE, 1, 32767), 
+				new ItemStack(YKItems.REDSTONE_INGOT, 3),
+				800));
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(YKItems.REDSTONE_SHOVEL, 1, 32767), 
+				new ItemStack(YKItems.REDSTONE_INGOT, 1),
+				800));
+		
+		//小物
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(Items.BUCKET, 1), 
+				new ItemStack(Items.IRON_INGOT, 3),
+				800));
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(Items.WATER_BUCKET, 1), 
+				new ItemStack(Items.IRON_INGOT, 3),
+				800));
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(Items.LAVA_BUCKET, 1), 
+				new ItemStack(Items.IRON_INGOT, 3),
+				800));
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(Items.MILK_BUCKET, 1), 
+				new ItemStack(Items.IRON_INGOT, 3),
+				800));
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(Blocks.ANVIL, 1, 32767), 
+				new ItemStack(Blocks.IRON_BLOCK, 3),
+				800));
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(Items.SHEARS, 1, 32767), 
+				new ItemStack(Items.IRON_INGOT, 2),
+				800));
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(Items.COMPASS, 1, 32767), 
+				new ItemStack(Items.IRON_INGOT, 4),
+				800));
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(Items.CLOCK, 1, 32767), 
+				new ItemStack(Items.GOLD_INGOT, 4),
+				800));
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(Items.SHIELD, 1, 32767), 
+				new ItemStack(Items.IRON_INGOT, 1),
 				800));
 	}
 	
