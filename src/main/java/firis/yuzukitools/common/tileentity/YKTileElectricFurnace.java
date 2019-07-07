@@ -1,10 +1,14 @@
 package firis.yuzukitools.common.tileentity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.annotation.Nullable;
 
 import firis.yuzukitools.YuzukiTools.YKBlocks;
 import firis.yuzukitools.common.block.YKBlockElectricFurnace;
 import firis.yuzukitools.common.capability.TileEntityEnergyStorage;
+import firis.yuzukitools.common.capability.TileEntityItemStackHandler;
 import firis.yuzukitools.common.helpler.EnergyHelper;
 import firis.yuzukitools.common.helpler.VanillaNetworkHelper;
 import firis.yuzukitools.common.recipe.RecipesElectricFurnace;
@@ -17,14 +21,13 @@ import net.minecraft.util.ITickable;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 
 public class YKTileElectricFurnace extends AbstractTileEntity implements ITickable {
 
 	/**	
 	 * Inventory管理用
 	 */
-	public ItemStackHandler inventory;
+	public TileEntityItemStackHandler inventory;
 	
 	/**
 	 * Energy管理用
@@ -37,7 +40,9 @@ public class YKTileElectricFurnace extends AbstractTileEntity implements ITickab
 	public YKTileElectricFurnace() {
 
 		//Inventory
-		this.inventory = new ItemStackHandler(4);
+		this.inventory = new TileEntityItemStackHandler(4);
+		this.inventory.setInputSlot(new ArrayList<Integer>(Arrays.asList(0)));
+		this.inventory.setOutputSlot(new ArrayList<Integer>(Arrays.asList(1)));
 		
 		//Energy
 		this.energy = new TileEntityEnergyStorage(this, 20000);
@@ -221,8 +226,8 @@ public class YKTileElectricFurnace extends AbstractTileEntity implements ITickab
 		//出力結果処理を行う
 		ItemStack stack = RecipesElectricFurnace.getOutputItemStack(this.inventory.getStackInSlot(0));
 		
-		this.inventory.extractItem(0, 1, false);
-		this.inventory.insertItem(1, stack, false);
+		this.inventory.directExtractItem(0, 1, false);
+		this.inventory.directInsertItem(1, stack, false);
 		
 		this.burnTime = 0;
 		
@@ -246,7 +251,7 @@ public class YKTileElectricFurnace extends AbstractTileEntity implements ITickab
 			recipeBurnTime = recipe.getBurnTime();
 			
 			//outputslotのチェック
-			ItemStack simStack = this.inventory.insertItem(1, recipe.getOutputItemStack(), true);
+			ItemStack simStack = this.inventory.directInsertItem(1, recipe.getOutputItemStack(), true);
 			if (simStack.isEmpty()) {
 				outputSlot = true;
 			}

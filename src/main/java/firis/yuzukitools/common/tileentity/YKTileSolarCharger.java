@@ -1,8 +1,12 @@
 package firis.yuzukitools.common.tileentity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.annotation.Nullable;
 
 import firis.yuzukitools.common.capability.TileEntityEnergyStorage;
+import firis.yuzukitools.common.capability.TileEntityItemStackHandler;
 import firis.yuzukitools.common.helpler.EnergyHelper;
 import firis.yuzukitools.common.helpler.VanillaNetworkHelper;
 import net.minecraft.init.Items;
@@ -12,14 +16,13 @@ import net.minecraft.util.ITickable;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 
 public class YKTileSolarCharger extends AbstractTileEntity implements ITickable {
 	
 	/**	
 	 * Inventory管理用
 	 */
-	public ItemStackHandler inventory;
+	public TileEntityItemStackHandler inventory;
 	
 	/**
 	 * Energy管理用
@@ -32,7 +35,9 @@ public class YKTileSolarCharger extends AbstractTileEntity implements ITickable 
 	public YKTileSolarCharger() {
 
 		//Inventory
-		this.inventory = new ItemStackHandler(3);
+		this.inventory = new TileEntityItemStackHandler(3);
+		this.inventory.setInputSlot(new ArrayList<Integer>(Arrays.asList(0)));
+		this.inventory.setOutputSlot(new ArrayList<Integer>());
 		
 		//Energy
 		this.energy = new TileEntityEnergyStorage(this, 500000);
