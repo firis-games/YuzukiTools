@@ -1,13 +1,18 @@
 package firis.yuzukitools.common.capability;
 
+import firis.yuzukitools.common.helpler.VanillaNetworkHelper;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.energy.EnergyStorage;
 
 public class TileEntityEnergyStorage extends EnergyStorage {
 
-	public TileEntityEnergyStorage(int capacity) {
+	public TileEntityEnergyStorage(TileEntity tile, int capacity) {
 		super(capacity);
+		this.tile = tile;
 	}
+	
+	private TileEntity tile;
 	
 	/**
 	 * EnergyStorageをNBT化
@@ -31,6 +36,26 @@ public class TileEntityEnergyStorage extends EnergyStorage {
     	this.capacity = nbt.getInteger("capacity");
     	this.maxReceive = nbt.getInteger("maxReceive");
     	this.maxExtract = nbt.getInteger("maxExtract");
+    }
+    
+    @Override
+    public int receiveEnergy(int maxReceive, boolean simulate)
+    {
+    	int ret = super.receiveEnergy(maxReceive, simulate);
+    	if (!simulate) {
+    		VanillaNetworkHelper.sendPacketTileEntity(this.tile);
+    	}
+    	return ret;
+    }
+
+    @Override
+    public int extractEnergy(int maxExtract, boolean simulate)
+    {
+    	int ret = super.extractEnergy(maxExtract, simulate);
+    	if (!simulate) {
+    		VanillaNetworkHelper.sendPacketTileEntity(this.tile);
+    	}
+    	return ret;
     }
 
 }

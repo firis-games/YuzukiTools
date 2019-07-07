@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import firis.core.client.ShaderHelper;
 import firis.yuzukitools.client.tesr.YKTileInstantHouseSpRenderer;
 import firis.yuzukitools.common.block.YKBlockBackpack;
+import firis.yuzukitools.common.block.YKBlockElectricFurnace;
 import firis.yuzukitools.common.block.YKBlockInstantHouse;
 import firis.yuzukitools.common.block.YKBlockSolarCharger;
 import firis.yuzukitools.common.item.YKItemBlockBackpack;
@@ -20,7 +21,9 @@ import firis.yuzukitools.common.item.YKItemToolHammeraxe;
 import firis.yuzukitools.common.network.NetworkHandler;
 import firis.yuzukitools.common.proxy.IProxy;
 import firis.yuzukitools.common.proxy.ModGuiHandler;
+import firis.yuzukitools.common.recipe.RecipesElectricFurnace;
 import firis.yuzukitools.common.tileentity.YKTileBackpack;
+import firis.yuzukitools.common.tileentity.YKTileElectricFurnace;
 import firis.yuzukitools.common.tileentity.YKTileInstantHouse;
 import firis.yuzukitools.common.tileentity.YKTileSolarCharger;
 import net.minecraft.block.Block;
@@ -123,6 +126,7 @@ public class YuzukiTools
     	public final static Block INSTANT_HOUSE = null;
     	public final static Block BACKPACK = null;
     	public final static Block SOLAR_CHARGER = null;
+    	public final static Block ELECTRIC_FURNACE = null;
     }
     
     
@@ -147,6 +151,9 @@ public class YuzukiTools
         GameRegistry.registerTileEntity(YKTileSolarCharger.class, 
         		new ResourceLocation(YuzukiTools.MODID, "te_solar_charger"));
         
+        GameRegistry.registerTileEntity(YKTileElectricFurnace.class, 
+        		new ResourceLocation(YuzukiTools.MODID, "te_electric_furnace"));
+        
         //ネットワーク登録
         NetworkHandler.init();
                 
@@ -163,6 +170,9 @@ public class YuzukiTools
     	
     	//レイヤー登録
     	proxy.initLayerRenderer();
+    	
+    	//電気炉レシピ登録
+    	RecipesElectricFurnace.init();
     }
     
     @EventHandler
@@ -195,6 +205,13 @@ public class YuzukiTools
                 new YKBlockSolarCharger()
                 .setRegistryName(MODID, "solar_charger")
                 .setUnlocalizedName("solar_charger")
+        );
+        
+        // 電気炉
+        event.getRegistry().register(
+                new YKBlockElectricFurnace()
+                .setRegistryName(MODID, "electric_furnace")
+                .setUnlocalizedName("electric_furnace")
         );
     }
     
@@ -305,6 +322,10 @@ public class YuzukiTools
     	//ソーラー充電器
     	event.getRegistry().register(new ItemBlock(YKBlocks.SOLAR_CHARGER)
     			.setRegistryName(MODID, "solar_charger"));
+    	
+    	//電気炉
+    	event.getRegistry().register(new ItemBlock(YKBlocks.ELECTRIC_FURNACE)
+    			.setRegistryName(MODID, "electric_furnace"));
     	
     }
     

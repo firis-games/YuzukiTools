@@ -36,3 +36,6 @@ info.energy_unit.name=YF
 tile.solar_charger.name=ソーラー充電器
 gui.solar_charger.name=ソーラー充電器
 
+tile.electric_furnace.name=電気炉
+gui.electric_furnace.name=電気炉
+

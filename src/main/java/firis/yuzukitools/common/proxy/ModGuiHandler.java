@@ -2,8 +2,10 @@ package firis.yuzukitools.common.proxy;
 
 import firis.core.common.inventory.CapabilityInventory;
 import firis.yuzukitools.client.gui.YKGuiContainerBackpack;
+import firis.yuzukitools.client.gui.YKGuiElectricFurnace;
 import firis.yuzukitools.client.gui.YKGuiSolarCharger;
 import firis.yuzukitools.common.container.YKContainerBackpack;
+import firis.yuzukitools.common.container.YKContainerElectricFurnace;
 import firis.yuzukitools.common.container.YKContainerSolarCharger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -26,6 +28,9 @@ public class ModGuiHandler implements IGuiHandler {
 	
 	//ソーラー充電器
 	public final static int SOLAR_CHARGER = 3;
+	
+	//電気炉
+	public final static int ELECTRIC_FURNACE = 4;
 	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -53,6 +58,11 @@ public class ModGuiHandler implements IGuiHandler {
 		case ModGuiHandler.SOLAR_CHARGER :
 			inventory = new CapabilityInventory(world.getTileEntity(new BlockPos(x, y, z)));
 			return new YKContainerSolarCharger(inventory, player.inventory);
+		
+		//電気炉
+		case ModGuiHandler.ELECTRIC_FURNACE :
+			inventory = new CapabilityInventory(world.getTileEntity(new BlockPos(x, y, z)));
+			return new YKContainerElectricFurnace(inventory, player.inventory);
 		}
 		
 		return null;
@@ -86,6 +96,11 @@ public class ModGuiHandler implements IGuiHandler {
 		case ModGuiHandler.SOLAR_CHARGER :
 			inventory = new CapabilityInventory(world.getTileEntity(new BlockPos(x, y, z)));
 			return new YKGuiSolarCharger(inventory, player.inventory);
+			
+		//電気炉
+		case ModGuiHandler.ELECTRIC_FURNACE :
+			inventory = new CapabilityInventory(world.getTileEntity(new BlockPos(x, y, z)));
+			return new YKGuiElectricFurnace(inventory, player.inventory);
 		}
 		
 		return null;

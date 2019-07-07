@@ -34,7 +34,7 @@ public class YKTileSolarCharger extends AbstractTileEntity implements ITickable 
 		this.inventory = new ItemStackHandler(3);
 		
 		//Energy
-		this.energy = new TileEntityEnergyStorage(100000);
+		this.energy = new TileEntityEnergyStorage(this, 500000);
 		
 	}
 	

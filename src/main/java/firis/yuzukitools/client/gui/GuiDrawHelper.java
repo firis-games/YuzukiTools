@@ -57,6 +57,19 @@ public class GuiDrawHelper {
       			
       		}
       		
-      	}		
+      	}
 	}
+	
+	
+	/**
+	 * かまどなどの矢印描画用Helperクラス
+	 */
+	public static void drawArrow(GuiContainer gui, int x, int y, 
+			int tex_x, int tex_y, int width, int height, double percent) {
+		//widthサイズを計算
+		int drawWidth = (int) Math.floor(percent * (double)width);
+		if (drawWidth == 0) return;
+		gui.drawTexturedModalRect(x, y, tex_x, tex_y, drawWidth, height);
+	}
+
 }
