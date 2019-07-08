@@ -1,0 +1,16 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"xxx",
+		"x x",
+		"x x"
+	],
+	"key": {
+		"x": {
+			"item": "yuzukitools:redstone_ingot"
+		}
+	},
+	"result": {
+		"item": "yuzukitools:redstone_leggings"
+	}
+}

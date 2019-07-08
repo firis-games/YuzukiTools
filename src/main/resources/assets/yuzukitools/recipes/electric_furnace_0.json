@@ -1,7 +1,7 @@
 {
 	"type": "forge:ore_shaped",
 	"pattern": [
-		"xlx",
+		"xxx",
 		"xzx",
 		"yyy"
 	],
@@ -13,13 +13,10 @@
 			"item": "yuzukitools:redstone_ingot"
 		},
 		"z": {
-			"item": "minecraft:lapis_block"
-		},
-		"l": {
-			"item": "minecraft:glass"
+			"item": "minecraft:furnace"
 		}
 	},
 	"result": {
-		"item": "yuzukitools:solar_charger"
+		"item": "yuzukitools:electric_furnace"
 	}
 }
