@@ -1,5 +1,7 @@
 package firis.core.common.inventory;
 
+import firis.yuzukitools.common.capability.TileEntityItemStackHandler;
+import firis.yuzukitools.common.helpler.VanillaNetworkHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -48,12 +50,12 @@ public class CapabilityInventory implements IInventory {
 	/**
 	 * 内部インベントリ
 	 */
-	protected IItemHandler getInventory() {
-		IItemHandler capability = null;
+	protected TileEntityItemStackHandler getInventory() {
+		TileEntityItemStackHandler capability = null;
 		if (this.tile != null) {
-			capability = this.tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+			capability = (TileEntityItemStackHandler) this.tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 		} else if (this.itemStack != null) {
-			capability = this.itemStack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+			capability = (TileEntityItemStackHandler) this.itemStack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 		}
 		return capability;
 	}
@@ -89,7 +91,7 @@ public class CapabilityInventory implements IInventory {
 
 	@Override
 	public ItemStack getStackInSlot(int index) {
-		IItemHandler capability = this.getInventory();
+		TileEntityItemStackHandler capability = this.getInventory();
 		if (capability == null) return ItemStack.EMPTY.copy();
 		
 		return capability.getStackInSlot(index);
@@ -100,35 +102,31 @@ public class CapabilityInventory implements IInventory {
 	 */
 	@Override
 	public ItemStack decrStackSize(int index, int count) {
-		IItemHandler capability = this.getInventory();
+		TileEntityItemStackHandler capability = this.getInventory();
 		if (capability == null) return ItemStack.EMPTY.copy();
 		
-		ItemStack stack = capability.extractItem(index, count, false);
+		ItemStack stack = capability.directExtractItem(index, count, false);
 		this.markDirty();
 		return stack;
 	}
 
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
-		IItemHandler capability = this.getInventory();
+		TileEntityItemStackHandler capability = this.getInventory();
 		if (capability == null) return ItemStack.EMPTY.copy();
 		
 		//指定スロットから取得
-		ItemStack stack = capability.extractItem(index, capability.getStackInSlot(index).getCount(), false);
+		ItemStack stack = capability.directExtractItem(index, capability.getStackInSlot(index).getCount(), false);
 		this.markDirty();
 		return stack;
 	}
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
-		IItemHandler capability = this.getInventory();
+		TileEntityItemStackHandler capability = this.getInventory();
 		if (capability == null) return;
 		
-		//出力と入力ができる場合のみ処理を行う
-		if (this.isItemValidForSlot(index, stack)) {
-			capability.extractItem(index, capability.getStackInSlot(index).getCount(), false);
-			capability.insertItem(index, stack, false);
-		}
+		capability.setStackInSlot(index, stack);
 	}
 
 	@Override
@@ -138,7 +136,7 @@ public class CapabilityInventory implements IInventory {
 
 	@Override
 	public void markDirty() {
-		if (tile != null) tile.markDirty();
+		if (tile != null) VanillaNetworkHelper.sendPacketTileEntity(tile);
 	}
 
 	@Override
