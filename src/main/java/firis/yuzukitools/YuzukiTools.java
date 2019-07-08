@@ -12,6 +12,7 @@ import firis.yuzukitools.common.block.YKBlockElectricFurnace;
 import firis.yuzukitools.common.block.YKBlockInstantHouse;
 import firis.yuzukitools.common.block.YKBlockSolarCharger;
 import firis.yuzukitools.common.item.YKItemBlockBackpack;
+import firis.yuzukitools.common.item.YKItemRedstoneArmor;
 import firis.yuzukitools.common.item.YKItemRedstoneAxe;
 import firis.yuzukitools.common.item.YKItemRedstoneHoe;
 import firis.yuzukitools.common.item.YKItemRedstonePickaxe;
@@ -32,6 +33,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.SimpleReloadableResourceManager;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemBlock;
@@ -116,6 +118,10 @@ public class YuzukiTools
     	public final static Item REDSTONE_AXE = null;
     	public final static Item REDSTONE_SHOVEL = null;
     	public final static Item REDSTONE_HOE = null;
+    	public final static Item REDSTONE_HELMET = null;
+    	public final static Item REDSTONE_CHESTPLATE = null;
+    	public final static Item REDSTONE_LEGGINGS = null;
+    	public final static Item REDSTONE_BOOTS = null;
     }
     
     /**
@@ -326,6 +332,26 @@ public class YuzukiTools
     	//電気炉
     	event.getRegistry().register(new ItemBlock(YKBlocks.ELECTRIC_FURNACE)
     			.setRegistryName(MODID, "electric_furnace"));
+    	
+    	//レッドストーンのヘルメット
+    	event.getRegistry().register(new YKItemRedstoneArmor(EntityEquipmentSlot.HEAD)
+    			.setRegistryName(MODID, "redstone_helmet")
+    			.setUnlocalizedName("redstone_helmet"));
+    	
+    	//レッドストーンのチェストプレート
+    	event.getRegistry().register(new YKItemRedstoneArmor(EntityEquipmentSlot.CHEST)
+    			.setRegistryName(MODID, "redstone_chestplate")
+    			.setUnlocalizedName("redstone_chestplate"));
+    	
+    	//レッドストーンのレギンス
+    	event.getRegistry().register(new YKItemRedstoneArmor(EntityEquipmentSlot.LEGS)
+    			.setRegistryName(MODID, "redstone_leggings")
+    			.setUnlocalizedName("redstone_leggings"));
+    	
+    	//レッドストーンのブーツ
+    	event.getRegistry().register(new YKItemRedstoneArmor(EntityEquipmentSlot.FEET)
+    			.setRegistryName(MODID, "redstone_boots")
+    			.setUnlocalizedName("redstone_boots"));
     	
     }
     

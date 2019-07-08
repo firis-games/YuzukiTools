@@ -41,3 +41,8 @@ gui.electric_furnace.name=Electric Furnace
 
 yuzukitools.jei.electric_furnace.title=Electric Furnace
 
+item.redstone_helmet.name=Redstone Helmet
+item.redstone_chestplate.name=Redstone Chestplate
+item.redstone_leggings.name=Redstone Leggings
+item.redstone_boots.name=Redstone Boots
+

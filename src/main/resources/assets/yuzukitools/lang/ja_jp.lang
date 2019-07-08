@@ -41,3 +41,8 @@ gui.electric_furnace.name=電気炉
 
 yuzukitools.jei.electric_furnace.title=電気炉
 
+item.redstone_helmet.name=レッドストーンのヘルメット
+item.redstone_chestplate.name=レッドストーンのチェストプレート
+item.redstone_leggings.name=レッドストーンのレギンス
+item.redstone_boots.name=レッドストーンのブーツ
+
