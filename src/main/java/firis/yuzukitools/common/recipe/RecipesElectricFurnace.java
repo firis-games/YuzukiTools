@@ -198,6 +198,10 @@ public class RecipesElectricFurnace {
 				new ItemStack(YKItems.REDSTONE_SHOVEL, 1, 32767), 
 				new ItemStack(YKItems.REDSTONE_INGOT, 1),
 				800));
+		recipes.add(new RecipesElectricFurnace(
+				new ItemStack(YKItems.REDSTONE_SWORD, 1, 32767), 
+				new ItemStack(YKItems.REDSTONE_INGOT, 2),
+				800));
 		
 		//レッドストーン防具
 		recipes.add(new RecipesElectricFurnace(

@@ -17,6 +17,7 @@ import firis.yuzukitools.common.item.YKItemRedstoneAxe;
 import firis.yuzukitools.common.item.YKItemRedstoneHoe;
 import firis.yuzukitools.common.item.YKItemRedstonePickaxe;
 import firis.yuzukitools.common.item.YKItemRedstoneShovel;
+import firis.yuzukitools.common.item.YKItemRedstoneSword;
 import firis.yuzukitools.common.item.YKItemShieldSword;
 import firis.yuzukitools.common.item.YKItemToolHammeraxe;
 import firis.yuzukitools.common.network.NetworkHandler;
@@ -122,6 +123,7 @@ public class YuzukiTools
     	public final static Item REDSTONE_CHESTPLATE = null;
     	public final static Item REDSTONE_LEGGINGS = null;
     	public final static Item REDSTONE_BOOTS = null;
+    	public final static Item REDSTONE_SWORD = null;
     }
     
     /**
@@ -352,6 +354,11 @@ public class YuzukiTools
     	event.getRegistry().register(new YKItemRedstoneArmor(EntityEquipmentSlot.FEET)
     			.setRegistryName(MODID, "redstone_boots")
     			.setUnlocalizedName("redstone_boots"));
+    	
+    	//レッドストーンの剣
+    	event.getRegistry().register(new YKItemRedstoneSword()
+    			.setRegistryName(MODID, "redstone_sword")
+    			.setUnlocalizedName("redstone_sword"));
     	
     }
     
