@@ -2,5 +2,13 @@
     "parent": "item/handheld",
     "textures": {
         "layer0": "yuzukitools:items/redstone_sword"
-    }
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "sword_active": 1
+            },
+            "model": "yuzukitools:item/redstone_sword_active"
+        }
+    ]
 }
