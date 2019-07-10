@@ -213,5 +213,13 @@ public abstract class AbstractEnergyItemArmor extends ItemArmor implements ISpec
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
 		this.extractEnergy(stack, this.useEnergy);
 	}
+	
+	/**
+	 * エンチャント可否
+	 */
+	@Override
+    public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
+        return false;
+    }
 
 }

@@ -100,6 +100,14 @@ public abstract class AbstractEnergyItem extends Item {
 		capability.extractEnergy(energy, false);
 	}
 	
+	/**
+	 * エンチャント可否
+	 */
+	@Override
+    public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
+        return false;
+    }
+	
     /**
      * ForgeEnergyCapability制御用
      */
