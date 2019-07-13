@@ -1,0 +1,22 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"zzz",
+		"xyx",
+		"zzz"
+	],
+	"key": {
+		"x": {
+			"item": "yuzukitools:redstone_ingot"
+		},
+		"y": {
+			"item": "minecraft:diamond"
+		},
+		"z": {
+			"item": "minecraft:redstone"
+		}
+	},
+	"result": {
+		"item": "yuzukitools:redstone_crystal"
+	}
+}
