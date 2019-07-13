@@ -22,7 +22,7 @@ public class LivingDamageEventHandler {
 		
 		if (!(event.getEntityLiving() instanceof EntityPlayer)) return;
 		
-		//落下ダメージの無効化
+		//軽減効果発動条件チェック
 		EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 		
 		ItemStack helmet = player.inventory.armorInventory.get(EntityEquipmentSlot.HEAD.getIndex());
@@ -37,32 +37,63 @@ public class LivingDamageEventHandler {
 		if (leggings.isEmpty() || leggings.getItem() != YKItems.REDSTONE_LEGGINGS ) return;
 		if (boots.isEmpty() || boots.getItem() != YKItems.REDSTONE_BOOTS ) return;
 		
+		//ダメージ係数を判断
+		int damageRate = 0;
+		int damageLimit = 0;
 		
-		//落下ダメージ軽減
-		if (event.getSource() == DamageSource.FALL) {
-			
-			int minEnergy;
-			minEnergy = helmet.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored();
-			minEnergy = Math.min(minEnergy, chestplate.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored());
-			minEnergy = Math.min(minEnergy, leggings.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored());
-			minEnergy = Math.min(minEnergy, boots.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored());
-			
-			//エネルギー10につき1ダメージ無効化
-			int resist = (int) Math.min(event.getAmount(), minEnergy / 10);
-			
-			//ダメージを軽減してエネルギーを消費
-			event.setAmount(event.getAmount() - resist);
-			int resistEnergy = resist * 10;
-			helmet.getCapability(CapabilityEnergy.ENERGY, null).extractEnergy(resistEnergy, false);
-			chestplate.getCapability(CapabilityEnergy.ENERGY, null).extractEnergy(resistEnergy, false);
-			leggings.getCapability(CapabilityEnergy.ENERGY, null).extractEnergy(resistEnergy, false);
-			boots.getCapability(CapabilityEnergy.ENERGY, null).extractEnergy(resistEnergy, false);
-			
-			return;
+		String damageType = event.getSource().getDamageType();
+
+		if (DamageSource.FALL.getDamageType().equals(damageType)
+				|| DamageSource.ON_FIRE.getDamageType().equals(damageType)
+				|| DamageSource.IN_FIRE.getDamageType().equals(damageType)) {
+			//落下ダメージ or 炎上ダメージ
+			damageRate = 1;
+			damageLimit = 0;
+		} else if (DamageSource.LAVA.getDamageType().equals(damageType)) {
+			//溶岩ダメージ
+			damageRate = 5;
+			damageLimit = 0;
+		} else if ("arrow".equals(damageType)) {
+			//矢ダメージ
+			damageRate = 10;
+			damageLimit = 1;
+		} else if ("explosion.player".equals(damageType)) {
+			//爆発ダメージ
+			damageRate = 5;
+			damageLimit = 4;
+		} else if ("mob".equals(damageType)) {
+			//mobダメージ
+			damageRate = 10;
+			damageLimit = 4;
 		}
 		
+		//レートが0の場合は対象外
+		if (damageRate == 0) return;
 		
+		//最大軽減ダメージ
+		int regDamage = Math.max((int) Math.ceil(event.getAmount()) - damageLimit, 0);
+		//アーマー消費ベース
+		int energyUnit = 10 * damageRate;
 		
+		//最大軽減ダメージが0の場合は何もしない
+		if (regDamage == 0) return;
+		
+		int minEnergy;
+		minEnergy = helmet.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored();
+		minEnergy = Math.min(minEnergy, chestplate.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored());
+		minEnergy = Math.min(minEnergy, leggings.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored());
+		minEnergy = Math.min(minEnergy, boots.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored());
+		
+		//エネルギー10につき1ダメージ無効化
+		int resist = (int) Math.min(regDamage, minEnergy / energyUnit);
+		
+		//ダメージを軽減してエネルギーを消費
+		event.setAmount(event.getAmount() - resist);
+		int resistEnergy = resist * energyUnit;
+		helmet.getCapability(CapabilityEnergy.ENERGY, null).extractEnergy(resistEnergy, false);
+		chestplate.getCapability(CapabilityEnergy.ENERGY, null).extractEnergy(resistEnergy, false);
+		leggings.getCapability(CapabilityEnergy.ENERGY, null).extractEnergy(resistEnergy, false);
+		boots.getCapability(CapabilityEnergy.ENERGY, null).extractEnergy(resistEnergy, false);
 		
 	}
 	
