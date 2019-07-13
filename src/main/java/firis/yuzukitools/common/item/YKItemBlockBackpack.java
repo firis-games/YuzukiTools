@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 
 import firis.yuzukitools.YuzukiTools;
 import firis.yuzukitools.YuzukiTools.YKBlocks;
+import firis.yuzukitools.common.capability.TileEntityItemStackHandler;
 import firis.yuzukitools.common.proxy.ModGuiHandler;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -27,7 +28,6 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class YKItemBlockBackpack extends ItemBlock {
@@ -68,7 +68,7 @@ public class YKItemBlockBackpack extends ItemBlock {
      */
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-    	
+    	    	
     	if (!player.isSneaking()) {
     		//GUIをオープンする
     		if (openGui(player, player.getHeldItem(hand), hand)) {
@@ -148,7 +148,7 @@ public class YKItemBlockBackpack extends ItemBlock {
      */
 	private static class InventoryProvider implements ICapabilitySerializable<NBTBase> {
 
-		private final IItemHandler inv = new ItemStackHandler(54);
+		private final TileEntityItemStackHandler inv = new TileEntityItemStackHandler(54);
 
 		@Override
 		public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {

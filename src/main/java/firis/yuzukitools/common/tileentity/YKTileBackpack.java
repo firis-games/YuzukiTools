@@ -2,18 +2,18 @@ package firis.yuzukitools.common.tileentity;
 
 import javax.annotation.Nullable;
 
+import firis.yuzukitools.common.capability.TileEntityItemStackHandler;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 
 public class YKTileBackpack extends AbstractTileEntity {
 
-	public ItemStackHandler inventory;
+	public TileEntityItemStackHandler inventory;
 	
 	public YKTileBackpack() {
 		
 		//Inventory初期化
-		this.inventory = new ItemStackHandler(54);
+		this.inventory = new TileEntityItemStackHandler(54);
 		
 	}
 	
