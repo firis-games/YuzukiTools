@@ -16,7 +16,7 @@ public class YKItemRedstoneArmor extends AbstractEnergyItemArmor {
 	 */
 	public YKItemRedstoneArmor(EntityEquipmentSlot armorType) {
 		
-		super(ArmorMaterial.IRON, armorType, 2500);
+		super(ArmorMaterial.IRON, armorType, AbstractEnergyItemTool.DEFAULT_TOOL_CAPACITY * 2);
 		
 		this.armorType = armorType;
 	}

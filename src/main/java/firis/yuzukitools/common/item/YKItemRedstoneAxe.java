@@ -20,7 +20,7 @@ public class YKItemRedstoneAxe extends AbstractEnergyItemTool {
 	 */
 	public YKItemRedstoneAxe(ToolMaterial material) {
 	
-		super(material, ItemAxe.EFFECTIVE_ON, 3000);
+		super(material, ItemAxe.EFFECTIVE_ON, AbstractEnergyItemTool.DEFAULT_TOOL_CAPACITY);
 		
 		this.setCreativeTab(YuzukiTools.YKCreativeTab);
 

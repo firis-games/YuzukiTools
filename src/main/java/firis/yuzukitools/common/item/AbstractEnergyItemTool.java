@@ -17,18 +17,14 @@ import net.minecraft.world.World;
 
 public abstract class AbstractEnergyItemTool extends AbstractEnergyItem {
 	
+	public static int DEFAULT_TOOL_CAPACITY = 50000;
+	
 	protected final Set<Block> effectiveBlocks;
     protected float efficiency = 4.0F;
     protected float attackDamage;
     protected float attackSpeed;
     protected Item.ToolMaterial toolMaterial;
-    
-    /**
-     * 1回あたりのエネルギー消費量
-     */
-    protected int useEnergy = 10;
-    
-    
+        
     protected AbstractEnergyItemTool(Item.ToolMaterial material, Set<Block> effectiveBlocks, int capacity)
     {
         this(0.0F, 0.0F, material, effectiveBlocks, capacity);
@@ -76,7 +72,7 @@ public abstract class AbstractEnergyItemTool extends AbstractEnergyItem {
 	@Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
 
-		this.extractEnergy(stack, this.useEnergy * 2);
+		this.extractEnergy(stack, AbstractEnergyItem.USE_ENERGY * 2);
         return true;
     }
 	
@@ -86,7 +82,7 @@ public abstract class AbstractEnergyItemTool extends AbstractEnergyItem {
 	@Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
     	
-		this.extractEnergy(stack, this.useEnergy);
+		this.extractEnergy(stack, AbstractEnergyItem.USE_ENERGY);
         return true;
     }
 	

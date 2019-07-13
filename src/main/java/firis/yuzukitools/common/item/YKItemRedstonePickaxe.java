@@ -15,7 +15,7 @@ public class YKItemRedstonePickaxe extends AbstractEnergyItemTool {
 	 */
 	public YKItemRedstonePickaxe(ToolMaterial material) {
 	
-		super(material, ItemPickaxe.EFFECTIVE_ON, 3000);
+		super(material, ItemPickaxe.EFFECTIVE_ON, AbstractEnergyItemTool.DEFAULT_TOOL_CAPACITY);
 		
 		this.setCreativeTab(YuzukiTools.YKCreativeTab);
 

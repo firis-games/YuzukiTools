@@ -24,7 +24,7 @@ public class YKItemRedstoneShovel extends AbstractEnergyItemTool {
 	 */
 	public YKItemRedstoneShovel(ToolMaterial material) {
 	
-		super(material, ItemSpade.EFFECTIVE_ON, 3000);
+		super(material, ItemSpade.EFFECTIVE_ON, AbstractEnergyItemTool.DEFAULT_TOOL_CAPACITY);
 		
 		this.setCreativeTab(YuzukiTools.YKCreativeTab);
 
@@ -82,7 +82,7 @@ public class YKItemRedstoneShovel extends AbstractEnergyItemTool {
                 }
                 
                 //エネルギー消費
-                this.extractEnergy(itemstack, this.useEnergy);
+                this.extractEnergy(itemstack, AbstractEnergyItem.USE_ENERGY);
 
                 return EnumActionResult.SUCCESS;
             }

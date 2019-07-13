@@ -2,21 +2,17 @@ package firis.yuzukitools.common.item;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import firis.yuzukitools.YuzukiTools;
-import firis.yuzukitools.common.capability.ItemStackEnergyStorage;
+import firis.yuzukitools.common.capability.ItemStackEnergyStorageProvider;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
@@ -25,6 +21,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public abstract class AbstractEnergyItem extends Item {
 	
 	protected int capacity;
+	
+	/**
+	 * ツール1回あたりの消費量
+	 */
+	public static int USE_ENERGY = 80;
 
 	/**
 	 * コンストラクタ
@@ -115,34 +116,6 @@ public abstract class AbstractEnergyItem extends Item {
     @Nullable
     public net.minecraftforge.common.capabilities.ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt)
     {
-        return new ForgeEnergyProvider(this.capacity, stack);
+        return new ItemStackEnergyStorageProvider(this.capacity, stack);
     }
-    
-    /**
-     * ForgeEnergyCapability制御用クラス
-     */
-	private static class ForgeEnergyProvider implements ICapabilityProvider {
-
-		private final IEnergyStorage energyStorage;
-
-		/**
-		 * コンストラクタ
-		 */
-		public ForgeEnergyProvider(int capacity, ItemStack stack) {
-			this.energyStorage = new ItemStackEnergyStorage(capacity, stack);
-		}
-		
-		@Override
-		public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-			return capability == CapabilityEnergy.ENERGY;
-		}
-
-		@Override
-		public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-			if(capability == CapabilityEnergy.ENERGY)
-				return CapabilityEnergy.ENERGY.cast(energyStorage);
-			else return null;
-		}
-	}
-	
 }

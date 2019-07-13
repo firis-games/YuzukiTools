@@ -28,18 +28,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class YKItemRedstoneSword extends AbstractEnergyItem {
 
-	/**
-     * 1回あたりのエネルギー消費量
-     */
-    protected int useEnergy = 10;
-	
 	private final float attackDamage;
 	
 	/**
 	 * コンストラクタ
 	 */
 	public YKItemRedstoneSword() {
-		super(10000);
+		super(AbstractEnergyItemTool.DEFAULT_TOOL_CAPACITY * 2);
 		
 		//攻撃力
 		this.attackDamage = 3.0F + ToolMaterial.IRON.getAttackDamage();
@@ -95,10 +90,10 @@ public class YKItemRedstoneSword extends AbstractEnergyItem {
 		
 		if (YKItemRedstoneSword.isSwordActive(stack)) {
 			//Activeモード
-			this.extractEnergy(stack, this.useEnergy * rate * 50);
+			this.extractEnergy(stack, AbstractEnergyItem.USE_ENERGY * rate * 50);
 		} else {
 			//通常モード
-			this.extractEnergy(stack, this.useEnergy * rate);
+			this.extractEnergy(stack, AbstractEnergyItem.USE_ENERGY * rate);
 		}
 		
 	}

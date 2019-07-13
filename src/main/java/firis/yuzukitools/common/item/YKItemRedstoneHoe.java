@@ -26,14 +26,9 @@ public class YKItemRedstoneHoe extends AbstractEnergyItem {
     protected float attackDamage;
     protected float attackSpeed;
     
-    /**
-     * 1回あたりのエネルギー消費量
-     */
-    protected int useEnergy = 10;
-    
 	public YKItemRedstoneHoe(ToolMaterial material) {
 		
-		super(3000);
+		super(AbstractEnergyItemTool.DEFAULT_TOOL_CAPACITY);
 		
 		this.setCreativeTab(YuzukiTools.YKCreativeTab);
 		
@@ -68,7 +63,7 @@ public class YKItemRedstoneHoe extends AbstractEnergyItem {
 	@Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
 
-		this.extractEnergy(stack, this.useEnergy);
+		this.extractEnergy(stack, AbstractEnergyItem.USE_ENERGY);
         return true;
     }
 
@@ -129,6 +124,6 @@ public class YKItemRedstoneHoe extends AbstractEnergyItem {
         }
         
         //エネルギー消費
-		this.extractEnergy(stack, this.useEnergy);
+		this.extractEnergy(stack, AbstractEnergyItem.USE_ENERGY);
     }
 }
