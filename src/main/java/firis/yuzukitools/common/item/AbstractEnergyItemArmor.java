@@ -10,7 +10,6 @@ import com.google.common.collect.Multimap;
 
 import firis.yuzukitools.YuzukiTools;
 import firis.yuzukitools.common.capability.ItemStackEnergyStorageProvider;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,7 +22,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -62,11 +60,8 @@ public abstract class AbstractEnergyItemArmor extends ItemArmor implements ISpec
 		
 		Integer energy = capability.getEnergyStored();
 		Integer maxEnergy = capability.getMaxEnergyStored();
-		String battery = I18n.format("info.energy_battery.name");
-		String unit = I18n.format("info.energy_unit.name");
 		
-		tooltip.add(battery + " " 
-				+ TextFormatting.LIGHT_PURPLE + energy.toString() + "/" + maxEnergy.toString() + " " + unit);
+		tooltip.add(AbstractEnergyItem.getEnergyInformation(energy, maxEnergy));
     }
 	
 	/**

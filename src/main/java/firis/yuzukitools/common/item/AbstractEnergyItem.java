@@ -1,5 +1,6 @@
 package firis.yuzukitools.common.item;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -40,6 +41,28 @@ public abstract class AbstractEnergyItem extends Item {
 		this.setMaxStackSize(1);
 	}
 	
+
+	/**
+	 * 電気ツールのツールチップ表示用
+	 * @return
+	 */
+	@SideOnly(Side.CLIENT)
+	public static String getEnergyInformation(int energy, int maxEnergy) {
+		
+		String info = "";
+		
+		String strEnergy = NumberFormat.getNumberInstance().format(energy);
+		String strMaxEnergy = NumberFormat.getNumberInstance().format(maxEnergy);
+		String battery = I18n.format("info.energy_battery.name");
+		String unit = I18n.format("info.energy_unit.name");
+		
+		info = battery + " " 
+				+ TextFormatting.LIGHT_PURPLE + strEnergy
+				+ "/" + strMaxEnergy + " " + unit;
+		
+		return info;
+	}
+	
 	/**
 	 * エネルギーを表示
 	 */
@@ -52,11 +75,8 @@ public abstract class AbstractEnergyItem extends Item {
 		
 		Integer energy = capability.getEnergyStored();
 		Integer maxEnergy = capability.getMaxEnergyStored();
-		String battery = I18n.format("info.energy_battery.name");
-		String unit = I18n.format("info.energy_unit.name");
-		
-		tooltip.add(battery + " " 
-				+ TextFormatting.LIGHT_PURPLE + energy.toString() + "/" + maxEnergy.toString() + " " + unit);
+
+		tooltip.add(AbstractEnergyItem.getEnergyInformation(energy, maxEnergy));
     }
 	
 	/**
