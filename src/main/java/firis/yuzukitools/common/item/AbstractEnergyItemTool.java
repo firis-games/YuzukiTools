@@ -40,7 +40,7 @@ public abstract class AbstractEnergyItemTool extends AbstractEnergyItem {
 		//パラメータ設定
         this.toolMaterial = materialIn;
         this.effectiveBlocks = effectiveBlocksIn;
-        this.efficiency = materialIn.getEfficiency();
+        this.efficiency = materialIn.getEfficiency() + 2.0F;
         this.attackDamage = attackDamageIn + materialIn.getAttackDamage();
         this.attackSpeed = attackSpeedIn;
         this.setFull3D();
@@ -97,11 +97,14 @@ public abstract class AbstractEnergyItemTool extends AbstractEnergyItem {
         {
         	//エネルギーを保持している場合のみ攻撃力適応
         	if(this.isEnergyStored(stack)) {
+        		//通常モード
 	            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Tool modifier", (double)this.attackDamage, 0));
+	            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double)this.attackSpeed, 0));
         	} else {
+        		//エネルギーなし
 	            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Tool modifier", 0.0D, 0));
+	            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -3.5D, 0));
         	}
-            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double)this.attackSpeed, 0));
         }
         return multimap;
     }

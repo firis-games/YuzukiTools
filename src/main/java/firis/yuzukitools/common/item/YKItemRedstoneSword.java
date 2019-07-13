@@ -23,12 +23,16 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class YKItemRedstoneSword extends AbstractEnergyItem {
 
 	private final float attackDamage;
+	
+	protected static int ACTIVE_ENERGY_RATE = 50;
 	
 	/**
 	 * コンストラクタ
@@ -90,12 +94,25 @@ public class YKItemRedstoneSword extends AbstractEnergyItem {
 		
 		if (YKItemRedstoneSword.isSwordActive(stack)) {
 			//Activeモード
-			this.extractEnergy(stack, AbstractEnergyItem.USE_ENERGY * rate * 50);
+			this.extractEnergy(stack, AbstractEnergyItem.USE_ENERGY * rate * YKItemRedstoneSword.ACTIVE_ENERGY_RATE);
 		} else {
 			//通常モード
 			this.extractEnergy(stack, AbstractEnergyItem.USE_ENERGY * rate);
 		}
 		
+	}
+	
+	/**
+	 * エネルギー消費
+	 */
+	@Override
+	protected void extractEnergy(ItemStack stack, int energy) {
+		super.extractEnergy(stack, energy);
+		
+		//Activeモードエネルギー不足
+		if (!this.isSwordActiveEnergyStored(stack)) {
+			this.changeSwordActive(stack, false);
+		}
 	}
 	
 	/**
@@ -155,8 +172,6 @@ public class YKItemRedstoneSword extends AbstractEnergyItem {
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		
-		if (worldIn.isRemote) return EnumActionResult.PASS;
-		
 		//右クリック時の処理
 		itemRightClick(player.getHeldItem(hand));
 		
@@ -181,16 +196,40 @@ public class YKItemRedstoneSword extends AbstractEnergyItem {
 	 * @param stack
 	 */
 	public void itemRightClick(ItemStack stack) {
+		boolean active = !isSwordActive(stack);
+		if (!this.isSwordActiveEnergyStored(stack)) {
+			active = false;
+		}
+		this.changeSwordActive(stack, active);
+	}
 	
+	/**
+	 * Activeモード切替
+	 * @param active
+	 */
+	protected void changeSwordActive(ItemStack stack, boolean active) {
 		NBTTagCompound nbt = new NBTTagCompound();
 		if (stack.hasTagCompound()) {
 			nbt = stack.getTagCompound();
     	}
-		
-		boolean active = !isSwordActive(stack);
 		nbt.setBoolean("active", active);
 		
 		stack.setTagCompound(nbt);
+	}
+	
+	/**
+	 * Activeモードの残量チェック
+	 * @param stack
+	 * @return
+	 */
+	protected boolean isSwordActiveEnergyStored(ItemStack stack) {
 		
+		IEnergyStorage capability = stack.getCapability(CapabilityEnergy.ENERGY, null);
+		if (capability == null) return false;
+		
+		int active_energy = AbstractEnergyItem.USE_ENERGY * YKItemRedstoneSword.ACTIVE_ENERGY_RATE; 
+		
+		if (capability.getEnergyStored() < active_energy) return false;
+		return true;
 	}
 }

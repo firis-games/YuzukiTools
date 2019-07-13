@@ -28,7 +28,7 @@ public abstract class AbstractEnergyItem extends Item {
 	/**
 	 * ツール1回あたりの消費量
 	 */
-	public static int USE_ENERGY = 80;
+	public static int USE_ENERGY = 50;
 
 	/**
 	 * コンストラクタ
