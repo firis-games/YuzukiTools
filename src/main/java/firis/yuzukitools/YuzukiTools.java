@@ -329,14 +329,11 @@ public class YuzukiTools
     			.setRegistryName(MODID, "redstone_hoe")
     			.setUnlocalizedName("redstone_hoe"));
     	
-    	//ソーラー充電器
-    	event.getRegistry().register(new ItemBlock(YKBlocks.SOLAR_CHARGER)
-    			.setRegistryName(MODID, "solar_charger"));
-    	
-    	//電気炉
-    	event.getRegistry().register(new ItemBlock(YKBlocks.ELECTRIC_FURNACE)
-    			.setRegistryName(MODID, "electric_furnace"));
-    	
+    	//レッドストーンの剣
+    	event.getRegistry().register(new YKItemRedstoneSword()
+    			.setRegistryName(MODID, "redstone_sword")
+    			.setUnlocalizedName("redstone_sword"));
+    	    	
     	//レッドストーンのヘルメット
     	event.getRegistry().register(new YKItemRedstoneArmor(EntityEquipmentSlot.HEAD)
     			.setRegistryName(MODID, "redstone_helmet")
@@ -357,10 +354,13 @@ public class YuzukiTools
     			.setRegistryName(MODID, "redstone_boots")
     			.setUnlocalizedName("redstone_boots"));
     	
-    	//レッドストーンの剣
-    	event.getRegistry().register(new YKItemRedstoneSword()
-    			.setRegistryName(MODID, "redstone_sword")
-    			.setUnlocalizedName("redstone_sword"));
+    	//ソーラー充電器
+    	event.getRegistry().register(new ItemBlock(YKBlocks.SOLAR_CHARGER)
+    			.setRegistryName(MODID, "solar_charger"));
+    	
+    	//電気炉
+    	event.getRegistry().register(new ItemBlock(YKBlocks.ELECTRIC_FURNACE)
+    			.setRegistryName(MODID, "electric_furnace"));
     	
     	//レッドストーンクリスタル
     	event.getRegistry().register(new YKItemRedstoneCrystal()
