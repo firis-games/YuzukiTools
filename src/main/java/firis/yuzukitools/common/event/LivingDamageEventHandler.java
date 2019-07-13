@@ -1,6 +1,7 @@
 package firis.yuzukitools.common.event;
 
 import firis.yuzukitools.YuzukiTools.YKItems;
+import firis.yuzukitools.common.item.AbstractEnergyItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -73,7 +74,7 @@ public class LivingDamageEventHandler {
 		//最大軽減ダメージ
 		int regDamage = Math.max((int) Math.ceil(event.getAmount()) - damageLimit, 0);
 		//アーマー消費ベース
-		int energyUnit = 10 * damageRate;
+		int energyUnit = AbstractEnergyItem.USE_ENERGY * damageRate;
 		
 		//最大軽減ダメージが0の場合は何もしない
 		if (regDamage == 0) return;
