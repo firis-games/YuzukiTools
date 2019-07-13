@@ -45,7 +45,7 @@ public class YKTileElectricFurnace extends AbstractTileEntity implements ITickab
 		this.inventory.setOutputSlot(new ArrayList<Integer>(Arrays.asList(1)));
 		
 		//Energy
-		this.energy = new TileEntityEnergyStorage(this, 20000);
+		this.energy = new TileEntityEnergyStorage(this, 50000);
 		
 	}
 	
