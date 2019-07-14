@@ -1,6 +1,8 @@
 package firis.yuzukitools.api.client.jei.electricfurnace;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import firis.yuzukitools.common.recipe.RecipesElectricFurnace;
 import firis.yuzukitools.common.tileentity.YKTileElectricFurnace;
@@ -13,7 +15,7 @@ import net.minecraft.item.ItemStack;
 
 public class JEIElectricFurnaceRecipeWrapper implements IRecipeWrapper {
 
-	public ItemStack input;
+	public List<List<ItemStack>> inputs;
 	public ItemStack output;
 	public Integer burnTime;
 	
@@ -21,7 +23,8 @@ public class JEIElectricFurnaceRecipeWrapper implements IRecipeWrapper {
 	 * コンストラクタ
 	 */
 	public JEIElectricFurnaceRecipeWrapper(RecipesElectricFurnace recipe) {
-		this.input = recipe.getInputItemStack();
+		this.inputs = new ArrayList<List<ItemStack>>();
+		this.inputs.add(recipe.getInputItemStackList());
 		this.output = recipe.getOutputItemStack();
 		this.burnTime = recipe.getBurnTime();
 	}
@@ -30,7 +33,7 @@ public class JEIElectricFurnaceRecipeWrapper implements IRecipeWrapper {
 	@Override
 	public void getIngredients(IIngredients ingredients) {
 		
-		ingredients.setInput(ItemStack.class, input);
+		ingredients.setInputLists(ItemStack.class, inputs);
 		ingredients.setOutput(ItemStack.class, output);
 		
 	}

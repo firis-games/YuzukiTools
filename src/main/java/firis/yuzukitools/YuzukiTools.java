@@ -181,13 +181,13 @@ public class YuzukiTools
     	//レイヤー登録
     	proxy.initLayerRenderer();
     	
-    	//電気炉レシピ登録
-    	RecipesElectricFurnace.init();
     }
     
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
+    	//電気炉レシピ登録
+    	RecipesElectricFurnace.init();
     }
     
     /**
