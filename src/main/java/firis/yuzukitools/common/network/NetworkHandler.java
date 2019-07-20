@@ -15,5 +15,8 @@ public class NetworkHandler {
 		
 		network.registerMessage(PacketOpenGuiC2S.class, PacketOpenGuiC2S.MessageOpenGui.class, idx++, Side.SERVER);
 		
+		//Jetpack
+		network.registerMessage(PacketJetpackKeyC2S.class, PacketJetpackKeyC2S.MessageJetpackKey.class, idx++, Side.SERVER);
+		
 	}
 }

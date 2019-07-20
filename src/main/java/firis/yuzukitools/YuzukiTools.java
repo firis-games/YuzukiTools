@@ -12,6 +12,7 @@ import firis.yuzukitools.common.block.YKBlockElectricFurnace;
 import firis.yuzukitools.common.block.YKBlockInstantHouse;
 import firis.yuzukitools.common.block.YKBlockSolarCharger;
 import firis.yuzukitools.common.item.YKItemBlockBackpack;
+import firis.yuzukitools.common.item.YKItemJetpack;
 import firis.yuzukitools.common.item.YKItemRedstoneArmor;
 import firis.yuzukitools.common.item.YKItemRedstoneAxe;
 import firis.yuzukitools.common.item.YKItemRedstoneCrystal;
@@ -126,6 +127,7 @@ public class YuzukiTools
     	public final static Item REDSTONE_BOOTS = null;
     	public final static Item REDSTONE_SWORD = null;
     	public final static Item REDSTONE_CRYSTAL = null;
+    	public final static Item JETPACK = null;
     }
     
     /**
@@ -366,6 +368,11 @@ public class YuzukiTools
     	event.getRegistry().register(new YKItemRedstoneCrystal()
     			.setRegistryName(MODID, "redstone_crystal")
     			.setUnlocalizedName("redstone_crystal"));
+    	
+    	//ジェットパック
+    	event.getRegistry().register(new YKItemJetpack()
+    			.setRegistryName(MODID, "jetpack")
+    			.setUnlocalizedName("jetpack"));
     	
     }
     
