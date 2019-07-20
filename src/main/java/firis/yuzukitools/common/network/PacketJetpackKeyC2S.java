@@ -20,13 +20,13 @@ public class PacketJetpackKeyC2S implements IMessageHandler<PacketJetpackKeyC2S.
 		//指定のTileEntityのnetwork連動メソッドを呼び出す
 		EntityPlayerMP player = ctx.getServerHandler().player;
 		
+		boolean jumpFlg = (message.mode & 1) == 1 ? true : false; 
+		boolean boostFlg = (message.mode & 2) == 2 ? true : false; 
+		
 		//キー入力判定
-		if (message.mode == 0) {
-			JetpackPlayerTickEventHandler.setJetpackJumpKey(player, false);
-		}
-		else if (message.mode == 1) {
-			JetpackPlayerTickEventHandler.setJetpackJumpKey(player, true);
-		}
+		JetpackPlayerTickEventHandler.setJetpackJumpKey(player, jumpFlg);
+		JetpackPlayerTickEventHandler.setJetpackBoostKey(player, boostFlg);
+		
 		return null;
 	}
 	

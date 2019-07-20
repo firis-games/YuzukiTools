@@ -23,6 +23,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class KeyBindingHandler {
 
 	public static final KeyBinding openGuiBackPack = new KeyBinding("key.open_gui_backpack", Keyboard.KEY_V, "itemGroup.tabYuzukiTools");
+
+	public static final KeyBinding jetpackBoost = new KeyBinding("key.jetpack_boost", Keyboard.KEY_B, "itemGroup.tabYuzukiTools");
 	
 	/**
 	 * キーバインド初期化
@@ -30,6 +32,7 @@ public class KeyBindingHandler {
 	public static void init() {
 		
 		ClientRegistry.registerKeyBinding(openGuiBackPack);
+		ClientRegistry.registerKeyBinding(jetpackBoost);
 		
 	}
 	
