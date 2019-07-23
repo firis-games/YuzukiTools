@@ -70,7 +70,9 @@ public class SoundJetpack extends PositionedSound implements ITickableSound {
 	 * @return
 	 */
 	public boolean isActive() {
-		return JetpackClientTickEventHandler.lastKeyjump || JetpackClientTickEventHandler.lastKeyBoost;
+		EntityPlayer player = getPlayer();
+		return JetpackClientTickEventHandler.lastKeyJump.getStat(player)
+				|| JetpackClientTickEventHandler.lastKeyBoost.getStat(player);
 	}
 	
 	

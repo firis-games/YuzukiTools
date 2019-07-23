@@ -27,14 +27,41 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class JetpackClientTickEventHandler {
 	
 	/**
+	 * 管理用クラス
+	 * @param <T>
+	 */
+	public static class PlayerStat<T> {
+		protected Map<UUID, T> statMap = new HashMap<UUID, T>();
+		protected T defaultValue;
+		public PlayerStat() {
+			defaultValue = null;
+		}
+		public PlayerStat(T def) {
+			defaultValue = def;
+		}
+		
+		public T getStat(EntityPlayer player) {
+			T stat = defaultValue;
+			if (statMap.containsKey(player.getUniqueID())) {
+				stat = statMap.get(player.getUniqueID());
+			}
+			return stat;
+		}
+		public void setStat(EntityPlayer player, T value) {
+			statMap.put(player.getUniqueID(), value);
+		}
+		
+	}
+	
+	/**
 	 * ジャンプキーの保存
 	 */
-	public static boolean lastKeyjump = false;
+	public static PlayerStat<Boolean> lastKeyJump = new PlayerStat<Boolean>(false);
 	
 	/**
 	 * ブーストキーの保存
 	 */
-	public static boolean lastKeyBoost = false;
+	public static PlayerStat<Boolean> lastKeyBoost = new PlayerStat<Boolean>(false);
 	
 	@SubscribeEvent
 	public static void onClientTickEvent(ClientTickEvent event) {
@@ -57,13 +84,14 @@ public class JetpackClientTickEventHandler {
 				|| player.onGround
 				|| Minecraft.getMinecraft().currentScreen != null) {
 			//キー入力がonの場合はリセット
-			if (lastKeyjump == true || lastKeyBoost == true) {
+			if (lastKeyJump.getStat(player) == true || lastKeyBoost.getStat(player) == true) {
 				//Server側へjetpackキーの状態を通信
 				NetworkHandler.network.sendToServer(
 						new PacketJetpackKeyC2S.MessageJetpackKey(0));
 			}
-			lastKeyjump = false;
-			lastKeyBoost = false;
+			
+			lastKeyJump.setStat(player, false);
+			lastKeyBoost.setStat(player, false);
 			return;
 		}
 		
@@ -73,13 +101,13 @@ public class JetpackClientTickEventHandler {
 		boolean isChange = false;
 		
 		boolean keyJump = Minecraft.getMinecraft().gameSettings.keyBindJump.isKeyDown();
-		if (keyJump != lastKeyjump) {
-			lastKeyjump = keyJump;
+		if (keyJump != lastKeyJump.getStat(player)) {
+			lastKeyJump.setStat(player, keyJump);
 			isChange = true;
 		}
 		boolean keyBoost = Keyboard.isKeyDown(KeyBindingHandler.jetpackBoost.getKeyCode());
-		if (keyBoost != lastKeyBoost) {
-			lastKeyBoost = keyBoost;
+		if (keyBoost != lastKeyBoost.getStat(player)) {
+			lastKeyBoost.setStat(player, keyJump);
 			isChange = true;
 		}
 		
@@ -87,10 +115,10 @@ public class JetpackClientTickEventHandler {
 		//ビットを立てて判断する
 		if (isChange) {
 			int packetMode = 0;
-			if (lastKeyjump) {
+			if (lastKeyJump.getStat(player)) {
 				packetMode |= 1;
 			}
-			if (lastKeyBoost) {
+			if (lastKeyBoost.getStat(player)) {
 				packetMode |= 2;
 			}
 			NetworkHandler.network.sendToServer(
@@ -100,14 +128,14 @@ public class JetpackClientTickEventHandler {
 		boolean sound = false;
 		//Jumpボタン押下かつGUIを開いてない場合処理を行う
 		//浮遊用
-		if (lastKeyjump) {
+		if (lastKeyJump.getStat(player)) {
 			player.motionY = Math.min(player.motionY + 0.15D, 0.5D);
 			player.fallDistance = 0.0F;
 			sound = true;
 		}
 		
 		//ブーストモード用
-		if (lastKeyBoost && YKItemJetpack.isActiveJetpackBoost(player)) {
+		if (lastKeyBoost.getStat(player) && YKItemJetpack.isActiveJetpackBoost(player)) {
 			Vec3d vec3d = player.getLookVec();
 			double boost = JetpackPlayerTickEventHandler.JETPACK_BOOST;
 			player.motionX += vec3d.x * 0.1D + (vec3d.x * 1.5D * boost - player.motionX) * 0.5D;
