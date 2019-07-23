@@ -1,0 +1,6 @@
+{
+	"item.jetpack": {
+		"category": "player", 
+		"sounds": [{"name": "yuzukitools:jetpack", "stream": false}]
+	}
+}

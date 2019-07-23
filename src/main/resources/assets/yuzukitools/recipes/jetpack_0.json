@@ -1,0 +1,22 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"zxz",
+		"zxz",
+		"yxy"
+	],
+	"key": {
+		"x": {
+			"item": "yuzukitools:redstone_ingot"
+		},
+		"y": {
+			"item": "minecraft:iron_ingot"
+		},
+		"z": {
+			"item": "minecraft:glass"
+		}
+	},
+	"result": {
+		"item": "yuzukitools:jetpack"
+	}
+}

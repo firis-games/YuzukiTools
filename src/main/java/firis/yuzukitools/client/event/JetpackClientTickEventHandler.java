@@ -1,12 +1,18 @@
 package firis.yuzukitools.client.event;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 import org.lwjgl.input.Keyboard;
 
+import firis.yuzukitools.client.sound.SoundJetpack;
 import firis.yuzukitools.common.event.JetpackPlayerTickEventHandler;
 import firis.yuzukitools.common.item.YKItemJetpack;
 import firis.yuzukitools.common.network.NetworkHandler;
 import firis.yuzukitools.common.network.PacketJetpackKeyC2S;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.ISound;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -23,12 +29,12 @@ public class JetpackClientTickEventHandler {
 	/**
 	 * ジャンプキーの保存
 	 */
-	private static boolean lastKeyjump = false;
+	public static boolean lastKeyjump = false;
 	
 	/**
 	 * ブーストキーの保存
 	 */
-	private static boolean lastKeyBoost = false;
+	public static boolean lastKeyBoost = false;
 	
 	@SubscribeEvent
 	public static void onClientTickEvent(ClientTickEvent event) {
@@ -91,11 +97,13 @@ public class JetpackClientTickEventHandler {
 					new PacketJetpackKeyC2S.MessageJetpackKey(packetMode));
 		}
 		
+		boolean sound = false;
 		//Jumpボタン押下かつGUIを開いてない場合処理を行う
 		//浮遊用
 		if (lastKeyjump) {
 			player.motionY = Math.min(player.motionY + 0.15D, 0.5D);
 			player.fallDistance = 0.0F;
+			sound = true;
 		}
 		
 		//ブーストモード用
@@ -104,6 +112,39 @@ public class JetpackClientTickEventHandler {
 			double boost = JetpackPlayerTickEventHandler.JETPACK_BOOST;
 			player.motionX += vec3d.x * 0.1D + (vec3d.x * 1.5D * boost - player.motionX) * 0.5D;
 			player.motionZ += vec3d.z * 0.1D + (vec3d.z * 1.5D * boost - player.motionZ) * 0.5D;
+			sound = true;
+		}
+		
+		//音を鳴らす
+		if (sound) {
+			PlayJetpackSound(player);
+		}
+	}
+	
+	//Jetpackキー入力保存用
+	protected static Map<UUID, ISound> jetpackSound = new HashMap<UUID, ISound>();
+		
+	/**
+	 * ジェットパックの音を鳴らす
+	 * @param player
+	 */
+	public static void PlayJetpackSound(EntityPlayer player) {
+		
+		boolean playing = false;
+		
+		//playチェック
+		if (jetpackSound.containsKey(player.getUniqueID())) {
+			playing = Minecraft.getMinecraft()
+					.getSoundHandler()
+					.isSoundPlaying(jetpackSound.get(player.getUniqueID()));
+		}
+
+		//音を鳴らす
+		if (!playing) {
+			jetpackSound.put(player.getUniqueID(), new SoundJetpack(player));
+			Minecraft.getMinecraft()
+			.getSoundHandler()
+			.playSound(jetpackSound.get(player.getUniqueID()));
 		}
 	}
 	
