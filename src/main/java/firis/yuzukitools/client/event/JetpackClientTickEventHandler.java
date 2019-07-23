@@ -107,7 +107,7 @@ public class JetpackClientTickEventHandler {
 		}
 		boolean keyBoost = Keyboard.isKeyDown(KeyBindingHandler.jetpackBoost.getKeyCode());
 		if (keyBoost != lastKeyBoost.getStat(player)) {
-			lastKeyBoost.setStat(player, keyJump);
+			lastKeyBoost.setStat(player, keyBoost);
 			isChange = true;
 		}
 		

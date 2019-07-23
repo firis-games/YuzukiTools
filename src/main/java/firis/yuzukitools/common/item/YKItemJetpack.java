@@ -18,7 +18,7 @@ public class YKItemJetpack extends AbstractEnergyItemArmor {
 	 */
 	public static int USE_ENERGY = 50;
 	
-	public static int USE_BOOST_ENERGY = 1000;
+	public static int USE_BOOST_ENERGY = 500;
 	
 	public YKItemJetpack() {
 		super(ArmorMaterial.LEATHER, EntityEquipmentSlot.CHEST, 200000);
