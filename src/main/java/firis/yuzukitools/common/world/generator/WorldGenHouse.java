@@ -44,7 +44,7 @@ public class WorldGenHouse extends WorldGenerator {
 		WorldServer worldserver = (WorldServer)world;
         TemplateManager templatemanager = worldserver.getStructureTemplateManager();
         Template template = templatemanager.getTemplate(null,
-        		new ResourceLocation(YuzukiTools.MODID, "house/house"));
+        		new ResourceLocation(YuzukiTools.MODID, "house/ykt_house"));
 		
         PlacementSettings placementsettings =  new PlacementSettings();
         

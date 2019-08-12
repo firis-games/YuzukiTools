@@ -34,7 +34,7 @@ public class YKTileInstantHouseSpRenderer extends TileEntitySpecialRenderer<YKTi
 	public YKTileInstantHouseSpRenderer(){
 		
 		//Template初期化
-		ResourceLocation rl = new ResourceLocation(YuzukiTools.MODID, "house/house");
+		ResourceLocation rl = new ResourceLocation(YuzukiTools.MODID, "house/ykt_house");
 		this.template = YKTileInstantHouseSpRenderer.getTemplateToJar(rl);
 
 		//設定初期化
