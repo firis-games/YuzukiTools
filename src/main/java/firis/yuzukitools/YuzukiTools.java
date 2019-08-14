@@ -168,6 +168,9 @@ public class YuzukiTools
         
         //ネットワーク登録
         NetworkHandler.init();
+        
+    	//Event登録
+    	proxy.registerEvent();
                 
     }
     
@@ -176,7 +179,7 @@ public class YuzukiTools
     {
     	//GUI登録
     	NetworkRegistry.INSTANCE.registerGuiHandler(YuzukiTools.INSTANCE, new ModGuiHandler());
-    	
+
     	//キーバインディング登録
     	proxy.registerKeyBinding();
     	
