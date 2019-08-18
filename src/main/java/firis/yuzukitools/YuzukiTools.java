@@ -7,9 +7,11 @@ import org.apache.logging.log4j.Logger;
 
 import firis.core.client.ShaderHelper;
 import firis.yuzukitools.client.tesr.YKTileInstantHouseSpRenderer;
+import firis.yuzukitools.client.tesr.YKTileKitchenGardenSpRenderer;
 import firis.yuzukitools.common.block.YKBlockBackpack;
 import firis.yuzukitools.common.block.YKBlockElectricFurnace;
 import firis.yuzukitools.common.block.YKBlockInstantHouse;
+import firis.yuzukitools.common.block.YKBlockKitchenGarden;
 import firis.yuzukitools.common.block.YKBlockSolarCharger;
 import firis.yuzukitools.common.item.YKItemBlockBackpack;
 import firis.yuzukitools.common.item.YKItemJetpack;
@@ -26,9 +28,11 @@ import firis.yuzukitools.common.network.NetworkHandler;
 import firis.yuzukitools.common.proxy.IProxy;
 import firis.yuzukitools.common.proxy.ModGuiHandler;
 import firis.yuzukitools.common.recipe.RecipesElectricFurnace;
+import firis.yuzukitools.common.recipe.RecipesKitchenGarden;
 import firis.yuzukitools.common.tileentity.YKTileBackpack;
 import firis.yuzukitools.common.tileentity.YKTileElectricFurnace;
 import firis.yuzukitools.common.tileentity.YKTileInstantHouse;
+import firis.yuzukitools.common.tileentity.YKTileKitchenGarden;
 import firis.yuzukitools.common.tileentity.YKTileSolarCharger;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -139,6 +143,7 @@ public class YuzukiTools
     	public final static Block BACKPACK = null;
     	public final static Block SOLAR_CHARGER = null;
     	public final static Block ELECTRIC_FURNACE = null;
+    	public final static Block KITCHEN_GARDEN = null;
     }
     
     
@@ -165,6 +170,9 @@ public class YuzukiTools
         
         GameRegistry.registerTileEntity(YKTileElectricFurnace.class, 
         		new ResourceLocation(YuzukiTools.MODID, "te_electric_furnace"));
+        
+        GameRegistry.registerTileEntity(YKTileKitchenGarden.class, 
+        		new ResourceLocation(YuzukiTools.MODID, "te_kitchen_garden"));
         
         //ネットワーク登録
         NetworkHandler.init();
@@ -193,6 +201,10 @@ public class YuzukiTools
     {
     	//電気炉レシピ登録
     	RecipesElectricFurnace.init();
+    	
+    	//家庭菜園レシピ登録
+    	RecipesKitchenGarden.init();
+    	
     }
     
     /**
@@ -227,6 +239,13 @@ public class YuzukiTools
                 new YKBlockElectricFurnace()
                 .setRegistryName(MODID, "electric_furnace")
                 .setUnlocalizedName("electric_furnace")
+        );
+        
+        // 家庭菜園
+        event.getRegistry().register(
+                new YKBlockKitchenGarden()
+                .setRegistryName(MODID, "kitchen_garden")
+                .setUnlocalizedName("kitchen_garden")
         );
     }
     
@@ -377,6 +396,9 @@ public class YuzukiTools
     			.setRegistryName(MODID, "jetpack")
     			.setUnlocalizedName("jetpack"));
     	
+    	//家庭菜園
+    	event.getRegistry().register(new ItemBlock(YKBlocks.KITCHEN_GARDEN)
+    			.setRegistryName(MODID, "kitchen_garden"));
     }
     
     /**
@@ -422,6 +444,9 @@ public class YuzukiTools
 
     	//インスタントハウスTESR
     	ClientRegistry.bindTileEntitySpecialRenderer(YKTileInstantHouse.class, new YKTileInstantHouseSpRenderer());
+    	
+    	//家庭菜園TESR
+    	ClientRegistry.bindTileEntitySpecialRenderer(YKTileKitchenGarden.class, new YKTileKitchenGardenSpRenderer());
     	
     	//GLSLロード
     	if (Minecraft.getMinecraft().getResourceManager() 

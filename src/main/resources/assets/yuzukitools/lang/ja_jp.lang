@@ -53,3 +53,6 @@ item.redstone_crystal.name=レッドストーンクリスタル
 item.jetpack.name=ジェットパック
 key.jetpack_boost=ジェットパックブースト
 
+tile.kitchen_garden.name=家庭菜園
+gui.kitchen_garden.name=家庭菜園
+

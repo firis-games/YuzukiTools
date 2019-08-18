@@ -53,3 +53,6 @@ item.redstone_crystal.name=Redstone Crystal
 item.jetpack.name=Jetpack
 key.jetpack_boost=Jetpack Boost
 
+tile.kitchen_garden.name=Kitchen Garden
+gui.kitchen_garden.name=Kitchen Garden
+

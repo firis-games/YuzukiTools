@@ -3,9 +3,11 @@ package firis.yuzukitools.common.proxy;
 import firis.core.common.inventory.CapabilityInventory;
 import firis.yuzukitools.client.gui.YKGuiContainerBackpack;
 import firis.yuzukitools.client.gui.YKGuiElectricFurnace;
+import firis.yuzukitools.client.gui.YKGuiKitchenGarden;
 import firis.yuzukitools.client.gui.YKGuiSolarCharger;
 import firis.yuzukitools.common.container.YKContainerBackpack;
 import firis.yuzukitools.common.container.YKContainerElectricFurnace;
+import firis.yuzukitools.common.container.YKContainerKitchenGarden;
 import firis.yuzukitools.common.container.YKContainerSolarCharger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -31,6 +33,9 @@ public class ModGuiHandler implements IGuiHandler {
 	
 	//電気炉
 	public final static int ELECTRIC_FURNACE = 4;
+	
+	//家庭菜園
+	public final static int KITCHEN_GARDEN = 5;
 	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -63,6 +68,11 @@ public class ModGuiHandler implements IGuiHandler {
 		case ModGuiHandler.ELECTRIC_FURNACE :
 			inventory = new CapabilityInventory(world.getTileEntity(new BlockPos(x, y, z)));
 			return new YKContainerElectricFurnace(inventory, player.inventory);
+		
+		//家庭菜園
+		case ModGuiHandler.KITCHEN_GARDEN :
+			inventory = new CapabilityInventory(world.getTileEntity(new BlockPos(x, y, z)));
+			return new YKContainerKitchenGarden(inventory, player.inventory);
 		}
 		
 		return null;
@@ -101,6 +111,11 @@ public class ModGuiHandler implements IGuiHandler {
 		case ModGuiHandler.ELECTRIC_FURNACE :
 			inventory = new CapabilityInventory(world.getTileEntity(new BlockPos(x, y, z)));
 			return new YKGuiElectricFurnace(inventory, player.inventory);
+		
+		//家庭菜園
+		case ModGuiHandler.KITCHEN_GARDEN :
+			inventory = new CapabilityInventory(world.getTileEntity(new BlockPos(x, y, z)));
+			return new YKGuiKitchenGarden(inventory, player.inventory);
 		}
 		
 		return null;
