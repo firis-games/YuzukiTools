@@ -26,8 +26,14 @@ public class RecipesKitchenGarden {
 	public static List<RecipesKitchenGarden> recipes = new ArrayList<RecipesKitchenGarden>();
 	
 	/**
+	 * 肥料用骨粉
+	 */
+	protected static ItemStack bone_meal = new ItemStack(Items.DYE, 1, 15);
+	
+	/**
 	 * レシピの初期化
 	 */
+	@SuppressWarnings("deprecation")
 	public static void init() {
 		//デフォルト種系のみ自動追加
     	Iterator<ResourceLocation> itemKeys = Item.REGISTRY.getKeys().iterator();
@@ -39,6 +45,31 @@ public class RecipesKitchenGarden {
     			register(item);
     		}
     	}
+    	
+    	//固定登録
+    	//サトウキビ
+    	register(new ItemStack(Items.REEDS), 
+    			Blocks.REEDS.getDefaultState(), 
+    			SoilType.DIRT_SAND,
+    			200,
+    			new ItemStack(Items.REEDS));
+    	
+    	//サボテン
+    	register(new ItemStack(Blocks.CACTUS), 
+    			Blocks.CACTUS.getDefaultState(), 
+    			SoilType.SAND,
+    			200,
+    			new ItemStack(Blocks.CACTUS));
+    	
+    	//オークの苗木
+    	register(new ItemStack(Blocks.SAPLING, 1, 0), 
+    			Blocks.SAPLING.getStateFromMeta(0), 
+    			SoilType.DIRT,
+    			400,
+    			new ItemStack(Blocks.LOG, 5, 0),
+    			new ItemStack(Blocks.SAPLING, 1, 0),
+    			new ItemStack(Items.APPLE, 1));
+    	
 	}
 	
 	/**
@@ -95,7 +126,7 @@ public class RecipesKitchenGarden {
 		soilList.add(new ItemStack(soil));
 
 		//肥料
-		fertilizerList.add(new ItemStack(Items.DYE, 1, 15));
+		fertilizerList.add(bone_meal.copy());
 		
 		//収穫物
 		harvestList.add(new ItemStack(cropItem));
@@ -115,6 +146,60 @@ public class RecipesKitchenGarden {
 				progress,
 				0,
 				maxAge
+				);
+	}
+	
+	
+	/**
+	 * 汎用登録用土壌タイプ設定
+	 * @author computer
+	 */
+	public static enum SoilType {
+		DIRT,
+		SAND,
+		DIRT_SAND;
+	}
+	/**
+	 * 汎用登録用
+	 * 骨粉対応
+	 */
+	public static void register(ItemStack seed, IBlockState seedState, SoilType soilType, int progress, ItemStack... harvest) {
+		
+		//レシピ設定用
+		List<ItemStack> soilList = new ArrayList<ItemStack>();
+		List<ItemStack> fertilizerList = new ArrayList<ItemStack>();
+		List<ItemStack> harvestList = new ArrayList<ItemStack>();
+		
+		//土壌
+		if (soilType == SoilType.DIRT) {
+			soilList.add(new ItemStack(Blocks.GRASS, 1, 32767));
+			soilList.add(new ItemStack(Blocks.DIRT, 1, 32767));
+		} else if (soilType == SoilType.SAND) {
+			soilList.add(new ItemStack(Blocks.SAND, 1, 32767));			
+		} else if (soilType == SoilType.DIRT_SAND) {
+			soilList.add(new ItemStack(Blocks.GRASS, 1, 32767));
+			soilList.add(new ItemStack(Blocks.DIRT, 1, 32767));
+			soilList.add(new ItemStack(Blocks.SAND, 1, 32767));			
+		}
+
+		//肥料
+		fertilizerList.add(bone_meal.copy());
+		
+		//収穫物
+		for(ItemStack stack : harvest) {
+			harvestList.add(stack.copy());
+		}
+
+		//種をレシピ登録する
+		commonRegister(
+				seed,
+				seedState,
+				soilList,
+				fertilizerList,
+				harvestList,
+				progress,
+				0,
+				0
 				);
 	}
 	
