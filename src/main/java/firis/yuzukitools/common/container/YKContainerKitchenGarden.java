@@ -80,7 +80,13 @@ public class YKContainerKitchenGarden extends AbstractContainer {
             	int slotIndex = j + i * invX + baseSlot;
             	int xPos = xBasePos + j * 18;
             	int yPos = yBasePos + i * 18;
-            	this.addSlotToContainer(new Slot(inventory, slotIndex, xPos, yPos));
+            	this.addSlotToContainer(new Slot(inventory, slotIndex, xPos, yPos) {
+        			@Override
+        			public boolean isItemValid(ItemStack stack)
+        		    {
+        		        return false;
+        		    }
+            	});
             }
         }
 	}
