@@ -47,6 +47,15 @@ public class RecipesKitchenGarden {
     	}
     	
     	//固定登録
+    	//ネザーウォート
+    	register(new ItemStack(Items.NETHER_WART), 
+    			Blocks.NETHER_WART.getDefaultState(), 
+    			SoilType.SOUL_SAND,
+    			200,
+    			0,
+    			3,
+    			new ItemStack(Items.NETHER_WART));
+    	
     	//サトウキビ
     	register(new ItemStack(Items.REEDS), 
     			Blocks.REEDS.getDefaultState(), 
@@ -61,15 +70,96 @@ public class RecipesKitchenGarden {
     			200,
     			new ItemStack(Blocks.CACTUS));
     	
+    	//カボチャ
+    	register(new ItemStack(Items.PUMPKIN_SEEDS), 
+    			Blocks.PUMPKIN.getDefaultState(), 
+    			SoilType.DIRT,
+    			200,
+    			new ItemStack(Blocks.PUMPKIN));
+    	
+    	//スイカ
+    	register(new ItemStack(Items.MELON_SEEDS), 
+    			Blocks.MELON_BLOCK.getDefaultState(), 
+    			SoilType.DIRT,
+    			200,
+    			new ItemStack(Blocks.MELON_BLOCK));
+    	
+    	//きのこ
+    	register(new ItemStack(Blocks.RED_MUSHROOM), 
+    			Blocks.RED_MUSHROOM.getDefaultState(), 
+    			SoilType.MUSHROOM,
+    			200,
+    			new ItemStack(Blocks.RED_MUSHROOM));
+    	register(new ItemStack(Blocks.BROWN_MUSHROOM), 
+    			Blocks.BROWN_MUSHROOM.getDefaultState(), 
+    			SoilType.MUSHROOM,
+    			200,
+    			new ItemStack(Blocks.BROWN_MUSHROOM));
+    	
     	//オークの苗木
     	register(new ItemStack(Blocks.SAPLING, 1, 0), 
     			Blocks.SAPLING.getStateFromMeta(0), 
     			SoilType.DIRT,
     			400,
-    			new ItemStack(Blocks.LOG, 5, 0),
+    			new ItemStack(Blocks.LOG, 4, 0),
     			new ItemStack(Blocks.SAPLING, 1, 0),
     			new ItemStack(Items.APPLE, 1));
     	
+    	//マツの苗木
+    	register(new ItemStack(Blocks.SAPLING, 1, 1), 
+    			Blocks.SAPLING.getStateFromMeta(1), 
+    			SoilType.DIRT,
+    			400,
+    			new ItemStack(Blocks.LOG, 5, 1),
+    			new ItemStack(Blocks.SAPLING, 1, 1));
+    	
+    	//シラカバの苗木
+    	register(new ItemStack(Blocks.SAPLING, 1, 2), 
+    			Blocks.SAPLING.getStateFromMeta(2), 
+    			SoilType.DIRT,
+    			400,
+    			new ItemStack(Blocks.LOG, 5, 2),
+    			new ItemStack(Blocks.SAPLING, 1, 2));
+    	
+    	//ジャングルの苗木
+    	register(new ItemStack(Blocks.SAPLING, 1, 3), 
+    			Blocks.SAPLING.getStateFromMeta(3), 
+    			SoilType.DIRT,
+    			400,
+    			new ItemStack(Blocks.LOG, 5, 3),
+    			new ItemStack(Blocks.SAPLING, 1, 3));
+    	
+    	//アカシアの苗木
+    	register(new ItemStack(Blocks.SAPLING, 1, 4), 
+    			Blocks.SAPLING.getStateFromMeta(4), 
+    			SoilType.DIRT,
+    			400,
+    			new ItemStack(Blocks.LOG2, 5, 0),
+    			new ItemStack(Blocks.SAPLING, 1, 4));
+    	
+    	//ダークオークの苗木
+    	register(new ItemStack(Blocks.SAPLING, 1, 5), 
+    			Blocks.SAPLING.getStateFromMeta(5), 
+    			SoilType.DIRT,
+    			400,
+    			new ItemStack(Blocks.LOG2, 5, 1),
+    			new ItemStack(Blocks.SAPLING, 1, 5));
+    	
+    	//お花
+    	for (int meta = 0; meta <= 8; meta++) {
+	    	register(new ItemStack(Blocks.RED_FLOWER, 1, meta), 
+	    			Blocks.RED_FLOWER.getStateFromMeta(meta), 
+	    			SoilType.DIRT,
+	    			200,
+	    			new ItemStack(Blocks.RED_FLOWER, 1, meta));
+    	}
+    	for (int meta = 0; meta <= 0; meta++) {
+	    	register(new ItemStack(Blocks.YELLOW_FLOWER, 1, meta), 
+	    			Blocks.YELLOW_FLOWER.getStateFromMeta(meta), 
+	    			SoilType.DIRT,
+	    			200,
+	    			new ItemStack(Blocks.YELLOW_FLOWER, 1, meta));
+    	}
 	}
 	
 	/**
@@ -129,8 +219,12 @@ public class RecipesKitchenGarden {
 		fertilizerList.add(bone_meal.copy());
 		
 		//収穫物
-		harvestList.add(new ItemStack(cropItem));
-		harvestList.add(new ItemStack(itemPlant));
+		if (cropItem != itemPlant) {
+			harvestList.add(new ItemStack(cropItem, 1));
+			harvestList.add(new ItemStack(itemPlant));
+		} else {
+			harvestList.add(new ItemStack(cropItem, 2));
+		}
 
 		//収穫までの時間（200tick）
 		int maxAge = ((BlockCrops)(plantState.getBlock())).getMaxAge();
@@ -155,15 +249,81 @@ public class RecipesKitchenGarden {
 	 * @author computer
 	 */
 	public static enum SoilType {
-		DIRT,
-		SAND,
-		DIRT_SAND;
+		DIRT(new ItemStack(Blocks.GRASS, 1, 32767), 
+				new ItemStack(Blocks.DIRT, 1, 32767)),
+		SAND(new ItemStack(Blocks.SAND, 1, 32767)),
+		DIRT_SAND(new ItemStack(Blocks.GRASS, 1, 32767), 
+				new ItemStack(Blocks.DIRT, 1, 32767),
+				new ItemStack(Blocks.SAND, 1, 32767)),
+		MUSHROOM(new ItemStack(Blocks.GRASS, 1, 32767), 
+				new ItemStack(Blocks.DIRT, 1, 32767),
+				new ItemStack(Blocks.STONE, 1, 32767),
+				new ItemStack(Blocks.LOG, 1, 32767),
+				new ItemStack(Blocks.LOG2, 1, 32767)),
+		SOUL_SAND(new ItemStack(Blocks.SOUL_SAND, 1, 32767)),
+		JUNGLE_WOOD(new ItemStack(Blocks.LOG, 1, 3)),
+		;
+		
+		private SoilType(ItemStack... doils) {
+			this.soilList = new ArrayList<ItemStack>();
+			for (ItemStack soil : doils) {
+				soilList.add(soil);
+			}
+		}
+		private List<ItemStack> soilList;
+		public List<ItemStack> getSoilList() {
+			return this.soilList;
+		}
 	}
+	
 	/**
 	 * 汎用登録用
 	 * 骨粉対応
 	 */
 	public static void register(ItemStack seed, IBlockState seedState, SoilType soilType, int progress, ItemStack... harvest) {
+		register(seed, seedState, soilType, progress, 0, 0, harvest);
+	}
+	
+	/**
+	 * 汎用登録用(metadata対応)
+	 * 骨粉対応
+	 */
+	public static void register(ItemStack seed, IBlockState seedState, SoilType soilType, int progress, int minAge, int maxAge, ItemStack... harvest) {
+		
+		//レシピ設定用
+		List<ItemStack> soilList = new ArrayList<ItemStack>();
+		List<ItemStack> fertilizerList = new ArrayList<ItemStack>();
+		List<ItemStack> harvestList = new ArrayList<ItemStack>();
+		
+		//土壌
+		soilList = soilType.getSoilList();
+
+		//肥料
+		fertilizerList.add(bone_meal.copy());
+		
+		//収穫物
+		for(ItemStack stack : harvest) {
+			harvestList.add(stack.copy());
+		}
+
+		//種をレシピ登録する
+		commonRegister(
+				seed,
+				seedState,
+				soilList,
+				fertilizerList,
+				harvestList,
+				progress,
+				minAge,
+				maxAge
+				);
+	}
+	
+	/**
+	 * 汎用登録用(metadata)
+	 * 骨粉対応
+	 */
+	public static void register(ItemStack seed, IBlockState seedState, SoilType soilType, int maxAge, int progress, ItemStack... harvest) {
 		
 		//レシピ設定用
 		List<ItemStack> soilList = new ArrayList<ItemStack>();
@@ -180,6 +340,12 @@ public class RecipesKitchenGarden {
 			soilList.add(new ItemStack(Blocks.GRASS, 1, 32767));
 			soilList.add(new ItemStack(Blocks.DIRT, 1, 32767));
 			soilList.add(new ItemStack(Blocks.SAND, 1, 32767));			
+		} else if (soilType == SoilType.MUSHROOM) {
+			soilList.add(new ItemStack(Blocks.GRASS, 1, 32767));
+			soilList.add(new ItemStack(Blocks.DIRT, 1, 32767));
+			soilList.add(new ItemStack(Blocks.STONE, 1, 32767));
+			soilList.add(new ItemStack(Blocks.LOG, 1, 32767));
+			soilList.add(new ItemStack(Blocks.LOG2, 1, 32767));
 		}
 
 		//肥料
@@ -334,6 +500,11 @@ public class RecipesKitchenGarden {
 	 */
 	@SuppressWarnings("deprecation")
 	public IBlockState getSeedStateProgress(int progress) {
+		
+		//minAgeとmaxAgeが0の場合はstateをそのまま返却する
+		if (minAge == 0 && maxAge == 0) {
+			return this.stateSeed;
+		}
 		
 		int stage = maxAge - minAge + 1;
 		
