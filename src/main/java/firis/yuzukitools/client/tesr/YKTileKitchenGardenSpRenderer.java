@@ -5,6 +5,7 @@ import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 
@@ -30,6 +31,9 @@ public class YKTileKitchenGardenSpRenderer extends TileEntitySpecialRenderer<YKT
 	
 	public void doRender(YKTileKitchenGarden te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 
+		//ライト設定（これをしないと描画したものが暗くなる）
+		RenderHelper.disableStandardItemLighting();
+		
 		//色を指定しないと描画したブロックが暗くなる
 		GlStateManager.color(1F, 1F, 1F, 1F);
 
@@ -77,6 +81,8 @@ public class YKTileKitchenGardenSpRenderer extends TileEntitySpecialRenderer<YKT
 			
 			GlStateManager.popMatrix();
 		}
+		
+		RenderHelper.enableStandardItemLighting();
 	}
 	
 }
