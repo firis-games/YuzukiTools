@@ -1,6 +1,7 @@
 package firis.yuzukitools.client.tesr;
 
 import firis.yuzukitools.common.tileentity.YKTileKitchenGarden;
+import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -25,15 +26,10 @@ public class YKTileKitchenGardenSpRenderer extends TileEntitySpecialRenderer<YKT
         this.doRender(te, x, y, z, partialTicks, destroyStage, alpha);
 
         GlStateManager.popMatrix();
-        
-		
 	}
 	
 	public void doRender(YKTileKitchenGarden te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 
-		
-		//GlStateManager.translate(x, y, posZ + 1);
-		
 		//色を指定しないと描画したブロックが暗くなる
 		GlStateManager.color(1F, 1F, 1F, 1F);
 
@@ -43,7 +39,6 @@ public class YKTileKitchenGardenSpRenderer extends TileEntitySpecialRenderer<YKT
 		IBlockState seedState = te.getRenderStateSeed();
 		if (seedState != null) {
 			GlStateManager.pushMatrix();
-
 			GlStateManager.scale(0.8F, 0.8F, 0.8F);
 			GlStateManager.translate(0.1F, 0, -0.1F);
 			
@@ -52,6 +47,20 @@ public class YKTileKitchenGardenSpRenderer extends TileEntitySpecialRenderer<YKT
 					seedState, 1.0F);
 			
 			GlStateManager.popMatrix();
+			
+			//BlockDoublePlantの例外処理
+			if (seedState.getBlock() instanceof BlockDoublePlant) {
+				//BlockDoublePlant blockDoublePlant = (BlockDoublePlant) seedState.getBlock();
+				seedState = seedState.withProperty(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.UPPER);
+				
+				GlStateManager.pushMatrix();
+				GlStateManager.translate(0.0F, 0.79F, 0.0F);
+				
+				Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(
+						seedState, 1.0F);
+				GlStateManager.popMatrix();
+				
+			}
 		}
 		
 		//土壌の描画
@@ -67,7 +76,7 @@ public class YKTileKitchenGardenSpRenderer extends TileEntitySpecialRenderer<YKT
 					soilState, 1.0F);
 			
 			GlStateManager.popMatrix();
-		}		
+		}
 	}
 	
 }

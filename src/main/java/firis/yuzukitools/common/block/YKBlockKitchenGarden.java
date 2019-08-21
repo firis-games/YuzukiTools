@@ -32,7 +32,7 @@ public class YKBlockKitchenGarden extends AbstractBlockContainer {
 	@Override
 	public boolean isFullCube(IBlockState state)
     {
-        return true;
+        return false;
     }
 	
 	@Override

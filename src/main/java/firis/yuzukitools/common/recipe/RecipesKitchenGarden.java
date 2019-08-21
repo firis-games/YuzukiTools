@@ -160,6 +160,24 @@ public class RecipesKitchenGarden {
 	    			200,
 	    			new ItemStack(Blocks.YELLOW_FLOWER, 1, meta));
     	}
+    	
+    	//コーラスフラワー
+    	register(new ItemStack(Blocks.CHORUS_FLOWER, 1), 
+    			Blocks.CHORUS_FLOWER.getDefaultState(), 
+    			SoilType.END_STONE,
+    			400,
+    			new ItemStack(Blocks.CHORUS_FLOWER, 1),
+    			new ItemStack(Items.CHORUS_FRUIT, 2));
+    	
+    	//2段の高さのお花
+    	for (int meta = 0; meta <= 5; meta++) {
+	    	register(new ItemStack(Blocks.DOUBLE_PLANT, 1, meta), 
+	    			Blocks.DOUBLE_PLANT.getStateFromMeta(meta), 
+	    			SoilType.DIRT,
+	    			200,
+	    			new ItemStack(Blocks.DOUBLE_PLANT, 1, meta));
+    	}
+    	
 	}
 	
 	/**
@@ -262,6 +280,7 @@ public class RecipesKitchenGarden {
 				new ItemStack(Blocks.LOG2, 1, 32767)),
 		SOUL_SAND(new ItemStack(Blocks.SOUL_SAND, 1, 32767)),
 		JUNGLE_WOOD(new ItemStack(Blocks.LOG, 1, 3)),
+		END_STONE(new ItemStack(Blocks.END_STONE, 1)),
 		;
 		
 		private SoilType(ItemStack... doils) {
@@ -316,56 +335,6 @@ public class RecipesKitchenGarden {
 				progress,
 				minAge,
 				maxAge
-				);
-	}
-	
-	/**
-	 * 汎用登録用(metadata)
-	 * 骨粉対応
-	 */
-	public static void register(ItemStack seed, IBlockState seedState, SoilType soilType, int maxAge, int progress, ItemStack... harvest) {
-		
-		//レシピ設定用
-		List<ItemStack> soilList = new ArrayList<ItemStack>();
-		List<ItemStack> fertilizerList = new ArrayList<ItemStack>();
-		List<ItemStack> harvestList = new ArrayList<ItemStack>();
-		
-		//土壌
-		if (soilType == SoilType.DIRT) {
-			soilList.add(new ItemStack(Blocks.GRASS, 1, 32767));
-			soilList.add(new ItemStack(Blocks.DIRT, 1, 32767));
-		} else if (soilType == SoilType.SAND) {
-			soilList.add(new ItemStack(Blocks.SAND, 1, 32767));			
-		} else if (soilType == SoilType.DIRT_SAND) {
-			soilList.add(new ItemStack(Blocks.GRASS, 1, 32767));
-			soilList.add(new ItemStack(Blocks.DIRT, 1, 32767));
-			soilList.add(new ItemStack(Blocks.SAND, 1, 32767));			
-		} else if (soilType == SoilType.MUSHROOM) {
-			soilList.add(new ItemStack(Blocks.GRASS, 1, 32767));
-			soilList.add(new ItemStack(Blocks.DIRT, 1, 32767));
-			soilList.add(new ItemStack(Blocks.STONE, 1, 32767));
-			soilList.add(new ItemStack(Blocks.LOG, 1, 32767));
-			soilList.add(new ItemStack(Blocks.LOG2, 1, 32767));
-		}
-
-		//肥料
-		fertilizerList.add(bone_meal.copy());
-		
-		//収穫物
-		for(ItemStack stack : harvest) {
-			harvestList.add(stack.copy());
-		}
-
-		//種をレシピ登録する
-		commonRegister(
-				seed,
-				seedState,
-				soilList,
-				fertilizerList,
-				harvestList,
-				progress,
-				0,
-				0
 				);
 	}
 	
