@@ -205,7 +205,7 @@ public class YKTileKitchenGarden extends AbstractTileEntity implements ITickable
 	 * 描画用種
 	 * @return
 	 */
-	public IBlockState getRenderStateSeed() {
+	public List<IBlockState> getRenderStateSeed() {
 		if (this.recipesKitchenGarden != null) {
 			return this.recipesKitchenGarden.getSeedStateProgress(this.progress);
 		}

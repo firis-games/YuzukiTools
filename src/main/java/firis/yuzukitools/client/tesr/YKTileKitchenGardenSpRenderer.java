@@ -1,7 +1,8 @@
 package firis.yuzukitools.client.tesr;
 
+import java.util.List;
+
 import firis.yuzukitools.common.tileentity.YKTileKitchenGarden;
-import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -40,30 +41,26 @@ public class YKTileKitchenGardenSpRenderer extends TileEntitySpecialRenderer<YKT
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		
 		//種の描画
-		IBlockState seedState = te.getRenderStateSeed();
-		if (seedState != null) {
-			GlStateManager.pushMatrix();
-			GlStateManager.scale(0.8F, 0.8F, 0.8F);
-			GlStateManager.translate(0.1F, 0, -0.1F);
-			
-			//描画
-			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(
-					seedState, 1.0F);
-			
-			GlStateManager.popMatrix();
-			
-			//BlockDoublePlantの例外処理
-			if (seedState.getBlock() instanceof BlockDoublePlant) {
-				//BlockDoublePlant blockDoublePlant = (BlockDoublePlant) seedState.getBlock();
-				seedState = seedState.withProperty(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.UPPER);
+		List<IBlockState> seedStateList = te.getRenderStateSeed();
+		if (seedStateList != null) {
+
+			int displayHeight = 0;
+			for (IBlockState seedState : seedStateList) {
 				
+				//種の描画を行う
 				GlStateManager.pushMatrix();
-				GlStateManager.translate(0.0F, 0.79F, 0.0F);
+				GlStateManager.scale(0.8F, 0.8F, 0.8F);
+				GlStateManager.translate(0.1F, 0, -0.1F);
 				
+				GlStateManager.translate(0, 1F * displayHeight, 0);
+				
+				//描画
 				Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(
 						seedState, 1.0F);
+				
 				GlStateManager.popMatrix();
 				
+				displayHeight++;
 			}
 		}
 		
@@ -74,7 +71,7 @@ public class YKTileKitchenGardenSpRenderer extends TileEntitySpecialRenderer<YKT
 			
 			GlStateManager.scale(0.8F, 0.8F, 0.8F);
 			GlStateManager.translate(0.1F, 0, -0.1F);
-			GlStateManager.translate(0.0F, -0.999F, 0.0F);
+			GlStateManager.translate(0.0F, -1.0F, 0.0F);
 			
 			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(
 					soilState, 1.0F);

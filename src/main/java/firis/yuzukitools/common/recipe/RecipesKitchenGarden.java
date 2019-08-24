@@ -9,6 +9,7 @@ import java.util.List;
 import firis.core.common.helper.ReflectionHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
+import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -171,8 +172,17 @@ public class RecipesKitchenGarden {
     	
     	//2段の高さのお花
     	for (int meta = 0; meta <= 5; meta++) {
+    		
+    		//表示用BlockState生成
+    		List<List<IBlockState>> displayList = new ArrayList<List<IBlockState>>();
+    		List<IBlockState> plantStateList = new ArrayList<IBlockState>();
+    		plantStateList.add(Blocks.DOUBLE_PLANT.getStateFromMeta(meta));
+    		plantStateList.add(Blocks.DOUBLE_PLANT.getStateFromMeta(meta).withProperty(
+    				BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.UPPER));
+    		displayList.add(plantStateList);
+    		
 	    	register(new ItemStack(Blocks.DOUBLE_PLANT, 1, meta), 
-	    			Blocks.DOUBLE_PLANT.getStateFromMeta(meta), 
+	    			displayList, 
 	    			SoilType.DIRT,
 	    			200,
 	    			new ItemStack(Blocks.DOUBLE_PLANT, 1, meta));
@@ -185,6 +195,7 @@ public class RecipesKitchenGarden {
 	 * @param inputStack
 	 * @param outputStack
 	 */
+	@SuppressWarnings("deprecation")
 	public static void register(Item itemPlant) {
 		
 		IPlantable plant;
@@ -245,20 +256,33 @@ public class RecipesKitchenGarden {
 		}
 
 		//収穫までの時間（200tick）
+		int minAge = 0;
 		int maxAge = ((BlockCrops)(plantState.getBlock())).getMaxAge();
 		int progress = 200;
+		
+		
+		List<List<IBlockState>> stateSeedList = new ArrayList<List<IBlockState>>();
+		if (minAge == 0 && maxAge == 0) {
+			List<IBlockState> tempSeed = new ArrayList<IBlockState>();
+			tempSeed.add(plantState);
+			stateSeedList.add(tempSeed);
+		} else {
+			//Age分のメタデータを設定する
+			for (int meta = minAge; meta <= maxAge; meta++) {
+				List<IBlockState> tempSeed = new ArrayList<IBlockState>();
+				tempSeed.add(plantState.getBlock().getStateFromMeta(meta));
+				stateSeedList.add(tempSeed);
+			}
+		}
 
 		//種をレシピ登録する
 		commonRegister(
 				new ItemStack(itemPlant),
-				plantState,
+				stateSeedList,
 				soilList,
 				fertilizerList,
 				harvestList,
-				progress,
-				0,
-				maxAge
-				);
+				progress);
 	}
 	
 	
@@ -296,7 +320,7 @@ public class RecipesKitchenGarden {
 	}
 	
 	/**
-	 * 汎用登録用
+	 * 汎用登録用（単一ブロック登録）
 	 * 骨粉対応
 	 */
 	public static void register(ItemStack seed, IBlockState seedState, SoilType soilType, int progress, ItemStack... harvest) {
@@ -307,7 +331,38 @@ public class RecipesKitchenGarden {
 	 * 汎用登録用(metadata対応)
 	 * 骨粉対応
 	 */
+	@SuppressWarnings("deprecation")
 	public static void register(ItemStack seed, IBlockState seedState, SoilType soilType, int progress, int minAge, int maxAge, ItemStack... harvest) {
+		
+		//IBlockStateを設定する
+		//minAgeとmaxAgeが0の場合はstateをそのまま設定する
+		List<List<IBlockState>> stateSeedList = new ArrayList<List<IBlockState>>();
+		if (minAge == 0 && maxAge == 0) {
+			List<IBlockState> tempSeed = new ArrayList<IBlockState>();
+			tempSeed.add(seedState);
+			stateSeedList.add(tempSeed);
+		} else {
+			//Age分のメタデータを設定する
+			for (int meta = minAge; meta <= maxAge; meta++) {
+				List<IBlockState> tempSeed = new ArrayList<IBlockState>();
+				tempSeed.add(seedState.getBlock().getStateFromMeta(meta));
+				stateSeedList.add(tempSeed);
+			}
+		}
+
+		//種をレシピ登録する
+		register(seed,
+				stateSeedList,
+				soilType,
+				progress,
+				harvest);
+	}
+	
+	/**
+	 * 汎用登録用
+	 * 骨粉対応
+	 */
+	public static void register(ItemStack seed, List<List<IBlockState>> stateSeedList, SoilType soilType, int progress, ItemStack... harvest) {
 		
 		//レシピ設定用
 		List<ItemStack> soilList = new ArrayList<ItemStack>();
@@ -328,14 +383,11 @@ public class RecipesKitchenGarden {
 		//種をレシピ登録する
 		commonRegister(
 				seed,
-				seedState,
+				stateSeedList,
 				soilList,
 				fertilizerList,
 				harvestList,
-				progress,
-				minAge,
-				maxAge
-				);
+				progress);
 	}
 	
 	/**
@@ -344,16 +396,14 @@ public class RecipesKitchenGarden {
 	 * @param outputStack
 	 * @param burnTime
 	 */
-	private static void commonRegister(ItemStack seed, IBlockState seedState, List<ItemStack> soilList, List<ItemStack> fertilizerList, List<ItemStack> harvestList, int progress, int minAge, int maxAge) {
+	private static void commonRegister(ItemStack seed, List<List<IBlockState>> stateSeedList, List<ItemStack> soilList, List<ItemStack> fertilizerList, List<ItemStack> harvestList, int progress) {
 		recipes.add(new RecipesKitchenGarden(
 				seed, 
-				seedState,
+				stateSeedList,
 				soilList,
 				fertilizerList,
 				harvestList,
-				progress,
-				minAge,
-				maxAge));
+				progress));
 	}
 	
 	/**
@@ -396,25 +446,13 @@ public class RecipesKitchenGarden {
 	/**
 	 * コンストラクタ(外部から直接呼び出さないようにする)
 	 */
-	@SuppressWarnings("deprecation")
-	private RecipesKitchenGarden(ItemStack seed, IBlockState seedState, List<ItemStack> soilList, List<ItemStack> fertilizerList, List<ItemStack> harvestList, int progress, int minAge, int maxAge) {
+	private RecipesKitchenGarden(ItemStack seed, List<List<IBlockState>> seedStateList, List<ItemStack> soilList, List<ItemStack> fertilizerList, List<ItemStack> harvestList, int progress) {
 		this.itemSeed = seed;
 		this.itemSoilList = soilList;
 		this.itemFertilizerList = fertilizerList;
 		this.itemHarvestList = harvestList;
 		this.progress = progress;
-
-		//IBlockStateを設定する
-		//minAgeとmaxAgeが0の場合はstateをそのまま設定する
-		this.stateSeedList = new ArrayList<IBlockState>();
-		if (minAge == 0 && maxAge == 0) {
-			this.stateSeedList.add(seedState);
-		} else {
-			//Age分のメタデータを設定する
-			for (int meta = minAge; meta <= maxAge; meta++) {
-				this.stateSeedList.add(seedState.getBlock().getStateFromMeta(meta));
-			}
-		}
+		this.stateSeedList = seedStateList;
 	}
 	
 	/**
@@ -428,8 +466,8 @@ public class RecipesKitchenGarden {
 	/**
 	 * 種描画用ブロック
 	 */
-	protected List<IBlockState> stateSeedList;
-	public List<IBlockState> getStateSeedList() {
+	protected List<List<IBlockState>> stateSeedList;
+	public List<List<IBlockState>> getStateSeedList() {
 		return this.stateSeedList;
 	}
 	
@@ -470,7 +508,7 @@ public class RecipesKitchenGarden {
 	 * @param progress
 	 * @return
 	 */
-	public IBlockState getSeedStateProgress(int progress) {
+	public List<IBlockState> getSeedStateProgress(int progress) {
 		
 		//minAgeとmaxAgeが0の場合はstateをそのまま返却する
 		if (this.stateSeedList.size() == 1) {
