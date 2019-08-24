@@ -396,15 +396,25 @@ public class RecipesKitchenGarden {
 	/**
 	 * コンストラクタ(外部から直接呼び出さないようにする)
 	 */
+	@SuppressWarnings("deprecation")
 	private RecipesKitchenGarden(ItemStack seed, IBlockState seedState, List<ItemStack> soilList, List<ItemStack> fertilizerList, List<ItemStack> harvestList, int progress, int minAge, int maxAge) {
 		this.itemSeed = seed;
-		this.stateSeed = seedState;
 		this.itemSoilList = soilList;
 		this.itemFertilizerList = fertilizerList;
 		this.itemHarvestList = harvestList;
 		this.progress = progress;
-		this.minAge = minAge;
-		this.maxAge = maxAge;
+
+		//IBlockStateを設定する
+		//minAgeとmaxAgeが0の場合はstateをそのまま設定する
+		this.stateSeedList = new ArrayList<IBlockState>();
+		if (minAge == 0 && maxAge == 0) {
+			this.stateSeedList.add(seedState);
+		} else {
+			//Age分のメタデータを設定する
+			for (int meta = minAge; meta <= maxAge; meta++) {
+				this.stateSeedList.add(seedState.getBlock().getStateFromMeta(meta));
+			}
+		}
 	}
 	
 	/**
@@ -418,7 +428,10 @@ public class RecipesKitchenGarden {
 	/**
 	 * 種描画用ブロック
 	 */
-	protected IBlockState stateSeed;
+	protected List<IBlockState> stateSeedList;
+	public List<IBlockState> getStateSeedList() {
+		return this.stateSeedList;
+	}
 	
 	/**
 	 * 土壌
@@ -451,38 +464,27 @@ public class RecipesKitchenGarden {
 	public int getProgress() {
 		return this.progress;
 	}
-	
-	/**
-	 * 描画用のメタデータMin
-	 */
-	protected int minAge;
-	
-	/**
-	 * 描画用のメタデータMax
-	 */
-	protected int maxAge;
-	
+		
 	/**
 	 * 進捗状態に応じた描画を返却する
 	 * @param progress
 	 * @return
 	 */
-	@SuppressWarnings("deprecation")
 	public IBlockState getSeedStateProgress(int progress) {
 		
 		//minAgeとmaxAgeが0の場合はstateをそのまま返却する
-		if (minAge == 0 && maxAge == 0) {
-			return this.stateSeed;
+		if (this.stateSeedList.size() == 1) {
+			return this.stateSeedList.get(0);
 		}
 		
-		int stage = maxAge - minAge + 1;
+		int stage = this.stateSeedList.size();
 		
 		int stageValue = (int) Math.floor((double)this.progress / (double)stage);
 		
 		int meta = progress / stageValue;
-		meta = Math.min(meta, this.maxAge);
+		meta = Math.min(meta, this.stateSeedList.size() - 1);
 		
-		return this.stateSeed.getBlock().getStateFromMeta(meta);
+		return this.stateSeedList.get(meta);
 	}
 	
 	/**
