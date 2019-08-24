@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 
 import firis.core.common.helper.ResourceHelper;
 import firis.yuzukitools.YuzukiTools;
+import firis.yuzukitools.common.config.YKConfig;
 import firis.yuzukitools.common.recipe.RecipesKitchenGarden.SoilType;
 import firis.yuzukitools.common.recipe.json.JsonRecipesKitchenGarden;
 import net.minecraft.block.BlockDoublePlant;
@@ -26,11 +27,13 @@ public class RecipesKitchenGardenInit {
 	 */
 	public static void init() {
 		
-		//Jsonから生成
-		initJsonRecipe();
-		
-		//プログラムから生成
-		//initCreateRecipe();
+		if (YKConfig.USE_JSON_RECIPE) {
+			//Jsonから生成
+			initJsonRecipe();
+		} else {
+			//プログラムから生成
+			initCreateRecipe();
+		}
 	}
 	
 	/**
