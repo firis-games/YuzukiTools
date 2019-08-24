@@ -28,7 +28,7 @@ import firis.yuzukitools.common.network.NetworkHandler;
 import firis.yuzukitools.common.proxy.IProxy;
 import firis.yuzukitools.common.proxy.ModGuiHandler;
 import firis.yuzukitools.common.recipe.RecipesElectricFurnace;
-import firis.yuzukitools.common.recipe.RecipesKitchenGarden;
+import firis.yuzukitools.common.recipe.RecipesKitchenGardenInit;
 import firis.yuzukitools.common.tileentity.YKTileBackpack;
 import firis.yuzukitools.common.tileentity.YKTileElectricFurnace;
 import firis.yuzukitools.common.tileentity.YKTileInstantHouse;
@@ -203,7 +203,7 @@ public class YuzukiTools
     	RecipesElectricFurnace.init();
     	
     	//家庭菜園レシピ登録
-    	RecipesKitchenGarden.init();
+    	RecipesKitchenGardenInit.init();
     	
     }
     

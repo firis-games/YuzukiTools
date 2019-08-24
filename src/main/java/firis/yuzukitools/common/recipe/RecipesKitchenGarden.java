@@ -3,19 +3,16 @@ package firis.yuzukitools.common.recipe;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import firis.core.common.helper.ReflectionHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
-import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 
@@ -30,166 +27,7 @@ public class RecipesKitchenGarden {
 	 * 肥料用骨粉
 	 */
 	protected static ItemStack bone_meal = new ItemStack(Items.DYE, 1, 15);
-	
-	/**
-	 * レシピの初期化
-	 */
-	@SuppressWarnings("deprecation")
-	public static void init() {
-		//デフォルト種系のみ自動追加
-    	Iterator<ResourceLocation> itemKeys = Item.REGISTRY.getKeys().iterator();
-    	while (itemKeys.hasNext()) {
-    		ResourceLocation rl = itemKeys.next();
-    		Item item = Item.REGISTRY.getObject(rl);
-    		//種系アイテム
-    		if (item instanceof IPlantable) {
-    			register(item);
-    		}
-    	}
-    	
-    	//固定登録
-    	//ネザーウォート
-    	register(new ItemStack(Items.NETHER_WART), 
-    			Blocks.NETHER_WART.getDefaultState(), 
-    			SoilType.SOUL_SAND,
-    			200,
-    			0,
-    			3,
-    			new ItemStack(Items.NETHER_WART));
-    	
-    	//サトウキビ
-    	register(new ItemStack(Items.REEDS), 
-    			Blocks.REEDS.getDefaultState(), 
-    			SoilType.DIRT_SAND,
-    			200,
-    			new ItemStack(Items.REEDS));
-    	
-    	//サボテン
-    	register(new ItemStack(Blocks.CACTUS), 
-    			Blocks.CACTUS.getDefaultState(), 
-    			SoilType.SAND,
-    			200,
-    			new ItemStack(Blocks.CACTUS));
-    	
-    	//カボチャ
-    	register(new ItemStack(Items.PUMPKIN_SEEDS), 
-    			Blocks.PUMPKIN.getDefaultState(), 
-    			SoilType.DIRT,
-    			200,
-    			new ItemStack(Blocks.PUMPKIN));
-    	
-    	//スイカ
-    	register(new ItemStack(Items.MELON_SEEDS), 
-    			Blocks.MELON_BLOCK.getDefaultState(), 
-    			SoilType.DIRT,
-    			200,
-    			new ItemStack(Blocks.MELON_BLOCK));
-    	
-    	//きのこ
-    	register(new ItemStack(Blocks.RED_MUSHROOM), 
-    			Blocks.RED_MUSHROOM.getDefaultState(), 
-    			SoilType.MUSHROOM,
-    			200,
-    			new ItemStack(Blocks.RED_MUSHROOM));
-    	register(new ItemStack(Blocks.BROWN_MUSHROOM), 
-    			Blocks.BROWN_MUSHROOM.getDefaultState(), 
-    			SoilType.MUSHROOM,
-    			200,
-    			new ItemStack(Blocks.BROWN_MUSHROOM));
-    	
-    	//オークの苗木
-    	register(new ItemStack(Blocks.SAPLING, 1, 0), 
-    			Blocks.SAPLING.getStateFromMeta(0), 
-    			SoilType.DIRT,
-    			400,
-    			new ItemStack(Blocks.LOG, 4, 0),
-    			new ItemStack(Blocks.SAPLING, 1, 0),
-    			new ItemStack(Items.APPLE, 1));
-    	
-    	//マツの苗木
-    	register(new ItemStack(Blocks.SAPLING, 1, 1), 
-    			Blocks.SAPLING.getStateFromMeta(1), 
-    			SoilType.DIRT,
-    			400,
-    			new ItemStack(Blocks.LOG, 5, 1),
-    			new ItemStack(Blocks.SAPLING, 1, 1));
-    	
-    	//シラカバの苗木
-    	register(new ItemStack(Blocks.SAPLING, 1, 2), 
-    			Blocks.SAPLING.getStateFromMeta(2), 
-    			SoilType.DIRT,
-    			400,
-    			new ItemStack(Blocks.LOG, 5, 2),
-    			new ItemStack(Blocks.SAPLING, 1, 2));
-    	
-    	//ジャングルの苗木
-    	register(new ItemStack(Blocks.SAPLING, 1, 3), 
-    			Blocks.SAPLING.getStateFromMeta(3), 
-    			SoilType.DIRT,
-    			400,
-    			new ItemStack(Blocks.LOG, 5, 3),
-    			new ItemStack(Blocks.SAPLING, 1, 3));
-    	
-    	//アカシアの苗木
-    	register(new ItemStack(Blocks.SAPLING, 1, 4), 
-    			Blocks.SAPLING.getStateFromMeta(4), 
-    			SoilType.DIRT,
-    			400,
-    			new ItemStack(Blocks.LOG2, 5, 0),
-    			new ItemStack(Blocks.SAPLING, 1, 4));
-    	
-    	//ダークオークの苗木
-    	register(new ItemStack(Blocks.SAPLING, 1, 5), 
-    			Blocks.SAPLING.getStateFromMeta(5), 
-    			SoilType.DIRT,
-    			400,
-    			new ItemStack(Blocks.LOG2, 5, 1),
-    			new ItemStack(Blocks.SAPLING, 1, 5));
-    	
-    	//お花
-    	for (int meta = 0; meta <= 8; meta++) {
-	    	register(new ItemStack(Blocks.RED_FLOWER, 1, meta), 
-	    			Blocks.RED_FLOWER.getStateFromMeta(meta), 
-	    			SoilType.DIRT,
-	    			200,
-	    			new ItemStack(Blocks.RED_FLOWER, 1, meta));
-    	}
-    	for (int meta = 0; meta <= 0; meta++) {
-	    	register(new ItemStack(Blocks.YELLOW_FLOWER, 1, meta), 
-	    			Blocks.YELLOW_FLOWER.getStateFromMeta(meta), 
-	    			SoilType.DIRT,
-	    			200,
-	    			new ItemStack(Blocks.YELLOW_FLOWER, 1, meta));
-    	}
-    	
-    	//コーラスフラワー
-    	register(new ItemStack(Blocks.CHORUS_FLOWER, 1), 
-    			Blocks.CHORUS_FLOWER.getDefaultState(), 
-    			SoilType.END_STONE,
-    			400,
-    			new ItemStack(Blocks.CHORUS_FLOWER, 1),
-    			new ItemStack(Items.CHORUS_FRUIT, 2));
-    	
-    	//2段の高さのお花
-    	for (int meta = 0; meta <= 5; meta++) {
-    		
-    		//表示用BlockState生成
-    		List<List<IBlockState>> displayList = new ArrayList<List<IBlockState>>();
-    		List<IBlockState> plantStateList = new ArrayList<IBlockState>();
-    		plantStateList.add(Blocks.DOUBLE_PLANT.getStateFromMeta(meta));
-    		plantStateList.add(Blocks.DOUBLE_PLANT.getStateFromMeta(meta).withProperty(
-    				BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.UPPER));
-    		displayList.add(plantStateList);
-    		
-	    	register(new ItemStack(Blocks.DOUBLE_PLANT, 1, meta), 
-	    			displayList, 
-	    			SoilType.DIRT,
-	    			200,
-	    			new ItemStack(Blocks.DOUBLE_PLANT, 1, meta));
-    	}
-    	
-	}
-	
+
 	/**
 	 * 種系アイテムのみ処理を行う
 	 * @param inputStack
