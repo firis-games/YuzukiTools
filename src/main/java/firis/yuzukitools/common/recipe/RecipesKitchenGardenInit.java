@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.google.gson.Gson;
+
+import firis.core.common.helper.ResourceHelper;
+import firis.yuzukitools.YuzukiTools;
 import firis.yuzukitools.common.recipe.RecipesKitchenGarden.SoilType;
+import firis.yuzukitools.common.recipe.json.JsonRecipesKitchenGarden;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -19,9 +24,40 @@ public class RecipesKitchenGardenInit {
 	/**
 	 * レシピの初期化
 	 */
-	@SuppressWarnings("deprecation")
 	public static void init() {
 		
+		//Jsonから生成
+		initJsonRecipe();
+		
+		//プログラムから生成
+		//initCreateRecipe();
+	}
+	
+	/**
+	 * jsonレシピから初期化
+	 */
+	public static void initJsonRecipe() {
+		//レシピリストを取得
+		List<String> recipeList = ResourceHelper.getResourceList("assets/" + YuzukiTools.MODID + "/mod/kitchen_garden_recipes");
+
+		Gson gson = new Gson();
+		for (String recipe : recipeList) {
+			
+			String json = ResourceHelper.getResourceString(recipe);
+			
+			//jsonオブジェクト化
+			JsonRecipesKitchenGarden jsonRecipe = gson.fromJson(json, JsonRecipesKitchenGarden.class);
+
+			//レシピ登録
+			RecipesKitchenGarden.register(jsonRecipe);
+		}
+	}
+	
+	/**
+	 * プログラム上でレシピを生成する
+	 */
+	@SuppressWarnings("deprecation")
+	public static void initCreateRecipe() {
 		//デフォルト種系のみ自動追加
     	Iterator<ResourceLocation> itemKeys = Item.REGISTRY.getKeys().iterator();
     	while (itemKeys.hasNext()) {

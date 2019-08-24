@@ -1,0 +1,40 @@
+{
+  "seed": "minecraft:wheat_seeds",
+  "display": [
+    [
+      "minecraft:wheat[age=0]"
+    ],
+    [
+      "minecraft:wheat[age=1]"
+    ],
+    [
+      "minecraft:wheat[age=2]"
+    ],
+    [
+      "minecraft:wheat[age=3]"
+    ],
+    [
+      "minecraft:wheat[age=4]"
+    ],
+    [
+      "minecraft:wheat[age=5]"
+    ],
+    [
+      "minecraft:wheat[age=6]"
+    ],
+    [
+      "minecraft:wheat[age=7]"
+    ]
+  ],
+  "soil": [
+    "minecraft:dirt:0"
+  ],
+  "fertilizer": [
+    "minecraft:dye:15"
+  ],
+  "harvest": [
+    "minecraft:wheat",
+    "minecraft:wheat_seeds"
+  ],
+  "progress": 200
+}

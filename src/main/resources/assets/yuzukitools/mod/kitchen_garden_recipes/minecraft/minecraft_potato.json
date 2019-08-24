@@ -1,0 +1,39 @@
+{
+  "seed": "minecraft:potato",
+  "display": [
+    [
+      "minecraft:potatoes[age=0]"
+    ],
+    [
+      "minecraft:potatoes[age=1]"
+    ],
+    [
+      "minecraft:potatoes[age=2]"
+    ],
+    [
+      "minecraft:potatoes[age=3]"
+    ],
+    [
+      "minecraft:potatoes[age=4]"
+    ],
+    [
+      "minecraft:potatoes[age=5]"
+    ],
+    [
+      "minecraft:potatoes[age=6]"
+    ],
+    [
+      "minecraft:potatoes[age=7]"
+    ]
+  ],
+  "soil": [
+    "minecraft:dirt:0"
+  ],
+  "fertilizer": [
+    "minecraft:dye:15"
+  ],
+  "harvest": [
+    "minecraft:potato*2"
+  ],
+  "progress": 200
+}

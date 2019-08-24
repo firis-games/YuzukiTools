@@ -1,0 +1,20 @@
+{
+  "seed": "minecraft:reeds",
+  "display": [
+    [
+      "minecraft:reeds[age=0]"
+    ]
+  ],
+  "soil": [
+    "minecraft:grass",
+    "minecraft:dirt:32767",
+    "minecraft:sand:32767"
+  ],
+  "fertilizer": [
+    "minecraft:dye:15"
+  ],
+  "harvest": [
+    "minecraft:reeds"
+  ],
+  "progress": 200
+}

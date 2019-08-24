@@ -1,0 +1,20 @@
+{
+  "seed": "minecraft:sapling:2",
+  "display": [
+    [
+      "minecraft:sapling[stage=0,type=birch]"
+    ]
+  ],
+  "soil": [
+    "minecraft:grass",
+    "minecraft:dirt:32767"
+  ],
+  "fertilizer": [
+    "minecraft:dye:15"
+  ],
+  "harvest": [
+    "minecraft:log:2*5",
+    "minecraft:sapling:2"
+  ],
+  "progress": 400
+}

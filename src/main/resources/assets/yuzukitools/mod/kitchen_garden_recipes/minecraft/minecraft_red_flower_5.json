@@ -1,0 +1,19 @@
+{
+  "seed": "minecraft:red_flower:5",
+  "display": [
+    [
+      "minecraft:red_flower[type=orange_tulip]"
+    ]
+  ],
+  "soil": [
+    "minecraft:grass",
+    "minecraft:dirt:32767"
+  ],
+  "fertilizer": [
+    "minecraft:dye:15"
+  ],
+  "harvest": [
+    "minecraft:red_flower:5"
+  ],
+  "progress": 200
+}

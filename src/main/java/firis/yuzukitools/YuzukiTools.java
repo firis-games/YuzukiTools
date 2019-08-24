@@ -29,6 +29,7 @@ import firis.yuzukitools.common.proxy.IProxy;
 import firis.yuzukitools.common.proxy.ModGuiHandler;
 import firis.yuzukitools.common.recipe.RecipesElectricFurnace;
 import firis.yuzukitools.common.recipe.RecipesKitchenGardenInit;
+import firis.yuzukitools.common.recipe.develop.CreateJsonRecipe;
 import firis.yuzukitools.common.tileentity.YKTileBackpack;
 import firis.yuzukitools.common.tileentity.YKTileElectricFurnace;
 import firis.yuzukitools.common.tileentity.YKTileInstantHouse;
@@ -82,7 +83,7 @@ public class YuzukiTools
     public static final String MOD_DEPENDENCIES = "required-after:forge@[1.12.2-14.23.5.2768,);after:jei@[1.12.2-4.13.1.220,)";
     public static final String MOD_ACCEPTED_MINECRAFT_VERSIONS = "[1.12.2]";
 
-    private static Logger logger;
+    public static Logger logger;
     
     @Instance(YuzukiTools.MODID)
     public static YuzukiTools INSTANCE;
@@ -204,6 +205,9 @@ public class YuzukiTools
     	
     	//家庭菜園レシピ登録
     	RecipesKitchenGardenInit.init();
+    	
+    	//Jsonレシピ生成処理
+		CreateJsonRecipe.create();
     	
     }
     

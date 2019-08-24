@@ -1,0 +1,18 @@
+{
+  "seed": "minecraft:cactus",
+  "display": [
+    [
+      "minecraft:cactus[age=0]"
+    ]
+  ],
+  "soil": [
+    "minecraft:sand:32767"
+  ],
+  "fertilizer": [
+    "minecraft:dye:15"
+  ],
+  "harvest": [
+    "minecraft:cactus"
+  ],
+  "progress": 200
+}

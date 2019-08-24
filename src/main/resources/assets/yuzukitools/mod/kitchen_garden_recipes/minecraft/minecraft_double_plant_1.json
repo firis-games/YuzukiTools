@@ -1,0 +1,20 @@
+{
+  "seed": "minecraft:double_plant:1",
+  "display": [
+    [
+      "minecraft:double_plant[facing=north,half=lower,variant=syringa]",
+      "minecraft:double_plant[facing=north,half=upper,variant=syringa]"
+    ]
+  ],
+  "soil": [
+    "minecraft:grass",
+    "minecraft:dirt:32767"
+  ],
+  "fertilizer": [
+    "minecraft:dye:15"
+  ],
+  "harvest": [
+    "minecraft:double_plant:1"
+  ],
+  "progress": 200
+}

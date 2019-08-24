@@ -5,7 +5,10 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import firis.core.common.helper.JsonHelper;
 import firis.core.common.helper.ReflectionHelper;
+import firis.core.common.helper.JsonHelper.JsonHelperException;
+import firis.yuzukitools.common.recipe.json.JsonRecipesKitchenGarden;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.state.IBlockState;
@@ -226,6 +229,73 @@ public class RecipesKitchenGarden {
 				fertilizerList,
 				harvestList,
 				progress);
+	}
+	
+	/**
+	 * Jsonオブジェクトからレシピ登録
+	 * @param seed
+	 * @param stateSeedList
+	 * @param soilType
+	 * @param progress
+	 * @param harvest
+	 */
+	public static void register(JsonRecipesKitchenGarden jsonRecipe) {
+		
+		try {
+			//種
+			ItemStack seed = JsonHelper.fromStringItemStack(jsonRecipe.seed);
+			
+			//描画用オブジェクト
+			List<List<IBlockState>> display = new ArrayList<>();
+			for (List<String> stage : jsonRecipe.display) {
+				List<IBlockState> stageList = new ArrayList<>();
+				for (String state : stage) {
+					stageList.add(JsonHelper.fromStringBlockState(state));
+				}
+				display.add(stageList);
+			}
+			
+			//土壌
+			List<ItemStack> soilList = fromStringItemStackList(jsonRecipe.soil);
+			
+			//肥料
+			List<ItemStack> fertilizerList = fromStringItemStackList(jsonRecipe.fertilizer);
+			
+			//収穫物
+			List<ItemStack> harvestList = fromStringItemStackList(jsonRecipe.harvest);
+			
+			//育成時間
+			int progress = jsonRecipe.progress;
+			
+			//レシピ登録
+			recipes.add(new RecipesKitchenGarden(
+					seed, 
+					display,
+					soilList,
+					fertilizerList,
+					harvestList,
+					progress));
+			
+		} catch (JsonHelperException exception) {
+			//レシピ登録失敗
+			
+		}
+	}
+	
+	/**
+	 * 文字列リストからItemStackリストを生成する
+	 * @param String
+	 * @return
+	 * @throws JsonHelperException 
+	 */
+	private static List<ItemStack> fromStringItemStackList(List<String> itemList) throws JsonHelperException {
+		List<ItemStack> itemStackList = new ArrayList<>();
+		
+		for (String item : itemList) {
+			itemStackList.add(JsonHelper.fromStringItemStack(item));
+		}
+		
+		return itemStackList;
 	}
 	
 	/**

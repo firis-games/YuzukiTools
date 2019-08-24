@@ -1,0 +1,19 @@
+{
+  "seed": "minecraft:red_flower:0",
+  "display": [
+    [
+      "minecraft:red_flower[type=poppy]"
+    ]
+  ],
+  "soil": [
+    "minecraft:grass",
+    "minecraft:dirt:32767"
+  ],
+  "fertilizer": [
+    "minecraft:dye:15"
+  ],
+  "harvest": [
+    "minecraft:red_flower:0"
+  ],
+  "progress": 200
+}

@@ -1,0 +1,27 @@
+{
+  "seed": "minecraft:nether_wart",
+  "display": [
+    [
+      "minecraft:nether_wart[age=0]"
+    ],
+    [
+      "minecraft:nether_wart[age=1]"
+    ],
+    [
+      "minecraft:nether_wart[age=2]"
+    ],
+    [
+      "minecraft:nether_wart[age=3]"
+    ]
+  ],
+  "soil": [
+    "minecraft:soul_sand"
+  ],
+  "fertilizer": [
+    "minecraft:dye:15"
+  ],
+  "harvest": [
+    "minecraft:nether_wart"
+  ],
+  "progress": 200
+}

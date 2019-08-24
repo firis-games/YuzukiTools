@@ -1,0 +1,28 @@
+{
+  "seed": "minecraft:beetroot_seeds",
+  "display": [
+    [
+      "minecraft:beetroots[age=0]"
+    ],
+    [
+      "minecraft:beetroots[age=1]"
+    ],
+    [
+      "minecraft:beetroots[age=2]"
+    ],
+    [
+      "minecraft:beetroots[age=3]"
+    ]
+  ],
+  "soil": [
+    "minecraft:dirt:0"
+  ],
+  "fertilizer": [
+    "minecraft:dye:15"
+  ],
+  "harvest": [
+    "minecraft:beetroot",
+    "minecraft:beetroot_seeds"
+  ],
+  "progress": 200
+}
