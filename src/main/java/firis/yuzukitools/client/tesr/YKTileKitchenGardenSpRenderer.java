@@ -49,8 +49,8 @@ public class YKTileKitchenGardenSpRenderer extends TileEntitySpecialRenderer<YKT
 				
 				//種の描画を行う
 				GlStateManager.pushMatrix();
-				GlStateManager.scale(0.8F, 0.8F, 0.8F);
-				GlStateManager.translate(0.1F, 0, -0.1F);
+				GlStateManager.scale(0.75F, 0.75F, 0.75F);
+				GlStateManager.translate(0.16F, 0, -0.16F);
 				
 				GlStateManager.translate(0, 1F * displayHeight, 0);
 				
@@ -69,8 +69,8 @@ public class YKTileKitchenGardenSpRenderer extends TileEntitySpecialRenderer<YKT
 		if (soilState != null) {
 			GlStateManager.pushMatrix();
 			
-			GlStateManager.scale(0.8F, 0.8F, 0.8F);
-			GlStateManager.translate(0.1F, 0, -0.1F);
+			GlStateManager.scale(0.75F, 0.75F, 0.75F);
+			GlStateManager.translate(0.16F, 0, -0.16F);
 			GlStateManager.translate(0.0F, -1.0F, 0.0F);
 			
 			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(
