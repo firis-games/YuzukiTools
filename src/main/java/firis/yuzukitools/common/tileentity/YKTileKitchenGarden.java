@@ -21,6 +21,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -469,6 +470,16 @@ public class YKTileKitchenGarden extends AbstractTileEntity implements ITickable
 		
 		this.inventory.setStackInSlot(Slot.Charge, fillStack);
 		
+	}
+	
+	/**
+	 * 描画範囲を設定する
+	 * 2段のお花まで考慮
+	 */
+	@Override
+	public AxisAlignedBB getRenderBoundingBox() {
+		//Rederer描画範囲設定
+		return new AxisAlignedBB(this.getPos(), this.getPos().add(1, 3, 1));
 	}
 
 }
