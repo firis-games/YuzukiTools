@@ -1,0 +1,19 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"y y",
+		"yxy",
+		"yyy"
+	],
+	"key": {
+		"x": {
+			"item": "yuzukitools:redstone_crystal"
+		},
+		"y": {
+			"item": "yuzukitools:redstone_ingot"
+		}
+	},
+	"result": {
+		"item": "yuzukitools:kitchen_garden"
+	}
+}
