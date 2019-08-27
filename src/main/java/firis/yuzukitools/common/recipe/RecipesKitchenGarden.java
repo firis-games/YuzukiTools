@@ -8,6 +8,7 @@ import java.util.List;
 import firis.core.common.helper.JsonHelper;
 import firis.core.common.helper.ReflectionHelper;
 import firis.core.common.helper.JsonHelper.JsonHelperException;
+import firis.yuzukitools.YuzukiTools;
 import firis.yuzukitools.common.recipe.json.JsonRecipesKitchenGarden;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
@@ -38,92 +39,95 @@ public class RecipesKitchenGarden {
 	 */
 	@SuppressWarnings("deprecation")
 	public static void register(Item itemPlant) {
-		
-		IPlantable plant;
-		if (itemPlant instanceof IPlantable) {
-			plant = (IPlantable) itemPlant;
-		} else {
-			return;
-		}
-		
-		//植物タイプを取得
-		EnumPlantType plantType = plant.getPlantType(null, null);
-		
-		//土壌を判断する
-		Block soil = null;
-		if (EnumPlantType.Crop.equals(plantType)) {
-			//土壌は耕地でなく土を使う
-			//soil = Blocks.FARMLAND;
-			soil = Blocks.DIRT;
-		} else if(EnumPlantType.Nether.equals(plantType)){
-			soil = Blocks.NETHER_BRICK;
-		}
-		
-		//土壌判定できない場合は登録しない
-		if (soil == null) return;
-		
-		//描画用
-		IBlockState plantState = plant.getPlant(null, null);
-		
-		//判断
-		if (!(plantState.getBlock() instanceof BlockCrops)) return;
-		
-		//収穫物を取得
-		Item cropItem = null;
-		Method method = ReflectionHelper.findMethod(plantState.getBlock().getClass(), "getCrop", "func_149865_P");
 		try {
-			cropItem = (Item) method.invoke(plantState.getBlock());
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-		}
-		if (cropItem == null) return;
-		
-		//レシピ設定用
-		List<ItemStack> soilList = new ArrayList<ItemStack>();
-		List<ItemStack> fertilizerList = new ArrayList<ItemStack>();
-		List<ItemStack> harvestList = new ArrayList<ItemStack>();
-		
-		//土壌
-		soilList.add(new ItemStack(soil));
-
-		//肥料
-		fertilizerList.add(bone_meal.copy());
-		
-		//収穫物
-		if (cropItem != itemPlant) {
-			harvestList.add(new ItemStack(cropItem, 1));
-			harvestList.add(new ItemStack(itemPlant));
-		} else {
-			harvestList.add(new ItemStack(cropItem, 2));
-		}
-
-		//収穫までの時間（200tick）
-		int minAge = 0;
-		int maxAge = ((BlockCrops)(plantState.getBlock())).getMaxAge();
-		int progress = 200;
-		
-		
-		List<List<IBlockState>> stateSeedList = new ArrayList<List<IBlockState>>();
-		if (minAge == 0 && maxAge == 0) {
-			List<IBlockState> tempSeed = new ArrayList<IBlockState>();
-			tempSeed.add(plantState);
-			stateSeedList.add(tempSeed);
-		} else {
-			//Age分のメタデータを設定する
-			for (int meta = minAge; meta <= maxAge; meta++) {
-				List<IBlockState> tempSeed = new ArrayList<IBlockState>();
-				tempSeed.add(plantState.getBlock().getStateFromMeta(meta));
-				stateSeedList.add(tempSeed);
+			IPlantable plant;
+			if (itemPlant instanceof IPlantable) {
+				plant = (IPlantable) itemPlant;
+			} else {
+				return;
 			}
+			
+			//植物タイプを取得
+			EnumPlantType plantType = plant.getPlantType(null, null);
+			
+			//土壌を判断する
+			Block soil = null;
+			if (EnumPlantType.Crop.equals(plantType)) {
+				//土壌は耕地でなく土を使う
+				//soil = Blocks.FARMLAND;
+				soil = Blocks.DIRT;
+			} else if(EnumPlantType.Nether.equals(plantType)){
+				soil = Blocks.NETHER_BRICK;
+			}
+			
+			//土壌判定できない場合は登録しない
+			if (soil == null) return;
+			
+			//描画用
+			IBlockState plantState = plant.getPlant(null, null);
+			
+			//判断
+			if (!(plantState.getBlock() instanceof BlockCrops)) return;
+			
+			//収穫物を取得
+			Item cropItem = null;
+			Method method = ReflectionHelper.findMethod(plantState.getBlock().getClass(), "getCrop", "func_149865_P");
+			try {
+				cropItem = (Item) method.invoke(plantState.getBlock());
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			}
+			if (cropItem == null) return;
+			
+			//レシピ設定用
+			List<ItemStack> soilList = new ArrayList<ItemStack>();
+			List<ItemStack> fertilizerList = new ArrayList<ItemStack>();
+			List<ItemStack> harvestList = new ArrayList<ItemStack>();
+			
+			//土壌
+			soilList.add(new ItemStack(soil));
+	
+			//肥料
+			fertilizerList.add(bone_meal.copy());
+			
+			//収穫物
+			if (cropItem != itemPlant) {
+				harvestList.add(new ItemStack(cropItem, 1));
+				harvestList.add(new ItemStack(itemPlant));
+			} else {
+				harvestList.add(new ItemStack(cropItem, 2));
+			}
+	
+			//収穫までの時間（200tick）
+			int minAge = 0;
+			int maxAge = ((BlockCrops)(plantState.getBlock())).getMaxAge();
+			int progress = 200;
+			
+			
+			List<List<IBlockState>> stateSeedList = new ArrayList<List<IBlockState>>();
+			if (minAge == 0 && maxAge == 0) {
+				List<IBlockState> tempSeed = new ArrayList<IBlockState>();
+				tempSeed.add(plantState);
+				stateSeedList.add(tempSeed);
+			} else {
+				//Age分のメタデータを設定する
+				for (int meta = minAge; meta <= maxAge; meta++) {
+					List<IBlockState> tempSeed = new ArrayList<IBlockState>();
+					tempSeed.add(plantState.getBlock().getStateFromMeta(meta));
+					stateSeedList.add(tempSeed);
+				}
+			}
+	
+			//種をレシピ登録する
+			commonRegister(
+					new ItemStack(itemPlant),
+					stateSeedList,
+					soilList,
+					fertilizerList,
+					harvestList,
+					progress);
+		} catch(Exception e) {
+			YuzukiTools.logger.error("Kitchen Garden Auto Register Error:" + itemPlant.getRegistryName().toString());
 		}
-
-		//種をレシピ登録する
-		commonRegister(
-				new ItemStack(itemPlant),
-				stateSeedList,
-				soilList,
-				fertilizerList,
-				harvestList,
-				progress);
 	}
 	
 	
