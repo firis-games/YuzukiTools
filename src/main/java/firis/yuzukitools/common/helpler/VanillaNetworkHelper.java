@@ -21,6 +21,7 @@ public class VanillaNetworkHelper {
 		if (!world.isRemote) {
 			List<EntityPlayer> list = world.playerEntities;
 			Packet<?> pkt = tile.getUpdatePacket();
+			tile.markDirty();
 			if (pkt != null) {
 				for (EntityPlayer player : list) {
 					EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
