@@ -34,7 +34,7 @@ public class JEIKitchenGardenRecipeCategory implements IRecipeCategory<JEIKitche
 	public JEIKitchenGardenRecipeCategory(IGuiHelper guiHelper) {
 		
 		//背景設定
-		this.background = guiHelper.createDrawable(recipe_gui, 0, 0, 110, 54);
+		this.background = guiHelper.createDrawable(recipe_gui, 0, 0, 110, 64);
 		
 		this.icon = guiHelper.createDrawableIngredient(new ItemStack(YKBlocks.KITCHEN_GARDEN));
 		this.localizedName = I18n.format("yuzukitools.jei.kitchen_garden.title");

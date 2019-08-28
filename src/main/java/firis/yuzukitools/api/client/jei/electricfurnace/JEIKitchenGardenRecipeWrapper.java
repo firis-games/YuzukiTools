@@ -1,5 +1,6 @@
 package firis.yuzukitools.api.client.jei.electricfurnace;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,9 @@ import firis.yuzukitools.common.recipe.RecipesKitchenGarden;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
 
 public class JEIKitchenGardenRecipeWrapper implements IRecipeWrapper {
 
@@ -55,7 +58,15 @@ public class JEIKitchenGardenRecipeWrapper implements IRecipeWrapper {
 	 */
 	@Override
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-
+		
+		String strProgress = TextFormatting.DARK_GRAY + 
+				"Progress" + " " + 
+				NumberFormat.getNumberInstance().format(this.progress) + "tick";
+		
+		//文字を描画
+		FontRenderer fontRenderer = minecraft.fontRenderer;
+		int stringWidth = fontRenderer.getStringWidth(strProgress);
+		fontRenderer.drawString(strProgress, recipeWidth - stringWidth, 56, 0xFF808080);
 	}
 
 }
