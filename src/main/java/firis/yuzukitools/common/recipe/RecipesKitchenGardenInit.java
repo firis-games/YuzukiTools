@@ -30,6 +30,7 @@ public class RecipesKitchenGardenInit {
 		if (YKConfig.USE_JSON_RECIPE) {
 			//Jsonから生成
 			initJsonRecipe();
+			initJsonConfigRecipe();
 		} else {
 			//プログラムから生成
 			initCreateRecipe();
@@ -47,6 +48,28 @@ public class RecipesKitchenGardenInit {
 		for (String recipe : recipeList) {
 			
 			String json = ResourceHelper.getResourceString(recipe);
+			
+			//jsonオブジェクト化
+			JsonRecipesKitchenGarden jsonRecipe = gson.fromJson(json, JsonRecipesKitchenGarden.class);
+
+			//レシピ登録
+			RecipesKitchenGarden.register(jsonRecipe);
+		}
+	}
+	
+	/**
+	 * jsonレシピから初期化
+	 */
+	public static void initJsonConfigRecipe() {
+		//レシピリストを取得
+		List<String> recipeList = ResourceHelper.getConfigFileList("recipes_kitchen_garden");
+		//Configレシピリストを取得
+		ResourceHelper.getConfigFileList("recipes_kitchen_garden");
+
+		Gson gson = new Gson();
+		for (String recipe : recipeList) {
+			
+			String json = ResourceHelper.getConfigFileString(recipe);
 			
 			//jsonオブジェクト化
 			JsonRecipesKitchenGarden jsonRecipe = gson.fromJson(json, JsonRecipesKitchenGarden.class);

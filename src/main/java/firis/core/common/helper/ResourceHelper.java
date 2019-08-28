@@ -110,4 +110,72 @@ public class ResourceHelper {
 		
 		return json;
 	}
+	
+	/**
+	 * Configフォルダ配下にあるファイルリストを取得する
+	 * eclipse起動時とjar起動時で挙動が異なる
+	 * @param resource
+	 * @return
+	 */
+	public static List<String> getConfigFileList(String resourcePath) {
+		
+		List<String> resourceList = new ArrayList<>();
+		
+		try {
+			//rootフォルダのチェック
+			Path configRoot = Paths.get(System.getProperty("user.dir"), "config", "yuzukitools");
+			if (!Files.isDirectory(configRoot)) {
+				//フォルダ作成
+				Files.createDirectories(configRoot);
+			}
+			//指定パスのディレクトリを確認
+			Path config = Paths.get(configRoot.toString(), resourcePath);
+			if (!Files.isDirectory(config)) {
+				//フォルダ作成
+				Files.createDirectories(config);
+			}
+			//フォルダの配下を検索する
+			List<Path> filePathList = Files.walk(config).collect(Collectors.toList());
+			for (Path filePath : filePathList) {
+				//ディレクトリは対象外とする
+				if (Files.isDirectory(filePath)) {
+					continue;
+				}
+				
+				String path = filePath.toUri().getPath();
+				
+				//rootパスを削除
+				path = path.replace(configRoot.toUri().getPath(), "");
+				
+				resourceList.add(path);
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return resourceList;
+	}
+	
+	/**
+	 * 指定パスのリソースを取得する
+	 * @return
+	 */
+	public static String getConfigFileString(String resource) {
+		
+		String json = "";
+		try {
+			//ファイルチェック
+			Path filePath = Paths.get(System.getProperty("user.dir"), "config", "yuzukitools", resource);
+			
+			if (!Files.exists(filePath)) {
+				return "";
+			}
+			//改行コードは無視
+			List<String> fileList = Files.readAllLines(filePath);
+			json = String.join("", fileList);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return json;
+	}
 }
