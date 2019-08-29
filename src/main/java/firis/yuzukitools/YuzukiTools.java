@@ -6,6 +6,7 @@ import java.lang.reflect.Modifier;
 import org.apache.logging.log4j.Logger;
 
 import firis.core.client.ShaderHelper;
+import firis.yuzukitools.api.recipe.RecipesKitchenGardenInit;
 import firis.yuzukitools.client.tesr.YKTileInstantHouseSpRenderer;
 import firis.yuzukitools.client.tesr.YKTileKitchenGardenSpRenderer;
 import firis.yuzukitools.common.block.YKBlockBackpack;
@@ -28,7 +29,6 @@ import firis.yuzukitools.common.network.NetworkHandler;
 import firis.yuzukitools.common.proxy.IProxy;
 import firis.yuzukitools.common.proxy.ModGuiHandler;
 import firis.yuzukitools.common.recipe.RecipesElectricFurnace;
-import firis.yuzukitools.common.recipe.RecipesKitchenGardenInit;
 import firis.yuzukitools.common.recipe.develop.CreateJsonRecipe;
 import firis.yuzukitools.common.tileentity.YKTileBackpack;
 import firis.yuzukitools.common.tileentity.YKTileElectricFurnace;
@@ -200,6 +200,7 @@ public class YuzukiTools
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
+    	
     	//電気炉レシピ登録
     	RecipesElectricFurnace.init();
     	

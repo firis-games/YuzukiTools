@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import firis.core.common.helper.JsonHelper;
-import firis.yuzukitools.common.recipe.RecipesKitchenGarden;
+import firis.yuzukitools.api.recipe.RecipesKitchenGarden;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 

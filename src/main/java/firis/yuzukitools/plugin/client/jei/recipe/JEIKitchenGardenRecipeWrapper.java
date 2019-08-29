@@ -4,7 +4,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import firis.yuzukitools.common.recipe.RecipesKitchenGarden;
+import firis.yuzukitools.api.recipe.RecipesKitchenGarden;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;

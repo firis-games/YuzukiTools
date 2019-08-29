@@ -1,4 +1,4 @@
-package firis.yuzukitools.common.recipe;
+package firis.yuzukitools.api.recipe;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,8 +8,8 @@ import com.google.gson.Gson;
 
 import firis.core.common.helper.ResourceHelper;
 import firis.yuzukitools.YuzukiTools;
+import firis.yuzukitools.api.recipe.RecipesKitchenGarden.SoilType;
 import firis.yuzukitools.common.config.YKConfig;
-import firis.yuzukitools.common.recipe.RecipesKitchenGarden.SoilType;
 import firis.yuzukitools.common.recipe.json.JsonRecipesKitchenGarden;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.state.IBlockState;

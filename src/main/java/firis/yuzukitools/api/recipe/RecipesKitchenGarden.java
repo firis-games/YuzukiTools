@@ -1,4 +1,4 @@
-package firis.yuzukitools.common.recipe;
+package firis.yuzukitools.api.recipe;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

@@ -11,7 +11,7 @@ import java.util.List;
 
 import com.google.gson.GsonBuilder;
 
-import firis.yuzukitools.common.recipe.RecipesKitchenGarden;
+import firis.yuzukitools.api.recipe.RecipesKitchenGarden;
 import firis.yuzukitools.common.recipe.json.JsonRecipesKitchenGarden;
 import net.minecraft.launchwrapper.Launch;
 
