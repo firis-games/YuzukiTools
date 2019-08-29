@@ -1,4 +1,4 @@
-package firis.yuzukitools.api.client.jei.recipe;
+package firis.yuzukitools.plugin.client.jei.recipe;
 
 import firis.yuzukitools.YuzukiTools;
 import firis.yuzukitools.YuzukiTools.YKBlocks;
