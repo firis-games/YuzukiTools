@@ -1,4 +1,4 @@
-package firis.yuzukitools.api.client.jei.electricfurnace;
+package firis.yuzukitools.api.client.jei.recipe;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;

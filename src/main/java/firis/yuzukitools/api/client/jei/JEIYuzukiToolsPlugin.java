@@ -2,10 +2,10 @@ package firis.yuzukitools.api.client.jei;
 
 import javax.annotation.Nonnull;
 
-import firis.yuzukitools.api.client.jei.electricfurnace.JEIElectricFurnaceRecipeCategory;
-import firis.yuzukitools.api.client.jei.electricfurnace.JEIElectricFurnaceRecipeWrapper;
-import firis.yuzukitools.api.client.jei.electricfurnace.JEIKitchenGardenRecipeCategory;
-import firis.yuzukitools.api.client.jei.electricfurnace.JEIKitchenGardenRecipeWrapper;
+import firis.yuzukitools.api.client.jei.recipe.JEIElectricFurnaceRecipeCategory;
+import firis.yuzukitools.api.client.jei.recipe.JEIElectricFurnaceRecipeWrapper;
+import firis.yuzukitools.api.client.jei.recipe.JEIKitchenGardenRecipeCategory;
+import firis.yuzukitools.api.client.jei.recipe.JEIKitchenGardenRecipeWrapper;
 import firis.yuzukitools.client.gui.YKGuiElectricFurnace;
 import firis.yuzukitools.client.gui.YKGuiKitchenGarden;
 import firis.yuzukitools.common.recipe.RecipesElectricFurnace;
