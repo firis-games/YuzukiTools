@@ -1,4 +1,4 @@
-package firis.yuzukitools.api;
+package firis.yuzukitools.common.recipe;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -6,7 +6,6 @@ import java.lang.reflect.Modifier;
 import org.apache.logging.log4j.Logger;
 
 import firis.core.client.ShaderHelper;
-import firis.yuzukitools.api.RecipeManager;
 import firis.yuzukitools.client.tesr.YKTileInstantHouseSpRenderer;
 import firis.yuzukitools.client.tesr.YKTileKitchenGardenSpRenderer;
 import firis.yuzukitools.common.block.YKBlockBackpack;
@@ -28,6 +27,7 @@ import firis.yuzukitools.common.item.YKItemToolHammeraxe;
 import firis.yuzukitools.common.network.NetworkHandler;
 import firis.yuzukitools.common.proxy.IProxy;
 import firis.yuzukitools.common.proxy.ModGuiHandler;
+import firis.yuzukitools.common.recipe.RecipeManager;
 import firis.yuzukitools.common.recipe.RecipesElectricFurnace;
 import firis.yuzukitools.common.recipe.develop.CreateJsonRecipe;
 import firis.yuzukitools.common.tileentity.YKTileBackpack;
