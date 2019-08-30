@@ -1,10 +1,9 @@
-package firis.yuzukitools.common.recipe.json;
+package firis.yuzukitools.api.recipe;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import firis.core.common.helper.JsonHelper;
-import firis.yuzukitools.api.recipe.RecipesKitchenGarden;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 

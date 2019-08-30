@@ -11,8 +11,9 @@ import java.util.List;
 
 import com.google.gson.GsonBuilder;
 
+import firis.yuzukitools.api.YuzukiToolsAPI;
+import firis.yuzukitools.api.recipe.JsonRecipesKitchenGarden;
 import firis.yuzukitools.api.recipe.RecipesKitchenGarden;
-import firis.yuzukitools.common.recipe.json.JsonRecipesKitchenGarden;
 import net.minecraft.launchwrapper.Launch;
 
 public class CreateJsonRecipe {
@@ -42,7 +43,7 @@ public class CreateJsonRecipe {
 		}
 		
 		//レシピを出力する
-		for (RecipesKitchenGarden recipe : RecipesKitchenGarden.recipes) {
+		for (RecipesKitchenGarden recipe : YuzukiToolsAPI.kitchenGardenRecipes) {
 			
 			String modid = recipe.getSeed().getItem().getRegistryName().getResourceDomain();
 			JsonRecipesKitchenGarden jsonRecipe = JsonRecipesKitchenGarden.toJson(recipe);

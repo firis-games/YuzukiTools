@@ -2,6 +2,7 @@ package firis.yuzukitools.plugin.client.jei;
 
 import javax.annotation.Nonnull;
 
+import firis.yuzukitools.api.YuzukiToolsAPI;
 import firis.yuzukitools.api.recipe.RecipesKitchenGarden;
 import firis.yuzukitools.client.gui.YKGuiElectricFurnace;
 import firis.yuzukitools.client.gui.YKGuiKitchenGarden;
@@ -52,7 +53,7 @@ public class JEIYuzukiToolsPlugin implements IModPlugin {
 				JEIKitchenGardenRecipeWrapper::new, 
 				JEIKitchenGardenRecipeCategory.UID);
 		
-		registry.addRecipes(RecipesKitchenGarden.recipes, JEIKitchenGardenRecipeCategory.UID);
+		registry.addRecipes(YuzukiToolsAPI.kitchenGardenRecipes, JEIKitchenGardenRecipeCategory.UID);
 		
 		
 		//「レシピを見る」の設定

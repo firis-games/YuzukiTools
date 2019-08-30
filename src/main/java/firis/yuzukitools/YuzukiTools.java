@@ -6,7 +6,7 @@ import java.lang.reflect.Modifier;
 import org.apache.logging.log4j.Logger;
 
 import firis.core.client.ShaderHelper;
-import firis.yuzukitools.api.recipe.RecipesKitchenGardenInit;
+import firis.yuzukitools.api.RecipeManager;
 import firis.yuzukitools.client.tesr.YKTileInstantHouseSpRenderer;
 import firis.yuzukitools.client.tesr.YKTileKitchenGardenSpRenderer;
 import firis.yuzukitools.common.block.YKBlockBackpack;
@@ -180,7 +180,9 @@ public class YuzukiTools
         
     	//Event登録
     	proxy.registerEvent();
-                
+    	
+    	//家庭菜園レシピ登録処理
+    	RecipeManager.registerPlugin(event.getAsmData());
     }
     
     @EventHandler
@@ -203,9 +205,6 @@ public class YuzukiTools
     	
     	//電気炉レシピ登録
     	RecipesElectricFurnace.init();
-    	
-    	//家庭菜園レシピ登録
-    	RecipesKitchenGardenInit.init();
     	
     	//Jsonレシピ生成処理
 		CreateJsonRecipe.create();
