@@ -4,10 +4,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import firis.core.common.helper.JsonHelper;
-import firis.core.common.helper.ReflectionHelper;
 import firis.core.common.helper.JsonHelper.JsonHelperException;
+import firis.core.common.helper.ReflectionHelper;
 import firis.yuzukitools.YuzukiTools;
 import firis.yuzukitools.api.YuzukiToolsAPI;
 import net.minecraft.block.Block;
@@ -44,13 +45,37 @@ public class KitchenGardenRegistry {
 	 * @param progress 育成時間
 	 */
 	private void commonRegister(ItemStack seed, List<List<IBlockState>> stateSeedList, List<ItemStack> soilList, List<ItemStack> fertilizerList, List<ItemStack> harvestList, int progress) {
-		YuzukiToolsAPI.kitchenGardenRecipes.add(new RecipesKitchenGarden(
+		
+		//レシピ生成
+		RecipesKitchenGarden newRecipe = new RecipesKitchenGarden(
 				seed, 
 				stateSeedList,
 				soilList,
 				fertilizerList,
 				harvestList,
-				progress));
+				progress);
+		
+		ListIterator<RecipesKitchenGarden> listIterator = YuzukiToolsAPI.kitchenGardenRecipes.listIterator();
+		
+		//重複レシピの判定
+		boolean isDuplicate = false;
+		while (listIterator.hasNext()) {
+			RecipesKitchenGarden recipe = listIterator.next();
+			ItemStack recipeSeed = recipe.getSeed();
+			//種のItemとmetadataが一致する場合はレシピを置換する
+			if (recipeSeed.getItem() == seed.getItem()
+					&& recipeSeed.getMetadata() == seed.getMetadata()) {
+				listIterator.remove();
+				listIterator.add(newRecipe);
+				isDuplicate = true;
+				break;
+			}
+		}
+		
+		//重複してない場合はそのまま登録
+		if (!isDuplicate) {
+			YuzukiToolsAPI.kitchenGardenRecipes.add(newRecipe);
+		}
 	}
 	
 	/**
@@ -222,13 +247,13 @@ public class KitchenGardenRegistry {
 			int progress = jsonRecipe.progress;
 			
 			//レシピ登録
-			YuzukiToolsAPI.kitchenGardenRecipes.add(new RecipesKitchenGarden(
+			commonRegister(
 					seed, 
 					display,
 					soilList,
 					fertilizerList,
 					harvestList,
-					progress));
+					progress);
 			
 		} catch (JsonHelperException exception) {
 			//レシピ登録失敗
