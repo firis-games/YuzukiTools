@@ -11,21 +11,32 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class RecipeRedstoneToolEnchantment extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe  {
 
-	protected final Item redstoneTool;
+	public final Item redstoneTool;
+	public final Item medalItem = YKItems.YUZUKI_MEDAL;
+	public final ItemStack catalystStack;
+	public final ItemStack resultStack;
 	
 	/**
 	 * 
 	 * @param redstoneTool
 	 */
-	public RecipeRedstoneToolEnchantment(Item redstoneTool) {
-		this.setRegistryName(redstoneTool.getRegistryName().toString() + "_enchantment");
+	public RecipeRedstoneToolEnchantment(Item redstoneTool, ItemStack catalystStack, Enchantment enchantment, int level) {
+		this.setRegistryName(redstoneTool.getRegistryName().toString() + "_" + enchantment);
 		this.redstoneTool = redstoneTool;
+		this.catalystStack = catalystStack;
+		
+		//エンチャントアイテム生成
+		ItemStack toolStack = new ItemStack(this.redstoneTool);
+		toolStack.addEnchantment(enchantment, level);
+		this.resultStack = toolStack;
+		
 	}
 	
 	@Override
 	public boolean matches(InventoryCrafting inv, World worldIn) {
 		
 		boolean tools = false;
+		boolean medal = false;
 		boolean catalyst = false;
 		
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
@@ -42,16 +53,24 @@ public class RecipeRedstoneToolEnchantment extends IForgeRegistryEntry.Impl<IRec
 				continue;
 			}
 			
+			//メダル
+			if (stack.getItem() == medalItem) {
+				medal = true;
+				continue;
+			}
+			
 			//触媒
-			if (stack.getItem() == YKItems.YUZUKI_MEDAL) {
+			if (stack.getItem() == catalystStack.getItem()
+					&& stack.getMetadata() == catalystStack.getMetadata()) {
 				catalyst = true;
 				continue;
 			}
+			
 			//それ以外
 			return false;
 		}
 		
-		if (tools & catalyst) {
+		if (tools && medal && catalyst) {
 			return true;
 		}
 		
@@ -60,19 +79,7 @@ public class RecipeRedstoneToolEnchantment extends IForgeRegistryEntry.Impl<IRec
 
 	@Override
 	public ItemStack getCraftingResult(InventoryCrafting inv) {
-		ItemStack toolStack = new ItemStack(this.redstoneTool);
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
-			if (stack.getItem() == this.redstoneTool) {
-				toolStack = stack.copy();
-			}
-		}
-		
-		//シルクタッチ
-		Enchantment silk_touch = Enchantment.getEnchantmentByLocation("silk_touch");
-		toolStack.addEnchantment(silk_touch, 1);
-		
-		return toolStack;
+		return this.resultStack.copy();
 	}
 
 	@Override

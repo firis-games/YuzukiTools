@@ -2,6 +2,8 @@ package firis.yuzukitools;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
@@ -43,6 +45,8 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.SimpleReloadableResourceManager;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
@@ -484,15 +488,44 @@ public class YuzukiTools
     @SubscribeEvent
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
     	
+    	//レッドストーンツール
+    	List<Item> toolList = new ArrayList<>();
+    	toolList.add(YKItems.REDSTONE_PICKAXE);
+    	toolList.add(YKItems.REDSTONE_AXE);
+    	toolList.add(YKItems.REDSTONE_SHOVEL);
+    	
     	//レッドストーンのツルハシ
-    	event.getRegistry().register(new RecipeRedstoneToolEnchantment(YKItems.REDSTONE_PICKAXE));
-    	
-    	//レッドストーンの斧
-    	event.getRegistry().register(new RecipeRedstoneToolEnchantment(YKItems.REDSTONE_AXE));
-
-    	//レッドストーンのシャベル
-    	event.getRegistry().register(new RecipeRedstoneToolEnchantment(YKItems.REDSTONE_SHOVEL));
-    	
+    	for (Item tool : toolList) {
+    		
+    		//シルクタッチ付与
+    		event.getRegistry().register(new RecipeRedstoneToolEnchantment(
+    				tool,
+        			new ItemStack(Blocks.GOLD_BLOCK),
+        			Enchantment.getEnchantmentByLocation("silk_touch"),
+        			1));
+    		
+    		//効率強化付与
+    		event.getRegistry().register(new RecipeRedstoneToolEnchantment(
+    				tool,
+        			new ItemStack(Blocks.EMERALD_BLOCK),
+        			Enchantment.getEnchantmentByLocation("efficiency"),
+        			5));
+    		
+    		//幸運
+    		event.getRegistry().register(new RecipeRedstoneToolEnchantment(
+    				tool,
+        			new ItemStack(Blocks.DIAMOND_BLOCK),
+        			Enchantment.getEnchantmentByLocation("fortune"),
+        			3));
+    		
+    		//幸運+
+    		event.getRegistry().register(new RecipeRedstoneToolEnchantment(
+    				tool,
+        			new ItemStack(Blocks.DRAGON_EGG),
+        			Enchantment.getEnchantmentByLocation("fortune"),
+        			4));
+    		
+    	}
     }
     
 }
