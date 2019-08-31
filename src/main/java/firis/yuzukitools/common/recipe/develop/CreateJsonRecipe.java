@@ -14,23 +14,26 @@ import com.google.gson.GsonBuilder;
 import firis.yuzukitools.api.YuzukiToolsAPI;
 import firis.yuzukitools.api.recipe.JsonRecipesKitchenGarden;
 import firis.yuzukitools.api.recipe.RecipesKitchenGarden;
-import net.minecraft.launchwrapper.Launch;
+import firis.yuzukitools.common.config.YKConfig;
 
 public class CreateJsonRecipe {
 
 	/**
-	 * 開発環境のみで動かす
+	 * Configファイルから出力設定をOnにすると
+	 * yuzukitools_cstm_recipe/kitchen_gardenにレシピのjsonファイルを出力する
 	 * @throws IOException 
 	 */
 	public static void create() {
 		
-		if (!(Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment")) {
-			//開発環境でない場合は何もしない
-			return;
-		}
+		//Jsonファイル出力
+		if( YKConfig.DEVELOP_TOOL_OUTPUT_JSON_KITCHEN_GARDEN_RECIPE != true) return;
+		//if (!(Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment")) {
+		//	//開発環境でない場合は何もしない
+		//	return;
+		//}
 		
 		//家庭菜園のレシピを出力
-		Path gardenPath = Paths.get("cstm_recipe", "kitchen_garden");
+		Path gardenPath = Paths.get("yuzukitools_cstm_recipe", "kitchen_garden");
 		
 		//フォルダがない場合は生成
 		try {
@@ -61,8 +64,8 @@ public class CreateJsonRecipe {
 			jsonList.add(jsonStr);
 			
 			//Path
-			Path dict = Paths.get("cstm_recipe", "kitchen_garden", modid);
-			Path path = Paths.get("cstm_recipe", "kitchen_garden", modid, fileName);
+			Path dict = Paths.get("yuzukitools_cstm_recipe", "kitchen_garden", modid);
+			Path path = Paths.get("yuzukitools_cstm_recipe", "kitchen_garden", modid, fileName);
 			
 			try {
 				if (!Files.isDirectory(dict)) {

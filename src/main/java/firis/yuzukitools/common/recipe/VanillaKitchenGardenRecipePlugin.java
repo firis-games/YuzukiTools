@@ -6,7 +6,6 @@ import java.util.List;
 import firis.yuzukitools.api.recipe.IYuzukiToolsPlugin;
 import firis.yuzukitools.api.recipe.KitchenGardenRegistry;
 import firis.yuzukitools.api.recipe.YuzukiToolsPlugin;
-import firis.yuzukitools.common.config.YKConfig;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -24,9 +23,6 @@ public class VanillaKitchenGardenRecipePlugin implements IYuzukiToolsPlugin {
 	@Override
 	public void registerKitchenGardenRecipe(KitchenGardenRegistry recipe) {
 
-		//Jsonレシピが有効な場合は登録を行わない
-		if (YKConfig.USE_JSON_RECIPE == true) return;
-		
 		//骨粉
 		ItemStack bone_meal = new ItemStack(Items.DYE, 1, 15);
 		int progress = 200;
