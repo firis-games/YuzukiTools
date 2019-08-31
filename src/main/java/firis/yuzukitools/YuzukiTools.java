@@ -29,6 +29,7 @@ import firis.yuzukitools.common.network.NetworkHandler;
 import firis.yuzukitools.common.proxy.IProxy;
 import firis.yuzukitools.common.proxy.ModGuiHandler;
 import firis.yuzukitools.common.recipe.RecipeManager;
+import firis.yuzukitools.common.recipe.RecipeRedstoneToolEnchantment;
 import firis.yuzukitools.common.recipe.RecipesElectricFurnace;
 import firis.yuzukitools.common.recipe.develop.CreateJsonRecipe;
 import firis.yuzukitools.common.tileentity.YKTileBackpack;
@@ -48,6 +49,7 @@ import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -472,6 +474,25 @@ public class YuzukiTools
 	    				"/assets/yuzukitools/shader/alpha.frag");
 	    	}
     	}
+    }
+    
+    
+    /**
+     * カスタムレシピ登録
+     * @param event
+     */
+    @SubscribeEvent
+	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+    	
+    	//レッドストーンのツルハシ
+    	event.getRegistry().register(new RecipeRedstoneToolEnchantment(YKItems.REDSTONE_PICKAXE));
+    	
+    	//レッドストーンの斧
+    	event.getRegistry().register(new RecipeRedstoneToolEnchantment(YKItems.REDSTONE_AXE));
+
+    	//レッドストーンのシャベル
+    	event.getRegistry().register(new RecipeRedstoneToolEnchantment(YKItems.REDSTONE_SHOVEL));
+    	
     }
     
 }
