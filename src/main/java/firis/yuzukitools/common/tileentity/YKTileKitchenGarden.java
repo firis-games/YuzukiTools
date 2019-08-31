@@ -277,7 +277,8 @@ public class YKTileKitchenGarden extends AbstractTileEntity implements ITickable
 						|| water.amount != tickWater) {
 				} else {
 					//問題なければ消費して進捗を進める
-					this.inventory.directExtractItem(Slot.Fertilizer, 1, false);
+					int fertilizerCount = this.recipesKitchenGarden.shrinkFertilizerCount(this.inventory.getStackInSlot(Slot.Fertilizer));
+					this.inventory.directExtractItem(Slot.Fertilizer, fertilizerCount, false);
 					this.fluid.drain(tickWater, true);
 					this.energy.extractEnergy(tickEnergy, false);
 					this.progress = this.getMaxProgress();

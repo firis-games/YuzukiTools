@@ -140,11 +140,33 @@ public class RecipesKitchenGarden {
 		for (ItemStack stack : itemFertilizerList) {
 		
 			if (fertilizer.getItem() == stack.getItem()
-					&& fertilizer.getMetadata() == stack.getMetadata()) {
+					&& fertilizer.getMetadata() == stack.getMetadata()
+					&& fertilizer.getCount() >= stack.getCount()) {
 				ret = true;
 				break;
 			}
 		}
 		return ret;
+	}
+	
+	/**
+	 * 肥料使用個数
+	 * @param Fertilizer
+	 * @return
+	 */
+	public int shrinkFertilizerCount(ItemStack fertilizer) {
+		int shrink = 0;
+		if (fertilizer.isEmpty()) return shrink;
+		
+		for (ItemStack stack : itemFertilizerList) {
+		
+			if (fertilizer.getItem() == stack.getItem()
+					&& fertilizer.getMetadata() == stack.getMetadata()
+					&& fertilizer.getCount() >= stack.getCount()) {
+				shrink = fertilizer.getCount();
+				break;
+			}
+		}
+		return shrink;
 	}
 }
