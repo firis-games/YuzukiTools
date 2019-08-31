@@ -181,8 +181,8 @@ public class YuzukiTools
     	//Event登録
     	proxy.registerEvent();
     	
-    	//家庭菜園レシピ登録処理
-    	RecipeManager.registerPlugin(event.getAsmData());
+    	//Pluginレシピ読み込み
+    	RecipeManager.preInitRegisterPlugin(event);
     }
     
     @EventHandler
@@ -205,6 +205,9 @@ public class YuzukiTools
     	
     	//電気炉レシピ登録
     	RecipesElectricFurnace.init();
+    	
+    	//Pluginレシピ登録
+    	RecipeManager.postInitRegisterPlugin(event);
     	
     	//Jsonレシピ生成処理
 		CreateJsonRecipe.create();

@@ -15,6 +15,6 @@ public class YuzukiToolsAPI {
 	/**
 	 * 家庭菜園レシピリスト
 	 */
-	public static List<RecipesKitchenGarden> kitchenGardenRecipes = new ArrayList<RecipesKitchenGarden>();
+	public static final List<RecipesKitchenGarden> kitchenGardenRecipes = new ArrayList<RecipesKitchenGarden>();
 	
 }

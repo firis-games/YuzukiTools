@@ -11,8 +11,9 @@ import firis.yuzukitools.api.recipe.JsonRecipesKitchenGarden;
 import firis.yuzukitools.api.recipe.KitchenGardenRegistry;
 import firis.yuzukitools.api.recipe.YuzukiToolsPlugin;
 import firis.yuzukitools.common.config.YKConfig;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 
-@YuzukiToolsPlugin
+@YuzukiToolsPlugin(priority = EventPriority.HIGHEST)
 public class JsonKitchenGardenRecipePlugin implements IYuzukiToolsPlugin {
 
 	/**

@@ -12,8 +12,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 
-@YuzukiToolsPlugin
+@YuzukiToolsPlugin(priority = EventPriority.LOWEST)
 public class VanillaKitchenGardenRecipePlugin implements IYuzukiToolsPlugin {
 
 	/**
@@ -227,6 +228,7 @@ public class VanillaKitchenGardenRecipePlugin implements IYuzukiToolsPlugin {
 	 * @author computer
 	 */
 	public enum SoilType {
+		FARMLAND(new ItemStack(Blocks.DIRT, 1, 0)),
 		DIRT(new ItemStack(Blocks.GRASS, 1, 32767), 
 				new ItemStack(Blocks.DIRT, 1, 32767)),
 		SAND(new ItemStack(Blocks.SAND, 1, 32767)),
