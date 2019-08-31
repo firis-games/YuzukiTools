@@ -16,6 +16,7 @@ import firis.yuzukitools.common.block.YKBlockSolarCharger;
 import firis.yuzukitools.common.item.YKItemBlockBackpack;
 import firis.yuzukitools.common.item.YKItemJetpack;
 import firis.yuzukitools.common.item.YKItemRedstoneArmor;
+import firis.yuzukitools.common.item.YKItemRedstoneArmorWithJetpack;
 import firis.yuzukitools.common.item.YKItemRedstoneAxe;
 import firis.yuzukitools.common.item.YKItemRedstoneCrystal;
 import firis.yuzukitools.common.item.YKItemRedstoneHoe;
@@ -133,6 +134,7 @@ public class YuzukiTools
     	public final static Item REDSTONE_SWORD = null;
     	public final static Item REDSTONE_CRYSTAL = null;
     	public final static Item JETPACK = null;
+    	public final static Item REDSTONE_CHESTPLATE_JP = null;
     }
     
     /**
@@ -402,10 +404,16 @@ public class YuzukiTools
     	event.getRegistry().register(new YKItemJetpack()
     			.setRegistryName(MODID, "jetpack")
     			.setUnlocalizedName("jetpack"));
+
+    	//レッドストーンのチェストプレート(JP)
+    	event.getRegistry().register(new YKItemRedstoneArmorWithJetpack(EntityEquipmentSlot.CHEST)
+    			.setRegistryName(MODID, "redstone_chestplate_jp")
+    			.setUnlocalizedName("redstone_chestplate_jp"));
     	
     	//家庭菜園
     	event.getRegistry().register(new ItemBlock(YKBlocks.KITCHEN_GARDEN)
     			.setRegistryName(MODID, "kitchen_garden"));
+    	
     }
     
     /**

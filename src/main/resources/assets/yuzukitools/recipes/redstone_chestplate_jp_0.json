@@ -1,0 +1,17 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+	{
+		"item": "yuzukitools:redstone_chestplate"
+	},
+	{
+		"item": "yuzukitools:jetpack"
+	},
+	{
+		"item": "yuzukitools:redstone_crystal"
+	}
+	],
+	"result": {
+		"item": "yuzukitools:redstone_chestplate_jp"
+	}
+}

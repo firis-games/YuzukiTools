@@ -40,7 +40,7 @@ public class YKItemJetpack extends AbstractEnergyItemArmor {
     	ItemStack chestplate = player.inventory.armorInventory.get(EntityEquipmentSlot.CHEST.getIndex());
 		
     	//Jetpackでない
-    	if (chestplate.isEmpty() || chestplate.getItem() != YKItems.JETPACK) {
+    	if (chestplate.isEmpty() || (chestplate.getItem() != YKItems.JETPACK && chestplate.getItem() != YKItems.REDSTONE_CHESTPLATE_JP)) {
     		return false;
     	}
     	
@@ -65,7 +65,7 @@ public class YKItemJetpack extends AbstractEnergyItemArmor {
     	ItemStack chestplate = player.inventory.armorInventory.get(EntityEquipmentSlot.CHEST.getIndex());
 		
     	//Jetpackでない
-    	if (chestplate.isEmpty() || chestplate.getItem() != YKItems.JETPACK) {
+    	if (chestplate.isEmpty() || (chestplate.getItem() != YKItems.JETPACK && chestplate.getItem() != YKItems.REDSTONE_CHESTPLATE_JP)) {
     		return false;
     	}
     	

@@ -1,7 +1,7 @@
 package firis.yuzukitools.common.event;
 
-import firis.yuzukitools.YuzukiTools.YKItems;
 import firis.yuzukitools.common.item.AbstractEnergyItem;
+import firis.yuzukitools.common.item.YKItemRedstoneArmor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -33,10 +33,10 @@ public class LivingDamageEventHandler {
 		
 		
 		//レッドストーン防具かのチェック
-		if (helmet.isEmpty() || helmet.getItem() != YKItems.REDSTONE_HELMET ) return;
-		if (chestplate.isEmpty() || chestplate.getItem() != YKItems.REDSTONE_CHESTPLATE ) return;
-		if (leggings.isEmpty() || leggings.getItem() != YKItems.REDSTONE_LEGGINGS ) return;
-		if (boots.isEmpty() || boots.getItem() != YKItems.REDSTONE_BOOTS ) return;
+		if (helmet.isEmpty() || !(helmet.getItem() instanceof YKItemRedstoneArmor)) return;
+		if (chestplate.isEmpty() || !(chestplate.getItem() instanceof YKItemRedstoneArmor)) return;
+		if (leggings.isEmpty() || !(leggings.getItem() instanceof YKItemRedstoneArmor)) return;
+		if (boots.isEmpty() || !(boots.getItem() instanceof YKItemRedstoneArmor)) return;
 		
 		//ダメージ係数を判断
 		int damageRate = 0;
