@@ -163,7 +163,7 @@ public class RecipesKitchenGarden {
 			if (fertilizer.getItem() == stack.getItem()
 					&& fertilizer.getMetadata() == stack.getMetadata()
 					&& fertilizer.getCount() >= stack.getCount()) {
-				shrink = fertilizer.getCount();
+				shrink = stack.getCount();
 				break;
 			}
 		}
