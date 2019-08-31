@@ -13,6 +13,7 @@ import firis.yuzukitools.common.capability.TileEntityItemStackHandler;
 import firis.yuzukitools.common.helpler.EnergyHelper;
 import firis.yuzukitools.common.helpler.VanillaNetworkHelper;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockCauldron;
 import net.minecraft.block.BlockFarmland;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -183,6 +184,8 @@ public class YKTileKitchenGarden extends AbstractTileEntity implements ITickable
 		
 		//隣接するバッテリー
 		updateBatteryCharge();
+		//隣接する大釜
+		updateWaterCharge();
 		//放電
 		updateEnergyDischarge();
 		//充電
@@ -368,6 +371,45 @@ public class YKTileKitchenGarden extends AbstractTileEntity implements ITickable
 			EnergyHelper.moveEnergy(storage, this.energy, 50000);
 		}
 	}
+	
+	/**
+	 * 自動給水のクールタイム
+	 */
+	private int waterCoolTime = 0;
+	
+	/**
+	 * 隣接する大釜から水を取得する
+	 * 10sに1回水を100mb供給する
+	 * 育成で消費するmbの半分
+	 */
+	public void updateWaterCharge() {
+
+		waterCoolTime--;
+		if (waterCoolTime > 0) return;
+		
+		//一度判定したら5tickのクールタイム
+		if (waterCoolTime < 0) waterCoolTime = 5;
+		
+		for (EnumFacing facing : EnumFacing.VALUES) {
+			//満タンの場合は何もしない(バケツ1杯分以上空いている場合)
+			if(this.fluid.getMaxLiquid() < this.fluid.getLiquid()) break;
+
+			IBlockState state = this.getWorld().getBlockState(this.pos.offset(facing));
+			
+			if (state.getBlock() == Blocks.CAULDRON) {
+				
+				Comparable<?> level = state.getProperties().get(BlockCauldron.LEVEL);
+				if ("3".equals(level.toString())) {
+					//大釜が満タンの場合
+					this.fluid.fill(new FluidStack(FluidRegistry.getFluid("water"), 100), true);
+					//クールタイム10秒
+					waterCoolTime = 20 * 10;
+					break;
+				}
+			}
+		}
+	}
+	
 	
 	/**
 	 * 放電
