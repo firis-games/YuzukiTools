@@ -6,15 +6,18 @@ import firis.yuzukitools.api.YuzukiToolsAPI;
 import firis.yuzukitools.api.recipe.RecipesKitchenGarden;
 import firis.yuzukitools.client.gui.YKGuiElectricFurnace;
 import firis.yuzukitools.client.gui.YKGuiKitchenGarden;
+import firis.yuzukitools.common.recipe.RecipeRedstoneToolEnchantment;
 import firis.yuzukitools.common.recipe.RecipesElectricFurnace;
 import firis.yuzukitools.plugin.client.jei.recipe.JEIElectricFurnaceRecipeCategory;
 import firis.yuzukitools.plugin.client.jei.recipe.JEIElectricFurnaceRecipeWrapper;
 import firis.yuzukitools.plugin.client.jei.recipe.JEIKitchenGardenRecipeCategory;
 import firis.yuzukitools.plugin.client.jei.recipe.JEIKitchenGardenRecipeWrapper;
+import firis.yuzukitools.plugin.client.jei.recipe.JEIRecipeRedstoneToolEnchantmentWrapper;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
+import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 
 /**
  * JEI連携プラグイン
@@ -35,7 +38,6 @@ public class JEIYuzukiToolsPlugin implements IModPlugin {
 
 		//家庭菜園
 		registry.addRecipeCategories(new JEIKitchenGardenRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
-		
 	}
 	
 	@Override
@@ -54,6 +56,11 @@ public class JEIYuzukiToolsPlugin implements IModPlugin {
 				JEIKitchenGardenRecipeCategory.UID);
 		
 		registry.addRecipes(YuzukiToolsAPI.kitchenGardenRecipes, JEIKitchenGardenRecipeCategory.UID);
+		
+		//レッドストーンツールのエンチャントカスタムレシピ登録
+		registry.handleRecipes(RecipeRedstoneToolEnchantment.class, 
+				JEIRecipeRedstoneToolEnchantmentWrapper::new,
+				VanillaRecipeCategoryUid.CRAFTING);
 		
 		
 		//「レシピを見る」の設定

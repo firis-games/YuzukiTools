@@ -20,8 +20,8 @@ public class RecipeRedstoneToolEnchantment extends IForgeRegistryEntry.Impl<IRec
 	 * 
 	 * @param redstoneTool
 	 */
-	public RecipeRedstoneToolEnchantment(Item redstoneTool, ItemStack catalystStack, Enchantment enchantment, int level) {
-		this.setRegistryName(redstoneTool.getRegistryName().toString() + "_" + enchantment);
+	public RecipeRedstoneToolEnchantment(Item redstoneTool, ItemStack catalystStack, Enchantment enchantment, Integer level) {
+		this.setRegistryName(redstoneTool.getRegistryName().toString() + "_" + enchantment + level.toString());
 		this.redstoneTool = redstoneTool;
 		this.catalystStack = catalystStack;
 		
