@@ -1,5 +1,7 @@
 package firis.yuzukitools.common.proxy;
 
+import net.minecraft.util.math.BlockPos;
+
 public class CommonProxy implements IProxy {
 
 	@Override
@@ -10,5 +12,8 @@ public class CommonProxy implements IProxy {
 
 	@Override
 	public void initLayerRenderer() {}
+
+	@Override
+	public void spawnParticle(BlockPos pos, int spawnNo) {}
 
 }

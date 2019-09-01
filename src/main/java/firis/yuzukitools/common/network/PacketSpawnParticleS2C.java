@@ -1,10 +1,8 @@
 package firis.yuzukitools.common.network;
 
+import firis.yuzukitools.YuzukiTools;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -19,24 +17,7 @@ public class PacketSpawnParticleS2C implements IMessageHandler<PacketSpawnPartic
 	@Override
 	public IMessage onMessage(MessageSpawnParticle message, MessageContext ctx) {
 		
-		World world = Minecraft.getMinecraft().world;
-		BlockPos pos = message.pos;
-		
-		//骨粉パーティクルを生成
-		if (message.particleNo == 0) {
-			int amount = 7;
-			for (int i = 0; i < amount; i++) {
-	            double d0 = world.rand.nextGaussian() * 1.5D + 5D;
-	            double d1 = world.rand.nextGaussian() * 1.5D + 5D;
-	            double d2 = world.rand.nextGaussian() * 1.5D + 5D;
-	            world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, 
-	            		(double)((float)pos.getX() + world.rand.nextFloat()),
-	            		(double)((float)pos.getY() + world.rand.nextFloat()),
-	            		(double)((float)pos.getZ() + world.rand.nextFloat()), 
-	            		d0, d1, d2);
-				
-			}
-		}
+		YuzukiTools.proxy.spawnParticle(message.pos, message.particleNo);
 		
 		return null;
 	}
