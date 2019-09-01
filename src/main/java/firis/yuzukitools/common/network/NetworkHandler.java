@@ -18,5 +18,8 @@ public class NetworkHandler {
 		//Jetpack
 		network.registerMessage(PacketJetpackKeyC2S.class, PacketJetpackKeyC2S.MessageJetpackKey.class, idx++, Side.SERVER);
 		
+		//パーティクル生成
+		network.registerMessage(PacketSpawnParticleS2C.class, PacketSpawnParticleS2C.MessageSpawnParticle.class, idx++, Side.CLIENT);
+		
 	}
 }

@@ -10,8 +10,11 @@ import firis.yuzukitools.api.recipe.RecipesKitchenGarden;
 import firis.yuzukitools.common.capability.TileEntityEnergyStorage;
 import firis.yuzukitools.common.capability.TileEntityFluidHandler;
 import firis.yuzukitools.common.capability.TileEntityItemStackHandler;
+import firis.yuzukitools.common.config.YKConfig;
 import firis.yuzukitools.common.helpler.EnergyHelper;
 import firis.yuzukitools.common.helpler.VanillaNetworkHelper;
+import firis.yuzukitools.common.network.NetworkHandler;
+import firis.yuzukitools.common.network.PacketSpawnParticleS2C;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCauldron;
 import net.minecraft.block.BlockFarmland;
@@ -175,12 +178,19 @@ public class YKTileKitchenGarden extends AbstractTileEntity implements ITickable
 		return this.recipesKitchenGarden == null ? 0 : this.recipesKitchenGarden.getProgress();
 	}
 	
-	int tick = 0;
+	//パーティクルのクールタイム
+	private int cooltime_particle = 0;
 	
 	@Override
 	public void update() {
 		
 		if (this.getWorld().isRemote) return;
+		
+		//パーティクル制御
+		this.cooltime_particle--;
+		if (this.cooltime_particle < 0) {
+			this.cooltime_particle = 0;
+		}
 		
 		//隣接するバッテリー
 		updateBatteryCharge();
@@ -345,6 +355,16 @@ public class YKTileKitchenGarden extends AbstractTileEntity implements ITickable
 			
 			//進捗をリセット
 			this.progress = 0;
+			
+			//パーティクルを表示
+			if (YKConfig.SPAWN_PARTICLE && this.cooltime_particle <= 0) {
+				//骨粉パーティクル表示
+				NetworkHandler.network.sendToAll(
+						new PacketSpawnParticleS2C.MessageSpawnParticle(this.getPos().up(), 0));
+				//cooltime
+				this.cooltime_particle = 100;
+			}
+			
 		}
 	}
 	

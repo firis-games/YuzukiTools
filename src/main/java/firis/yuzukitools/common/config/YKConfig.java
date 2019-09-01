@@ -24,4 +24,10 @@ public class YKConfig {
 	 */
 	@Comment({"Developers Tools output json Kitchen Garden Json Recipe", "default:false"})
 	public static boolean DEVELOP_TOOL_OUTPUT_JSON_KITCHEN_GARDEN_RECIPE = false;
+	
+	/**
+	 * パーティクル表示機能
+	 */
+	@Comment({"YuzukiTools Spawn Particle", "default:true"})
+	public static boolean SPAWN_PARTICLE = true;
 }
