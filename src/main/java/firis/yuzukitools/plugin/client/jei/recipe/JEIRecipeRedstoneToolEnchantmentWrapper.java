@@ -28,7 +28,7 @@ public class JEIRecipeRedstoneToolEnchantmentWrapper implements IRecipeWrapper {
 		inputsItemStack = new ArrayList<>();
 		inputsItemStack.add(new ItemStack(recipe.redstoneTool));
 		inputsItemStack.add(new ItemStack(recipe.medalItem));
-		inputsItemStack.add(recipe.catalystStack);
+		inputsItemStack.addAll(recipe.catalystStackList);
 		
 		outputItemStack = recipe.resultStack;
 		

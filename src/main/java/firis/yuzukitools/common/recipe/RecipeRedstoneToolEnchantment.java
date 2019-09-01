@@ -1,5 +1,9 @@
 package firis.yuzukitools.common.recipe;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import firis.yuzukitools.YuzukiTools.YKItems;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.InventoryCrafting;
@@ -13,17 +17,20 @@ public class RecipeRedstoneToolEnchantment extends IForgeRegistryEntry.Impl<IRec
 
 	public final Item redstoneTool;
 	public final Item medalItem = YKItems.YUZUKI_MEDAL;
-	public final ItemStack catalystStack;
+	public final List<ItemStack> catalystStackList;
 	public final ItemStack resultStack;
 	
 	/**
-	 * 
 	 * @param redstoneTool
 	 */
-	public RecipeRedstoneToolEnchantment(Item redstoneTool, ItemStack catalystStack, Enchantment enchantment, Integer level) {
+	public RecipeRedstoneToolEnchantment(Item redstoneTool, Enchantment enchantment, Integer level, ItemStack... catyalistStacks) {
 		this.setRegistryName(redstoneTool.getRegistryName().toString() + "_" + enchantment + level.toString());
 		this.redstoneTool = redstoneTool;
-		this.catalystStack = catalystStack;
+		
+		this.catalystStackList = new ArrayList<>();
+		for (ItemStack stack : catyalistStacks) {
+			catalystStackList.add(stack.copy());
+		}
 		
 		//エンチャントアイテム生成
 		ItemStack toolStack = new ItemStack(this.redstoneTool);
@@ -37,7 +44,12 @@ public class RecipeRedstoneToolEnchantment extends IForgeRegistryEntry.Impl<IRec
 		
 		boolean tools = false;
 		boolean medal = false;
-		boolean catalyst = false;
+		
+		List<ItemStack> chkCatalystStackList = new ArrayList<>();
+		//copy
+		for(ItemStack stack : this.catalystStackList) {
+			chkCatalystStackList.add(stack.copy());
+		};
 		
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			
@@ -60,9 +72,18 @@ public class RecipeRedstoneToolEnchantment extends IForgeRegistryEntry.Impl<IRec
 			}
 			
 			//触媒
-			if (stack.getItem() == catalystStack.getItem()
-					&& stack.getMetadata() == catalystStack.getMetadata()) {
-				catalyst = true;
+			Iterator<ItemStack> catalystIterator = chkCatalystStackList.iterator();
+			boolean catalystIteratorFlg = false;
+			while(catalystIterator.hasNext()) {
+				ItemStack catalystStack = catalystIterator.next();
+				if (stack.getItem() == catalystStack.getItem()
+						&& stack.getMetadata() == catalystStack.getMetadata()) {
+					catalystIterator.remove();
+					catalystIteratorFlg = true;
+					break;
+				}
+			}
+			if (catalystIteratorFlg) {
 				continue;
 			}
 			
@@ -70,7 +91,7 @@ public class RecipeRedstoneToolEnchantment extends IForgeRegistryEntry.Impl<IRec
 			return false;
 		}
 		
-		if (tools && medal && catalyst) {
+		if (tools && medal && chkCatalystStackList.size() == 0) {
 			return true;
 		}
 		

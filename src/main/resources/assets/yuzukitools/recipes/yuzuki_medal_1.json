@@ -1,9 +1,9 @@
 {
 	"type": "forge:ore_shaped",
 	"pattern": [
-		" x ",
+		"zxz",
 		"xyx",
-		" x "
+		"zxz"
 	],
 	"key": {
 		"x": {
@@ -11,6 +11,9 @@
 		},
 		"y": {
 			"item": "yuzukitools:yuzuki_medal"
+		},
+		"z": {
+			"item": "minecraft:emerald"
 		}
 	},
 	"result": {

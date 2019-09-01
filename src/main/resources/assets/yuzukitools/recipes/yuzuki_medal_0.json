@@ -1,9 +1,9 @@
 {
 	"type": "forge:ore_shaped",
 	"pattern": [
-		" x ",
+		"zxz",
 		"xyx",
-		" x "
+		"zxz"
 	],
 	"key": {
 		"x": {
@@ -12,6 +12,9 @@
 		"y": {
 			"item": "minecraft:dye",
 			"data": 5
+		},
+		"z": {
+			"item": "minecraft:emerald"
 		}
 	},
 	"result": {

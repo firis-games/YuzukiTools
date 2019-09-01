@@ -47,6 +47,7 @@ import net.minecraft.client.resources.SimpleReloadableResourceManager;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
@@ -500,31 +501,43 @@ public class YuzukiTools
     		//シルクタッチ付与
     		event.getRegistry().register(new RecipeRedstoneToolEnchantment(
     				tool,
-        			new ItemStack(Blocks.GOLD_BLOCK),
         			Enchantment.getEnchantmentByLocation("silk_touch"),
-        			1));
+        			1,
+        			new ItemStack(Blocks.GOLD_BLOCK)));
     		
     		//効率強化付与
     		event.getRegistry().register(new RecipeRedstoneToolEnchantment(
     				tool,
-        			new ItemStack(Blocks.EMERALD_BLOCK),
         			Enchantment.getEnchantmentByLocation("efficiency"),
-        			5));
+        			4,
+        			new ItemStack(Blocks.EMERALD_BLOCK)));
     		
     		//幸運
     		event.getRegistry().register(new RecipeRedstoneToolEnchantment(
     				tool,
-        			new ItemStack(Blocks.DIAMOND_BLOCK),
         			Enchantment.getEnchantmentByLocation("fortune"),
-        			3));
+        			3,
+        			new ItemStack(Blocks.DIAMOND_BLOCK)));
+    		
+    		//効率強化付与+
+    		event.getRegistry().register(new RecipeRedstoneToolEnchantment(
+    				tool,
+        			Enchantment.getEnchantmentByLocation("efficiency"),
+        			6,
+        			new ItemStack(Blocks.EMERALD_BLOCK),
+        			new ItemStack(Items.NETHER_STAR),
+        			new ItemStack(Items.END_CRYSTAL),
+        			new ItemStack(Items.GOLDEN_APPLE, 1, 1)));
     		
     		//幸運+
     		event.getRegistry().register(new RecipeRedstoneToolEnchantment(
     				tool,
-        			new ItemStack(Blocks.DRAGON_EGG),
         			Enchantment.getEnchantmentByLocation("fortune"),
-        			4));
-    		
+        			4,
+        			new ItemStack(Blocks.DIAMOND_BLOCK),
+        			new ItemStack(Items.NETHER_STAR),
+        			new ItemStack(Items.END_CRYSTAL),
+        			new ItemStack(Items.GOLDEN_APPLE, 1, 1)));
     	}
     }
     
