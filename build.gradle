@@ -90,3 +90,13 @@ jar {
         attributes 'FMLAT': 'yktools_at.cfg'
     }
 }
+
+task devJar(type: Jar) {
+    from sourceSets.main.java
+    from sourceSets.main.output
+    classifier = 'dev'
+}
+
+artifacts {
+    archives devJar
+}
