@@ -205,6 +205,16 @@ public class RecipesElectricFurnace {
 				new ItemStack(YKItems.REDSTONE_INGOT, 2),
 				800);
 		
+		RecipesElectricFurnace.register(
+				new ItemStack(YKItems.REDSTONE_SHIELD_SWORD, 1, 32767), 
+				new ItemStack(YKItems.REDSTONE_INGOT, 3),
+				800);
+		
+		RecipesElectricFurnace.register(
+				new ItemStack(YKItems.REDSTONE_HAMMERAXE, 1, 32767), 
+				new ItemStack(YKItems.REDSTONE_INGOT, 7),
+				800);
+		
 		//レッドストーン防具
 		RecipesElectricFurnace.register(
 				new ItemStack(YKItems.REDSTONE_HELMET, 1, 32767), 
@@ -221,6 +231,10 @@ public class RecipesElectricFurnace {
 		RecipesElectricFurnace.register(
 				new ItemStack(YKItems.REDSTONE_BOOTS, 1, 32767), 
 				new ItemStack(YKItems.REDSTONE_INGOT, 4),
+				800);
+		RecipesElectricFurnace.register(
+				new ItemStack(YKItems.REDSTONE_CHESTPLATE_JP, 1, 32767), 
+				new ItemStack(YKItems.REDSTONE_INGOT, 14),
 				800);
 		
 		//小物
