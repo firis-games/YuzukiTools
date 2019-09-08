@@ -21,6 +21,7 @@ import firis.yuzukitools.common.item.YKItemRedstoneArmor;
 import firis.yuzukitools.common.item.YKItemRedstoneArmorWithJetpack;
 import firis.yuzukitools.common.item.YKItemRedstoneAxe;
 import firis.yuzukitools.common.item.YKItemRedstoneCrystal;
+import firis.yuzukitools.common.item.YKItemRedstoneHammeraxe;
 import firis.yuzukitools.common.item.YKItemRedstoneHoe;
 import firis.yuzukitools.common.item.YKItemRedstonePickaxe;
 import firis.yuzukitools.common.item.YKItemRedstoneShovel;
@@ -142,6 +143,7 @@ public class YuzukiTools
     	public final static Item REDSTONE_CRYSTAL = null;
     	public final static Item JETPACK = null;
     	public final static Item REDSTONE_CHESTPLATE_JP = null;
+    	public final static Item REDSTONE_HAMMERAXE = null;
     }
     
     /**
@@ -373,6 +375,11 @@ public class YuzukiTools
     	event.getRegistry().register(new YKItemRedstoneSword()
     			.setRegistryName(MODID, "redstone_sword")
     			.setUnlocalizedName("redstone_sword"));
+    	
+    	//レッドストーンのハンマーアックス
+    	event.getRegistry().register(new YKItemRedstoneHammeraxe(ToolMaterial.IRON)
+    			.setRegistryName(MODID, "redstone_hammeraxe")
+    			.setUnlocalizedName("redstone_hammeraxe"));
     	    	
     	//レッドストーンのヘルメット
     	event.getRegistry().register(new YKItemRedstoneArmor(EntityEquipmentSlot.HEAD)
@@ -494,6 +501,7 @@ public class YuzukiTools
     	toolList.add(YKItems.REDSTONE_PICKAXE);
     	toolList.add(YKItems.REDSTONE_AXE);
     	toolList.add(YKItems.REDSTONE_SHOVEL);
+    	toolList.add(YKItems.REDSTONE_HAMMERAXE);
     	
     	//レッドストーンのツルハシ
     	for (Item tool : toolList) {

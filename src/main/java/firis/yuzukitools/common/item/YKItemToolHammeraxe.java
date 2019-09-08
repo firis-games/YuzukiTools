@@ -43,8 +43,8 @@ public class YKItemToolHammeraxe extends ItemTool {
 	/**
 	 * 攻撃力と速度を設定（斧と同じ）
 	 */
-	private static final float[] ATTACK_DAMAGES = new float[] {6.0F, 8.0F, 8.0F, 8.0F, 6.0F};
-    private static final float[] ATTACK_SPEEDS = new float[] { -3.2F, -3.2F, -3.1F, -3.0F, -3.0F};
+	public static final float[] ATTACK_DAMAGES = new float[] {6.0F, 8.0F, 8.0F, 8.0F, 6.0F};
+    public static final float[] ATTACK_SPEEDS = new float[] { -3.2F, -3.2F, -3.1F, -3.0F, -3.0F};
 	
 	/**
 	 * コンストラクタ

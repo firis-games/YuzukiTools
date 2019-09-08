@@ -1,0 +1,17 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+	{
+		"item": "yuzukitools:redstone_pickaxe"
+	},
+	{
+		"item": "yuzukitools:redstone_axe"
+	},
+	{
+		"item": "yuzukitools:redstone_shovel"
+	}
+	],
+	"result": {
+		"item": "yuzukitools:redstone_hammeraxe"
+	}
+}
