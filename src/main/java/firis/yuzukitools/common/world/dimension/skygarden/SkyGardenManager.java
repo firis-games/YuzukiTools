@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Nullable;
 
@@ -12,8 +13,10 @@ import firis.yuzukitools.common.world.dimension.DimensionHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraft.world.chunk.Chunk;
 
 /**
  * 空中庭園の管理クラス
@@ -34,7 +37,13 @@ public class SkyGardenManager {
 	 * 浮島の生成座標
 	 */
 	public static int FLOATING_ISLAND_Y = 128;
+
+	/**
+	 * プレイヤーの戻り先を保存する
+	 */
+	private static Map<UUID, TeleporterData> returnTeleporterMap = new HashMap<>(); 
 	
+
 	/**
 	 * 
 	 * @return
@@ -51,7 +60,6 @@ public class SkyGardenManager {
 	
 	private final List<Vec3i> chunkCoordList;
 	
-	
 	/**
 	 * Singletonコンストラクタ
 	 */
@@ -62,6 +70,7 @@ public class SkyGardenManager {
 		
 		//浮島の位置を計算する
 		this.chunkCoordList = this.initFloatingIslandCoord();
+		
 	}
 	
 	
@@ -204,8 +213,21 @@ public class SkyGardenManager {
 		
 		//現在のディメンションを判断する
 		boolean isSkyGarden = false;
+		boolean isFloatingIsland = false;
 		if (world.provider.getDimension() == DimensionHandler.dimensionSkyGarden.getId()) {
 			isSkyGarden = true;
+			
+			//SkyGardenの場合は現在座標が浮島範囲内か確認する
+			Vec3i chunk = this.chunkCoordList.get(meta);
+			
+			Chunk playerChunk = world.getChunkFromBlockCoords(player.getPosition());
+			
+			//3chunk以内
+			if (chunk.getX() - 1 <= playerChunk.x && playerChunk.x <= chunk.getX() + 1
+					&& chunk.getZ() - 1 <= playerChunk.z && playerChunk.z <= chunk.getZ() + 1) {
+				isFloatingIsland = true;
+			}
+			
 		}
 		
 		if (!isSkyGarden) {
@@ -213,13 +235,28 @@ public class SkyGardenManager {
 			//テレポート処理はServerサイドのみ
 			if(world.isRemote) return;
 			
+			//テレポート先を保存
+			setReturnTeleporterData(player);
+			
 			//別ディメンションからテレポートする
 			WorldServer server;
 			server = player.getServer().getWorld(DimensionHandler.dimensionSkyGarden.getId());
 			player.changeDimension(DimensionHandler.dimensionSkyGarden.getId(), new TeleporterSkyGarden(server, meta));
 			
-		} else {
+		} else if (isFloatingIsland){
+			//元の世界へ戻る
+			//テレポート処理はServerサイドのみ
+			if(world.isRemote) return;
 			
+			TeleporterData teledata = getReturnTeleporterData(player);
+			//別ディメンションからテレポートする
+			WorldServer server;
+			server = player.getServer().getWorld(teledata.dimensionId);
+			player.changeDimension(teledata.dimensionId, 
+					new TeleporterDimension(server, teledata.posX, teledata.posY, teledata.posZ));
+			
+		} else {
+		
 			//同一ディメンションから移動
 			BlockPos pos = getSpawnPoint(meta);
 			
@@ -231,4 +268,56 @@ public class SkyGardenManager {
 		
 	}
 	
+	/**
+	 * テレポートの戻り先を設定する
+	 * @param plyaer
+	 */
+	protected void setReturnTeleporterData(EntityPlayer player) {
+		//テレポートの戻り先を保存する
+		returnTeleporterMap.put(player.getUniqueID(), new TeleporterData(
+				player.getEntityWorld().provider.getDimension(),
+				player.posX,
+				player.posY,
+				player.posZ));
+	}
+	
+	/**
+	 * テレポートの戻り先を取得する
+	 * @param player
+	 * @return
+	 */
+	protected TeleporterData getReturnTeleporterData(EntityPlayer player) {
+		
+		if (returnTeleporterMap.containsKey(player.getUniqueID())) {
+			return returnTeleporterMap.get(player.getUniqueID());
+		}
+		
+		//対象がない場合はオーバーワールドにランダムスポーン
+		WorldServer server;
+		server = player.getServer().getWorld(DimensionType.OVERWORLD.getId());
+		BlockPos pos = server.provider.getRandomizedSpawnPoint();
+		return new TeleporterData(DimensionType.OVERWORLD.getId(), 
+				pos.getX() + 0.5D, 
+				pos.getY() + 0.0D, 
+				pos.getZ() + 0.5D);
+	}
+	
+	/**
+	 * テレポーター戻り座標保存用クラス
+	 */
+	protected static class TeleporterData {
+		
+		public int dimensionId = 0;
+		public double posX = 0;
+		public double posY = 0;
+		public double posZ = 0;
+		
+		public TeleporterData(int dimensionId, double posX, double posY, double posZ) {
+			this.dimensionId = dimensionId;
+			this.posX = posX;
+			this.posY = posY;
+			this.posZ = posZ;
+		}
+		
+	}
 }

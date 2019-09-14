@@ -16,7 +16,6 @@ public class TeleporterSkyGarden implements net.minecraftforge.common.util.ITele
 		this.meta = meta;
 	}
 
-
 	@Override
 	public void placeEntity(World world, Entity entityIn, float yaw) {
 		//オーバーワールドの場合は何もしない
