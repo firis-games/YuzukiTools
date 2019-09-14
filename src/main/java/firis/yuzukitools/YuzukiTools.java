@@ -28,6 +28,7 @@ import firis.yuzukitools.common.item.YKItemRedstoneShieldSword;
 import firis.yuzukitools.common.item.YKItemRedstoneShovel;
 import firis.yuzukitools.common.item.YKItemRedstoneSword;
 import firis.yuzukitools.common.item.YKItemShieldSword;
+import firis.yuzukitools.common.item.YKItemSkyGardenKey;
 import firis.yuzukitools.common.item.YKItemToolHammeraxe;
 import firis.yuzukitools.common.network.NetworkHandler;
 import firis.yuzukitools.common.proxy.IProxy;
@@ -41,6 +42,7 @@ import firis.yuzukitools.common.tileentity.YKTileElectricFurnace;
 import firis.yuzukitools.common.tileentity.YKTileInstantHouse;
 import firis.yuzukitools.common.tileentity.YKTileKitchenGarden;
 import firis.yuzukitools.common.tileentity.YKTileSolarCharger;
+import firis.yuzukitools.common.world.dimension.DimensionHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -146,6 +148,7 @@ public class YuzukiTools
     	public final static Item REDSTONE_CHESTPLATE_JP = null;
     	public final static Item REDSTONE_HAMMERAXE = null;
     	public final static Item REDSTONE_SHIELD_SWORD = null;
+    	public final static Item SKY_GARDEN_KEY = null;
     }
     
     /**
@@ -193,6 +196,9 @@ public class YuzukiTools
         
     	//Event登録
     	proxy.registerEvent();
+    	
+    	//Dimension設定
+    	DimensionHandler.init();
     	
     	//Pluginレシピ読み込み
     	RecipeManager.preInitRegisterPlugin(event);
@@ -434,6 +440,12 @@ public class YuzukiTools
     	//家庭菜園
     	event.getRegistry().register(new ItemBlock(YKBlocks.KITCHEN_GARDEN)
     			.setRegistryName(MODID, "kitchen_garden"));
+    	
+    	//空中庭園の鍵
+    	event.getRegistry().register(new YKItemSkyGardenKey()
+    			.setRegistryName(MODID, "sky_garden_key")
+    			.setUnlocalizedName("sky_garden_key"));
+    	
     	
     }
     
