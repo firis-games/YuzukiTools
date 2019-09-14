@@ -296,6 +296,10 @@ public class SkyGardenManager {
 			//別ディメンションからテレポートする
 			WorldServer server;
 			server = player.getServer().getWorld(DimensionHandler.dimensionSkyGarden.getId());
+			
+			//スポーン位置を設定
+			server.setSpawnPoint(SkyGardenManager.getInstance().getSpawnPoint(meta));
+			
 			player.changeDimension(DimensionHandler.dimensionSkyGarden.getId(), new TeleporterSkyGarden(server, meta));
 			
 		} else if (isFloatingIsland){

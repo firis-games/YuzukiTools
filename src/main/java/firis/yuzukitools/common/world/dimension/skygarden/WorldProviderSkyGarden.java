@@ -9,6 +9,8 @@ import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProviderSingle;
 import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * 空中庭園provider
@@ -39,11 +41,22 @@ public class WorldProviderSkyGarden extends WorldProvider {
     }
 	
 	/**
-	 * スポーン位置を設定する
+	 * ランダムスポーンの位置
 	 */
 	public BlockPos getRandomizedSpawnPoint()
     {
-		//浮島の位置へスポーンさせる
-        return SkyGardenManager.getInstance().getSpawnPoint(0);
+		//ランダムスポーンの位置
+        return SkyGardenManager.getInstance().getSpawnPoint(this.world.rand.nextInt(16));
     }
+	
+	/**
+	 * 雲の高さ
+	 */
+	@Override
+	@SideOnly(Side.CLIENT)
+    public float getCloudHeight()
+    {
+        return 10.0f;
+    }
+	
 }
