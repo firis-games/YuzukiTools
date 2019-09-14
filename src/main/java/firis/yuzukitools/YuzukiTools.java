@@ -44,6 +44,7 @@ import firis.yuzukitools.common.tileentity.YKTileInstantHouse;
 import firis.yuzukitools.common.tileentity.YKTileKitchenGarden;
 import firis.yuzukitools.common.tileentity.YKTileSolarCharger;
 import firis.yuzukitools.common.world.dimension.DimensionHandler;
+import firis.yuzukitools.common.world.dimension.skygarden.biome.BiomeSkyGarden;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -61,6 +62,7 @@ import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
@@ -517,6 +519,14 @@ public class YuzukiTools
 	    				"/assets/yuzukitools/shader/alpha.frag");
 	    	}
     	}
+    }
+    
+    /**
+     * Biomeを登録するイベント
+     */
+    @SubscribeEvent
+    protected static void registerBiomes(RegistryEvent.Register<Biome> event) {
+    	event.getRegistry().register(new BiomeSkyGarden());
     }
     
     

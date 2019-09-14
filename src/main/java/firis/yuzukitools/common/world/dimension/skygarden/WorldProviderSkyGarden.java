@@ -1,5 +1,6 @@
 package firis.yuzukitools.common.world.dimension.skygarden;
 
+import firis.yuzukitools.YuzukiTools;
 import firis.yuzukitools.common.world.dimension.DimensionHandler;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -27,8 +28,7 @@ public class WorldProviderSkyGarden extends WorldProvider {
 		this.doesWaterVaporize = false;
 		this.hasSkyLight = true;
 
-		//Biomeは通常の平原
-		Biome biome = Biome.REGISTRY.getObject(new ResourceLocation("plains"));
+		Biome biome = Biome.REGISTRY.getObject(new ResourceLocation(YuzukiTools.MODID, "sky_garden"));
 		this.biomeProvider = new BiomeProviderSingle(biome);
     }
 	
