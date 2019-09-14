@@ -1,5 +1,6 @@
 package firis.yuzukitools.common.world.dimension.skygarden;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.EnumCreatureType;
@@ -56,7 +57,8 @@ public class ChunkGeneratorSkyGarden implements IChunkGenerator {
 
 	@Override
 	public List<SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
-		return this.world.getBiome(pos).getSpawnableList(creatureType);
+		//自然スポーンを停止
+		return new ArrayList<>();
 	}
 
 	@Override
@@ -80,7 +82,6 @@ public class ChunkGeneratorSkyGarden implements IChunkGenerator {
 	 * @return
 	 */
 	private void createFloatingIsland(Chunk chunk) {
-		
 		
 		List<BlockPos> posList = SkyGardenManager
 				.getInstance()
