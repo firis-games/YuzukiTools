@@ -11,6 +11,8 @@ import javax.annotation.Nullable;
 import firis.core.common.helper.BlockPosHelper;
 import firis.yuzukitools.common.world.dimension.DimensionHandler;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.DimensionType;
@@ -43,6 +45,59 @@ public class SkyGardenManager {
 	 */
 	private static Map<UUID, TeleporterData> returnTeleporterMap = new HashMap<>(); 
 	
+	/**
+	 * テレポートの情報をNBTから復元する
+	 */
+	public static void readFromNBT(NBTTagCompound nbt) {
+	
+		//データが既に存在している場合は何もしない
+		if (returnTeleporterMap.size() > 0) return;
+		
+		//設定データなし
+		if (nbt == null || !nbt.hasKey("teleportdata")) return;
+
+		//初期化
+		returnTeleporterMap = new HashMap<>();
+
+		NBTTagList list = nbt.getTagList("teleportdata", 10);
+		for (int i = 0; i < list.tagCount(); i++) {
+			NBTTagCompound tag = (NBTTagCompound) list.get(i);
+			UUID uuid = tag.getUniqueId("uuid");
+			int dimensionId = tag.getInteger("dimensionId");
+			double posX = tag.getDouble("posX");
+			double posY = tag.getDouble("posY");
+			double posZ = tag.getDouble("posZ");
+			
+			//データを設定
+			returnTeleporterMap.put(uuid, new TeleporterData(dimensionId,
+					posX,
+					posY,
+					posZ));
+		}		
+	}
+	
+	/**
+	 * テレポートの情報をNBTから復元する
+	 */
+	public static NBTTagCompound writeToNBT() {
+		
+		NBTTagCompound nbt = new NBTTagCompound();
+		
+		NBTTagList list = new NBTTagList();
+		for (UUID uuid : returnTeleporterMap.keySet()) {
+			TeleporterData teleData = returnTeleporterMap.get(uuid);
+			NBTTagCompound data = new NBTTagCompound();
+			data.setInteger("dimensionId", teleData.dimensionId);
+			data.setDouble("posX", teleData.posX);
+			data.setDouble("posY", teleData.posY);
+			data.setDouble("posZ", teleData.posZ);
+			data.setUniqueId("uuid", uuid);
+			list.appendTag(data);
+		}
+		nbt.setTag("teleportdata", list);
+		
+		return nbt;
+	}
 
 	/**
 	 * 
