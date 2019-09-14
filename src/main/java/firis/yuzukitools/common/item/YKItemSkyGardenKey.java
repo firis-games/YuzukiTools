@@ -3,12 +3,14 @@ package firis.yuzukitools.common.item;
 import firis.yuzukitools.YuzukiTools;
 import firis.yuzukitools.common.world.dimension.DimensionHandler;
 import firis.yuzukitools.common.world.dimension.skygarden.TeleporterSkyGarden;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
@@ -17,7 +19,7 @@ import net.minecraft.world.WorldServer;
  * @author computer
  *
  */
-public class YKItemSkyGardenKey extends Item {
+public class YKItemSkyGardenKey extends Item implements IItemMetadata {
 
 	/**
 	 * コンストラクタ
@@ -26,6 +28,7 @@ public class YKItemSkyGardenKey extends Item {
 		
 		this.setCreativeTab(YuzukiTools.YKCreativeTab);
 		this.setMaxStackSize(1);
+		this.setHasSubtypes(true);
 	}
 	
 	@Override
@@ -43,4 +46,27 @@ public class YKItemSkyGardenKey extends Item {
 		
         return new ActionResult<ItemStack>(EnumActionResult.PASS, player.getHeldItem(handIn));
     }
+	
+	/**
+     * Metadata分のアイテムを登録する
+     */
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
+    {
+        if (!this.isInCreativeTab(tab)) return;
+        
+        for (int meta = 0; meta <= this.getMaxMetadata(); meta++) {
+        	items.add(new ItemStack(this, 1, meta));
+        }
+    }
+
+    @Override
+    public String getUnlocalizedName(ItemStack stack)
+    {
+        return this.getUnlocalizedName() + "_" + Integer.toString(stack.getMetadata());
+    }
+    
+	@Override
+	public int getMaxMetadata() {
+		return 15;
+	}
 }

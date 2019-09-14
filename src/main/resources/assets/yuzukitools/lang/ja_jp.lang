@@ -63,5 +63,20 @@ item.redstone_chestplate_jp.name=レッドストーンのチェストプレー�
 item.redstone_hammeraxe.name=レッドストーンのハンマーアックス
 item.redstone_shield_sword.name=レッドストーンのシールドソード
 
-item.sky_garden_key.name=空中庭園の鍵
+item.sky_garden_key_0.name=黒の空中庭園の鍵
+item.sky_garden_key_1.name=赤の空中庭園の鍵
+item.sky_garden_key_2.name=緑の空中庭園の鍵
+item.sky_garden_key_3.name=茶の空中庭園の鍵
+item.sky_garden_key_4.name=青の空中庭園の鍵
+item.sky_garden_key_5.name=紫の空中庭園の鍵
+item.sky_garden_key_6.name=水の空中庭園の鍵
+item.sky_garden_key_7.name=薄灰の空中庭園の鍵
+item.sky_garden_key_8.name=灰の空中庭園の鍵
+item.sky_garden_key_9.name=桃の空中庭園の鍵
+item.sky_garden_key_10.name=黄緑の空中庭園の鍵
+item.sky_garden_key_11.name=黄の空中庭園の鍵
+item.sky_garden_key_12.name=空色の空中庭園の鍵
+item.sky_garden_key_13.name=赤紫の空中庭園の鍵
+item.sky_garden_key_14.name=橙の空中庭園の鍵
+item.sky_garden_key_15.name=白の空中庭園の鍵
 

@@ -15,6 +15,7 @@ import firis.yuzukitools.common.block.YKBlockElectricFurnace;
 import firis.yuzukitools.common.block.YKBlockInstantHouse;
 import firis.yuzukitools.common.block.YKBlockKitchenGarden;
 import firis.yuzukitools.common.block.YKBlockSolarCharger;
+import firis.yuzukitools.common.item.IItemMetadata;
 import firis.yuzukitools.common.item.YKItemBlockBackpack;
 import firis.yuzukitools.common.item.YKItemJetpack;
 import firis.yuzukitools.common.item.YKItemRedstoneArmor;
@@ -456,14 +457,25 @@ public class YuzukiTools
     @SideOnly(Side.CLIENT)
     protected static void registerModels(ModelRegistryEvent event)
     {
-    	//YKItemsから自動でModelを登録する(メタデータは非対応)
+    	//YKItemsから自動でModelを登録する
     	for (Field filed : YKItems.class.getFields()) {
     		try {
     			int mod = filed.getModifiers();
     			//final かつ static
     			if (Modifier.isFinal(mod) && Modifier.isStatic(mod)) {
-    				if(filed.get(null) instanceof Item) {
-    					Item regItem = (Item) filed.get(null);
+    				Object objItem = filed.get(null);
+    				if(objItem instanceof Item && objItem instanceof IItemMetadata) {
+    					//メタデータ対応アイテム
+    					Item regItem = (Item) objItem;
+    					IItemMetadata imeta = (IItemMetadata) objItem;
+    					//アイテム個数分ループする
+    					for (Integer meta = 0 ; meta <= imeta.getMaxMetadata(); meta++) {
+    						ModelLoader.setCustomModelResourceLocation(regItem, meta,
+        			    			new ModelResourceLocation(regItem.getRegistryName() + "_" + meta.toString(), "inventory"));
+    					}
+    					
+    				} else if(objItem instanceof Item) {
+    					Item regItem = (Item) objItem;
     					ModelLoader.setCustomModelResourceLocation(regItem, 0,
     			    			new ModelResourceLocation(regItem.getRegistryName(), "inventory"));
     				}
