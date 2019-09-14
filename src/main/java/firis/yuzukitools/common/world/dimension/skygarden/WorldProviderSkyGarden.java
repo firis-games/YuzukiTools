@@ -44,7 +44,6 @@ public class WorldProviderSkyGarden extends WorldProvider {
 	public BlockPos getRandomizedSpawnPoint()
     {
 		//浮島の位置へスポーンさせる
-		BlockPos pos = new BlockPos(0, 85, 0);
-        return pos;
+        return SkyGardenManager.getInstance().getSpawnPoint(0);
     }
 }

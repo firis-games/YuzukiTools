@@ -12,6 +12,7 @@ public class BlockPosHelper {
 	/**
 	 * 偶数直径の半球のBlockPos座標を生成する
 	 * 0,0,0基点による座標のため実際に使う場合は計算が必要
+	 * 球面座標系で座標計算
 	 * @param radius 半径を設定する
 	 * @param radius_y 高さの倍率1で普通の球体
 	 * @param fill ブロック内部を埋め立てる場合はtrue

@@ -1,11 +1,7 @@
 package firis.yuzukitools.common.world.dimension.skygarden;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import firis.core.common.helper.BlockPosHelper;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -24,15 +20,12 @@ public class ChunkGeneratorSkyGarden implements IChunkGenerator {
 
 	private final World world;
 	
-	private final Map<String, List<BlockPos>> chunkPosMap;
-	
 	/**
 	 * コンストラクタ
 	 * @param world
 	 */
 	public ChunkGeneratorSkyGarden(World world) {
 		this.world = world;
-		this.chunkPosMap = initFloatingIsland();
 	}
 	
 	/**
@@ -81,70 +74,23 @@ public class ChunkGeneratorSkyGarden implements IChunkGenerator {
 		return false;
 	}
 	
-	
 	/**
-	 * 3×3Chunkの浮島定義を生成する
-	 */
-	private Map<String, List<BlockPos>> initFloatingIsland() {
-		
-		List<BlockPos> posList = BlockPosHelper.getBlockPosHemisphere(24, 1.0D / 1.5D, true);
-		//3chunk分に分割しないといけない
-		Map<String, List<BlockPos>> retChunkPosMap = new HashMap<>();
-		for (BlockPos base : posList) {
-			//端を基準点にする
-			BlockPos pos = base.add(24, 0, 24);
-			
-			//chunkの範囲を生成する
-			//0から2までの範囲
-			Integer chunkX = (int) Math.ceil((double)(pos.getX() + 1) / 16.0D) - 1;
-			Integer chunkZ = (int) Math.ceil((double)(pos.getZ() + 1) / 16.0D) - 1;
-			String chunkKey = chunkX.toString() + "_" + chunkZ.toString();
-			
-			List<BlockPos> list;
-			if (retChunkPosMap.containsKey(chunkKey)) {
-				list = retChunkPosMap.get(chunkKey);
-			} else {
-				list = new ArrayList<>();
-			}
-			
-			//chunkにあわせて基準点をさらにずらす
-			pos = pos.add(-(chunkX * 16), 0, -(chunkZ * 16));
-			list.add(pos);
-			
-			retChunkPosMap.put(chunkKey, list);
-		}
-		return retChunkPosMap;
-	}
-	
-	
-	/**
-	 * 生成テスト
+	 * 浮島の生成処理
 	 * @param chunk
 	 * @return
 	 */
 	private void createFloatingIsland(Chunk chunk) {
 		
-		Integer chunkX = -1;
-		Integer chunkZ = -1;
 		
-		//chunkの範囲が-1から1の合計9chunk
-		if (chunk.x >= -1 && chunk.x <= 1) {
-			chunkX = chunk.x + 1;
-		}
-		if (chunk.z >= -1 && chunk.z <= 1) {
-			chunkZ = chunk.z + 1;
-		}
+		List<BlockPos> posList = SkyGardenManager
+				.getInstance()
+				.getFloatingIslandBlockPosList(chunk.x, chunk.z);
 		
-		//対象外の場合は何もしない
-		if (chunkX == -1 || chunkZ == -1) {
-			return;
-		}
-		String chunkKey = chunkX.toString() + "_" + chunkZ.toString();
+		if (posList == null) return;
 		
 		//生成高度
-		BlockPos base = new BlockPos(0, 80, 0);
-		
-		List<BlockPos> posList = this.chunkPosMap.get(chunkKey);
+		BlockPos base = new BlockPos(0, SkyGardenManager.FLOATING_ISLAND_Y, 0);
+				
 		for (BlockPos pos : posList) {
 			if (pos.getY() == 0) {
 				chunk.setBlockState(pos.add(base), Blocks.GRASS.getDefaultState());
