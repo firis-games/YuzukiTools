@@ -8,8 +8,12 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 import firis.core.common.helper.BlockPosHelper;
+import firis.yuzukitools.common.world.dimension.DimensionHandler;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 /**
  * 空中庭園の管理クラス
@@ -188,6 +192,43 @@ public class SkyGardenManager {
 		Vec3i chunk = this.chunkCoordList.get(idx);
 		
 		return new BlockPos(chunk.getX() * 16, FLOATING_ISLAND_Y + 1, chunk.getZ() * 16);
+	}
+	
+	/**
+	 * 空中庭園のテレポート処理
+	 */
+	public void TeleporterSkyGarden(EntityPlayer player, int meta) {
+		
+		if (player == null) return;
+		World world = player.getEntityWorld();
+		
+		//現在のディメンションを判断する
+		boolean isSkyGarden = false;
+		if (world.provider.getDimension() == DimensionHandler.dimensionSkyGarden.getId()) {
+			isSkyGarden = true;
+		}
+		
+		if (!isSkyGarden) {
+			
+			//テレポート処理はServerサイドのみ
+			if(world.isRemote) return;
+			
+			//別ディメンションからテレポートする
+			WorldServer server;
+			server = player.getServer().getWorld(DimensionHandler.dimensionSkyGarden.getId());
+			player.changeDimension(DimensionHandler.dimensionSkyGarden.getId(), new TeleporterSkyGarden(server, meta));
+			
+		} else {
+			
+			//同一ディメンションから移動
+			BlockPos pos = getSpawnPoint(meta);
+			
+			player.setLocationAndAngles((double)pos.getX() + 0.5, 
+	        		(double)pos.getY(), 
+	        		(double)pos.getZ() + 0.5, 0, 0.0F);
+			
+		}
+		
 	}
 	
 }

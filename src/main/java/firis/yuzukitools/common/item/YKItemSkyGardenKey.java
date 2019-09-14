@@ -1,8 +1,7 @@
 package firis.yuzukitools.common.item;
 
 import firis.yuzukitools.YuzukiTools;
-import firis.yuzukitools.common.world.dimension.DimensionHandler;
-import firis.yuzukitools.common.world.dimension.skygarden.TeleporterSkyGarden;
+import firis.yuzukitools.common.world.dimension.skygarden.SkyGardenManager;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -12,7 +11,6 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 
 /**
  * 空中庭園の鍵
@@ -34,15 +32,8 @@ public class YKItemSkyGardenKey extends Item implements IItemMetadata {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn)
     {
-		if(world.isRemote) return new ActionResult<ItemStack>(EnumActionResult.PASS, player.getHeldItem(handIn));
-
-		//成功時テレポートを行う
-		if(world.isRemote) return new ActionResult<ItemStack>(EnumActionResult.PASS, player.getHeldItem(handIn));
-		
-		//アルフヘイムポータルが起動中に転移を行う
-		WorldServer server;
-		server = player.getServer().getWorld(DimensionHandler.dimensionSkyGarden.getId());
-		player.changeDimension(DimensionHandler.dimensionSkyGarden.getId(), new TeleporterSkyGarden(server));
+		//空中庭園へテレポート
+		SkyGardenManager.getInstance().TeleporterSkyGarden(player, player.getHeldItem(handIn).getMetadata());
 		
         return new ActionResult<ItemStack>(EnumActionResult.PASS, player.getHeldItem(handIn));
     }
