@@ -10,6 +10,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -67,9 +68,7 @@ public class YKBlockInstantHouse extends BlockContainer {
 	@Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-		
 		TileEntity tileEntity = worldIn.getTileEntity(pos);
-		
 		if (!playerIn.isSneaking()
 				|| !(tileEntity instanceof YKTileInstantHouse)) {
 			return false;
@@ -80,7 +79,7 @@ public class YKBlockInstantHouse extends BlockContainer {
 		if (!worldIn.isRemote) {
 			
 			//インスタントハウスを生成する
-			WorldGenHouse gen = new WorldGenHouse(tile.getFacing());
+			WorldGenHouse gen = new WorldGenHouse(tile.getTemplate(), tile.getFacing());
 			boolean ret = gen.generate(worldIn, worldIn.rand, pos.down());
 			//自身を消去
 			if (ret) {
@@ -91,4 +90,37 @@ public class YKBlockInstantHouse extends BlockContainer {
     	return true;
     }
 	
+	@Override
+	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
+    {
+		//Dropアイテム準備
+		ItemStack drop = ItemStack.EMPTY;
+		if (!player.isCreative()) {
+			TileEntity tile = world.getTileEntity(pos);
+			if (tile != null && tile instanceof YKTileInstantHouse) {
+				YKTileInstantHouse house = (YKTileInstantHouse) tile;
+				if (!"".equals(house.getTemplate())) {
+					drop = new ItemStack(this);
+					NBTTagCompound nbt = new NBTTagCompound();
+		        	nbt.setString("template", house.getTemplate());
+		        	drop.setTagCompound(nbt); 
+				}
+			}
+		}
+		
+		boolean ret = super.removedByPlayer(state, world, pos, player, willHarvest);
+		
+		if (ret && drop != ItemStack.EMPTY) {
+			spawnAsEntity(world, pos, drop);
+		}
+		return ret;
+    }
+	
+	/**
+	 * 通常Drop無効化
+	 */
+	@Override
+    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
+    {
+    }
 }

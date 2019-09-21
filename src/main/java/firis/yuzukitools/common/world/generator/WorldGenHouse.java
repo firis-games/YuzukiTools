@@ -27,24 +27,29 @@ import net.minecraftforge.items.IItemHandler;
 
 public class WorldGenHouse extends WorldGenerator {
 
+	protected String template;
 	protected EnumFacing facing;
 	
 	public WorldGenHouse() {
+		this.template = "";
 		this.facing = EnumFacing.NORTH;
 	}
 	
-	public WorldGenHouse(EnumFacing facing) {
+	public WorldGenHouse(String template, EnumFacing facing) {
+		this.template = template;
 		this.facing = facing;
 	}
 	
 	@Override
 	public boolean generate(World world, Random rand, BlockPos position) {
 		
+		if ("".equals(this.template)) return false;
+		
 		//assetsからテンプレートを取得
 		WorldServer worldserver = (WorldServer)world;
         TemplateManager templatemanager = worldserver.getStructureTemplateManager();
         Template template = templatemanager.getTemplate(null,
-        		new ResourceLocation(YuzukiTools.MODID, "house/ykt_house"));
+        		new ResourceLocation(YuzukiTools.MODID, this.template));
 		
         PlacementSettings placementsettings =  new PlacementSettings();
         

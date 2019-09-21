@@ -28,18 +28,10 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class YKTileInstantHouseSpRenderer extends TileEntitySpecialRenderer<YKTileInstantHouse> {
 
-	protected Template template;
-	protected PlacementSettings placementsettings;
+	protected Template template = null;
+	protected PlacementSettings placementsettings = null;
 	
 	public YKTileInstantHouseSpRenderer(){
-		
-		//Template初期化
-		ResourceLocation rl = new ResourceLocation(YuzukiTools.MODID, "house/ykt_house");
-		this.template = YKTileInstantHouseSpRenderer.getTemplateToJar(rl);
-
-		//設定初期化
-		this.placementsettings =  new PlacementSettings();
-		
 	}
 	
 	/**
@@ -58,7 +50,32 @@ public class YKTileInstantHouseSpRenderer extends TileEntitySpecialRenderer<YKTi
 		
 	}
 	
+	/**
+	 * インスタントハウス描画
+	 * @param te
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @param partialTicks
+	 * @param destroyStage
+	 * @param alpha
+	 */
 	public void doRender(YKTileInstantHouse te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+		
+		//インスタントハウスオブジェクト生成
+		if (!"".equals(te.getTemplate()) && this.template == null) {
+			//Template初期化
+			ResourceLocation rl = new ResourceLocation(YuzukiTools.MODID, te.getTemplate());
+			this.template = YKTileInstantHouseSpRenderer.getTemplateToJar(rl);
+
+			//設定初期化
+			this.placementsettings =  new PlacementSettings();
+		}
+		
+		//テンプレートガない場合は何もしない
+		if (this.template == null) {
+			return;
+		}
 		
 		
 		EnumFacing facing = te.getFacing();

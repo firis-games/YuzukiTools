@@ -17,6 +17,7 @@ import firis.yuzukitools.common.block.YKBlockKitchenGarden;
 import firis.yuzukitools.common.block.YKBlockSolarCharger;
 import firis.yuzukitools.common.item.IItemMetadata;
 import firis.yuzukitools.common.item.YKItemBlockBackpack;
+import firis.yuzukitools.common.item.YKItemBlockInstantHouse;
 import firis.yuzukitools.common.item.YKItemJetpack;
 import firis.yuzukitools.common.item.YKItemRedstoneArmor;
 import firis.yuzukitools.common.item.YKItemRedstoneArmorWithJetpack;
@@ -152,6 +153,7 @@ public class YuzukiTools
     	public final static Item REDSTONE_HAMMERAXE = null;
     	public final static Item REDSTONE_SHIELD_SWORD = null;
     	public final static Item SKY_GARDEN_KEY = null;
+    	public final static Item INSTANT_HOUSE = null;
     }
     
     /**
@@ -353,7 +355,7 @@ public class YuzukiTools
     			.setRegistryName(MODID, "backpack"));
     	
     	//インスタントハウス
-    	event.getRegistry().register(new ItemBlock(YKBlocks.INSTANT_HOUSE)
+    	event.getRegistry().register(new YKItemBlockInstantHouse()
     			.setRegistryName(MODID, "instant_house"));
     	
     	//レッドストーンインゴット
