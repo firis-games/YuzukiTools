@@ -95,8 +95,10 @@ public class ChunkGeneratorSkyGarden implements IChunkGenerator {
 		for (BlockPos pos : posList) {
 			if (pos.getY() == 0) {
 				chunk.setBlockState(pos.add(base), Blocks.GRASS.getDefaultState());
-			} else {
+			} else if (pos.getY() < 0 && pos.getY() >= -3) {
 				chunk.setBlockState(pos.add(base), Blocks.DIRT.getDefaultState());
+			} else {
+				chunk.setBlockState(pos.add(base), Blocks.STONE.getDefaultState());
 			}
 		}
 	}
