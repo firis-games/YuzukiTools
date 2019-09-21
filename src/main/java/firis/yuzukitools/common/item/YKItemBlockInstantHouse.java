@@ -1,18 +1,25 @@
 package firis.yuzukitools.common.item;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import firis.yuzukitools.YuzukiTools.YKBlocks;
+import firis.yuzukitools.common.instanthouse.InstantHouseManager;
 import firis.yuzukitools.common.tileentity.YKTileInstantHouse;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * インスタントハウスアイテム
@@ -27,6 +34,9 @@ public class YKItemBlockInstantHouse extends ItemBlock {
 	public YKItemBlockInstantHouse() {
 		super(YKBlocks.INSTANT_HOUSE);
 		this.setMaxStackSize(1);
+		
+		//インスタントハウスManager初期化
+		InstantHouseManager.init();
 	}
 	
 	
@@ -62,13 +72,16 @@ public class YKItemBlockInstantHouse extends ItemBlock {
     {
         if (this.isInCreativeTab(tab))
         {
-        	//ノーマルブロック
-        	ItemStack stack = new ItemStack(this);
-        	NBTTagCompound nbt = new NBTTagCompound();
-        	nbt.setString("template", "house/ykt_house");
-        	stack.setTagCompound(nbt);        	
-            items.add(stack);
+            items.addAll(InstantHouseManager.getCreativeItemStackList());
         }
+    }
+	
+	@SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
+    {
+		if (stack.hasTagCompound() && stack.getTagCompound().hasKey("template")) {
+			tooltip.add(stack.getTagCompound().getString("template"));
+		}
     }
 
 }

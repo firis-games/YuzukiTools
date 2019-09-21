@@ -1,12 +1,10 @@
 package firis.yuzukitools.client.tesr;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import org.lwjgl.opengl.GL11;
 
 import firis.core.client.ShaderHelper;
 import firis.yuzukitools.YuzukiTools;
+import firis.yuzukitools.common.instanthouse.InstantHouseManager;
 import firis.yuzukitools.common.tileentity.YKTileInstantHouse;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockDoor;
@@ -16,20 +14,13 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.init.Blocks;
-import net.minecraft.nbt.CompressedStreamTools;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class YKTileInstantHouseSpRenderer extends TileEntitySpecialRenderer<YKTileInstantHouse> {
-
-	protected Template template = null;
-	protected PlacementSettings placementsettings = null;
 	
 	public YKTileInstantHouseSpRenderer(){
 	}
@@ -61,47 +52,39 @@ public class YKTileInstantHouseSpRenderer extends TileEntitySpecialRenderer<YKTi
 	 * @param alpha
 	 */
 	public void doRender(YKTileInstantHouse te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-		
-		//インスタントハウスオブジェクト生成
-		if (!"".equals(te.getTemplate()) && this.template == null) {
-			//Template初期化
-			ResourceLocation rl = new ResourceLocation(YuzukiTools.MODID, te.getTemplate());
-			this.template = YKTileInstantHouseSpRenderer.getTemplateToJar(rl);
 
-			//設定初期化
-			this.placementsettings =  new PlacementSettings();
-		}
+		Template template = InstantHouseManager.getTemplate(te.getTemplate());
+		PlacementSettings placementsettings = new PlacementSettings();
 		
-		//テンプレートガない場合は何もしない
-		if (this.template == null) {
+		//テンプレートがない場合は何もしない
+		if (template == null) {
 			return;
 		}
-		
 		
 		EnumFacing facing = te.getFacing();
 		
 		BlockPos facingPos = new BlockPos(0, 0, 0);
 		
-		int facing_x = 7;
-        int facing_z = 3;
+		int facing_x = 1;
+        int facing_z = 0;
         
         //位置調整
         //北（標準）
         switch (facing) {
         case NORTH:
-        	this.placementsettings.setRotation(Rotation.NONE);
+        	placementsettings.setRotation(Rotation.CLOCKWISE_180);
         	facingPos = facingPos.north(facing_x).west(facing_z);
         	break;
         case SOUTH:
-        	this.placementsettings.setRotation(Rotation.CLOCKWISE_180);
+        	placementsettings.setRotation(Rotation.NONE);
         	facingPos = facingPos.south(facing_x).east(facing_z);
         	break;
         case EAST:
-        	this.placementsettings.setRotation(Rotation.CLOCKWISE_90);
+        	placementsettings.setRotation(Rotation.COUNTERCLOCKWISE_90);
         	facingPos = facingPos.north(facing_z).east(facing_x);
         	break;
         case WEST:
-        	this.placementsettings.setRotation(Rotation.COUNTERCLOCKWISE_90);
+        	placementsettings.setRotation(Rotation.CLOCKWISE_90);
         	facingPos = facingPos.south(facing_z).west(facing_x);
         	break;
        	default:
@@ -116,10 +99,10 @@ public class YKTileInstantHouseSpRenderer extends TileEntitySpecialRenderer<YKTi
 		ShaderHelper.useShader(YuzukiTools.shader_alpha);
 
 		
-		for (Template.BlockInfo blockInfo : this.template.blocks) {
+		for (Template.BlockInfo blockInfo : template.blocks) {
 			
 			//位置を調整
-			BlockPos pos = Template.transformedBlockPos(this.placementsettings, blockInfo.pos);
+			BlockPos pos = Template.transformedBlockPos(placementsettings, blockInfo.pos);
 
 			int posX = pos.getX();
 			int posY = pos.getY();
@@ -143,7 +126,7 @@ public class YKTileInstantHouseSpRenderer extends TileEntitySpecialRenderer<YKTi
 				state = state.withRotation(Rotation.CLOCKWISE_90);
 				
 				//方角にあわせて回転させる
-				state = state.withRotation(this.placementsettings.getRotation());
+				state = state.withRotation(placementsettings.getRotation());
 			}
 			
 			GlStateManager.pushMatrix();
@@ -170,31 +153,6 @@ public class YKTileInstantHouseSpRenderer extends TileEntitySpecialRenderer<YKTi
 		
 		ShaderHelper.releaseShader();
 		
-	}
-	
-	/**
-	 * Jarファイル内のテンプレートを取得する
-	 * @return
-	 */
-	public static Template getTemplateToJar(ResourceLocation rl) {
-		
-		//ファイル読み込み
-		InputStream inputstream = FMLCommonHandler.instance()
-				.getClass().getClassLoader()
-				.getResourceAsStream("assets/" + rl.getResourceDomain() + "/structures/" + rl.getResourcePath() + ".nbt");
-		
-		NBTTagCompound nbttagcompound = null;
-		
-		try {
-			nbttagcompound = CompressedStreamTools.readCompressed(inputstream);
-		} catch (IOException e) {
-		}
-		
-		//Template生成
-		Template template = new Template();
-		template.read(nbttagcompound);
-		
-		return template;
 	}
 	
 }

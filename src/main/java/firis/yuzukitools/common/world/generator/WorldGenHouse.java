@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import firis.yuzukitools.YuzukiTools;
 import firis.yuzukitools.YuzukiTools.YKItems;
+import firis.yuzukitools.common.instanthouse.InstantHouseManager;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemArmor;
@@ -13,15 +13,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
-import net.minecraft.world.gen.structure.template.TemplateManager;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
@@ -45,35 +42,33 @@ public class WorldGenHouse extends WorldGenerator {
 		
 		if ("".equals(this.template)) return false;
 		
-		//assetsからテンプレートを取得
-		WorldServer worldserver = (WorldServer)world;
-        TemplateManager templatemanager = worldserver.getStructureTemplateManager();
-        Template template = templatemanager.getTemplate(null,
-        		new ResourceLocation(YuzukiTools.MODID, this.template));
+		//InstantHouseManagerから取得する
+		Template template = InstantHouseManager.getTemplate(this.template);
 		
         PlacementSettings placementsettings =  new PlacementSettings();
         
         BlockPos pos = position;
         
-        int facing_x = 7;
-        int facing_z = 3;
+        int facing_x = 1;
+        int facing_z = 0;
         
         //位置調整
         //北（標準）
         switch (this.facing) {
         case NORTH:
+        	placementsettings.setRotation(Rotation.CLOCKWISE_180);
             pos = position.up().north(facing_x).west(facing_z);
         	break;
         case SOUTH:
-        	placementsettings.setRotation(Rotation.CLOCKWISE_180);
+        	placementsettings.setRotation(Rotation.NONE);
             pos = position.up().south(facing_x).east(facing_z);
         	break;
         case EAST:
-        	placementsettings.setRotation(Rotation.CLOCKWISE_90);
+        	placementsettings.setRotation(Rotation.COUNTERCLOCKWISE_90);
             pos = position.up().north(facing_z).east(facing_x);
         	break;
         case WEST:
-        	placementsettings.setRotation(Rotation.COUNTERCLOCKWISE_90);
+        	placementsettings.setRotation(Rotation.CLOCKWISE_90);
             pos = position.up().south(facing_z).west(facing_x);
         	break;
        	default:
@@ -82,8 +77,10 @@ public class WorldGenHouse extends WorldGenerator {
         //構造体設置
         template.addBlocksToWorldChunk(world, pos, placementsettings);
         
-        //アイテム追加
-        this.insertChest(position, world);
+        if (this.template.equals(InstantHouseManager.DEFAULT_HOUSE)) {
+	        //アイテム追加
+	        this.insertChest(position, world);
+        }
         
 		return true;
 	}
