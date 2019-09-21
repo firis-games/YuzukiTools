@@ -2,6 +2,7 @@ package firis.yuzukitools.plugin.client.jei;
 
 import javax.annotation.Nonnull;
 
+import firis.yuzukitools.YuzukiTools.YKBlocks;
 import firis.yuzukitools.api.YuzukiToolsAPI;
 import firis.yuzukitools.api.recipe.RecipesKitchenGarden;
 import firis.yuzukitools.client.gui.YKGuiElectricFurnace;
@@ -18,6 +19,7 @@ import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
+import net.minecraft.item.ItemStack;
 
 /**
  * JEI連携プラグイン
@@ -66,6 +68,10 @@ public class JEIYuzukiToolsPlugin implements IModPlugin {
 		//「レシピを見る」の設定
 		registry.addRecipeClickArea(YKGuiElectricFurnace.class, 79, 34, 24, 17, JEIElectricFurnaceRecipeCategory.UID);
 		registry.addRecipeClickArea(YKGuiKitchenGarden.class, 81, 21, 24, 17, JEIKitchenGardenRecipeCategory.UID);
+		
+		//機械とレシピの関連付け設定
+		registry.addRecipeCatalyst(new ItemStack(YKBlocks.ELECTRIC_FURNACE), JEIElectricFurnaceRecipeCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(YKBlocks.KITCHEN_GARDEN), JEIKitchenGardenRecipeCategory.UID);
 		
 	}
 }
