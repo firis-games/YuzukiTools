@@ -7,7 +7,13 @@ import javax.annotation.Nonnull;
 
 import firis.core.common.helper.JsonHelper;
 import firis.core.common.helper.JsonHelper.JsonHelperException;
+import firis.yuzukitools.YuzukiTools;
+import firis.yuzukitools.YuzukiTools.YKItems;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.structure.template.Template;
 
 public class InstantHouseInfo {
@@ -23,15 +29,26 @@ public class InstantHouseInfo {
 	/**
 	 * アイコン用ItemStack
 	 */
-	private ItemStack stack;
+	private ItemStack stack = null;
 	public ItemStack getIconItemStack() {
+		
+		//初アクセスの際に生成処理
+		if (this.stack == null) {
+			this.stack = ItemStack.EMPTY;
+			if (jsonInfo != null) {
+				try {
+					this.stack = JsonHelper.fromStringItemStack(jsonInfo.item);
+				} catch (JsonHelperException e) {
+				}
+			}
+		}
 		return this.stack;
 	}
 	
 	/**
 	 * アイテム表示名
 	 */
-	private String display;
+	private String display = "";
 	public String getDisplay() {
 		return this.display;
 	}
@@ -39,7 +56,31 @@ public class InstantHouseInfo {
 	/**
 	 * レシピ
 	 */
-	private List<ItemStack> recipes;
+	private List<ItemStack> recipes = null;
+	public List<ItemStack> getRecipes() {
+		//初アクセスの際に生成処理
+		if (this.recipes == null) {
+			this.recipes = new ArrayList<>();
+			if (jsonInfo != null) {
+				for (String recipe : jsonInfo.recipes) {
+					try {
+						this.recipes.add(JsonHelper.fromStringItemStack(recipe));
+					} catch (JsonHelperException e) {
+					}
+				}
+			} else {
+				//レシピの初期化
+				this.recipes.add(new ItemStack(YKItems.YUZUKI_MEDAL));
+				this.recipes.add(new ItemStack(Blocks.CRAFTING_TABLE));
+				this.recipes.add(new ItemStack(Blocks.FURNACE));
+				this.recipes.add(new ItemStack(Items.BED, 1, 32767));
+				this.recipes.add(new ItemStack(Blocks.CHEST));
+			}
+		}
+		return this.recipes;
+	}
+	
+	private JsonInstantHouseInfo jsonInfo = null;
 	
 	/**
 	 * コンストラクタ
@@ -51,13 +92,13 @@ public class InstantHouseInfo {
 		//Template設定
 		this.tempate = tempate;
 		
-		try {
-			this.fromJson(jsonInfo);
-		} catch (JsonHelperException e) {
-			//Json変換を失敗した場合はデフォルト設定する
-			initDefault();
+		if (jsonInfo != null) {
+			this.display = jsonInfo.display;
+			
+			//この段階ではItemとBlockのインスタンスが生成されていないため
+			//json情報のまま保持する
+			this.jsonInfo = jsonInfo;
 		}
-		
 	}
 	
 	/**
@@ -89,6 +130,17 @@ public class InstantHouseInfo {
 		this.stack = ItemStack.EMPTY;
 		this.display = "";
 		this.recipes = new ArrayList<>();
+		
+		//このタイミングだとまだ
+		//YKItems.YUZUKI_MEDALにインスタンスが格納されていない
+		
+		//デフォルトレシピ
+		this.recipes.add(new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(YuzukiTools.MODID, "yuzuki_medal"))));
+		this.recipes.add(new ItemStack(Blocks.CRAFTING_TABLE));
+		this.recipes.add(new ItemStack(Blocks.FURNACE));
+		this.recipes.add(new ItemStack(Blocks.BED));
+		this.recipes.add(new ItemStack(Blocks.CHEST));
+		
 	}
 	
 }

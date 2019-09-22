@@ -197,4 +197,33 @@ public class InstantHouseManager {
 		return iconStack;
 		
 	}
+	
+	/**
+	 * ItemStackのtemplate名を取得する
+	 * @param stack
+	 * @return
+	 */
+	public static String getTemplateName(ItemStack stack) {
+		String template = "";
+		if (stack.hasTagCompound() && stack.getTagCompound().hasKey("template")) {
+			template = stack.getTagCompound().getString("template");
+		}
+		return template;
+		
+	}
+	
+	
+	/**
+	 * ItemStackのrecipeを取得する
+	 * @param stack
+	 * @return
+	 */
+	public static List<ItemStack> getRecipes(ItemStack stack) {
+		List<ItemStack> recipes = new ArrayList<>();
+		String template = getTemplateName(stack);
+		if (!"".equals(template)) {
+			recipes = templateMap.get(template).getRecipes();
+		}
+		return recipes;
+	}
 }

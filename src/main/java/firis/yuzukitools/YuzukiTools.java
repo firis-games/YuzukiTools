@@ -15,6 +15,7 @@ import firis.yuzukitools.common.block.YKBlockElectricFurnace;
 import firis.yuzukitools.common.block.YKBlockInstantHouse;
 import firis.yuzukitools.common.block.YKBlockKitchenGarden;
 import firis.yuzukitools.common.block.YKBlockSolarCharger;
+import firis.yuzukitools.common.instanthouse.InstantHouseManager;
 import firis.yuzukitools.common.item.IItemMetadata;
 import firis.yuzukitools.common.item.YKItemBlockBackpack;
 import firis.yuzukitools.common.item.YKItemBlockInstantHouse;
@@ -35,6 +36,7 @@ import firis.yuzukitools.common.item.YKItemToolHammeraxe;
 import firis.yuzukitools.common.network.NetworkHandler;
 import firis.yuzukitools.common.proxy.IProxy;
 import firis.yuzukitools.common.proxy.ModGuiHandler;
+import firis.yuzukitools.common.recipe.RecipeInstantHouse;
 import firis.yuzukitools.common.recipe.RecipeManager;
 import firis.yuzukitools.common.recipe.RecipeRedstoneToolEnchantment;
 import firis.yuzukitools.common.recipe.RecipesElectricFurnace;
@@ -207,6 +209,9 @@ public class YuzukiTools
     	
     	//Pluginレシピ読み込み
     	RecipeManager.preInitRegisterPlugin(event);
+    	
+		//インスタントハウスManager初期化
+		InstantHouseManager.init();
     }
     
     @EventHandler
@@ -589,6 +594,12 @@ public class YuzukiTools
         			new ItemStack(Items.NETHER_STAR),
         			new ItemStack(Items.END_CRYSTAL),
         			new ItemStack(Items.GOLDEN_APPLE, 1, 1)));
+    	}
+    	
+    	//インスタントハウスレシピ登録
+    	List<ItemStack> instantHouseList = InstantHouseManager.getCreativeItemStackList();
+    	for (ItemStack stack : instantHouseList) {
+    		event.getRegistry().register(new RecipeInstantHouse(stack));
     	}
     }
     

@@ -34,9 +34,6 @@ public class YKItemBlockInstantHouse extends ItemBlock {
 	public YKItemBlockInstantHouse() {
 		super(YKBlocks.INSTANT_HOUSE);
 		this.setMaxStackSize(1);
-		
-		//インスタントハウスManager初期化
-		InstantHouseManager.init();
 	}
 	
 	
