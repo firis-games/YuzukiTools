@@ -213,7 +213,6 @@ public class InstantHouseManager {
 			}
 		}
 		return iconStack;
-		
 	}
 	
 	/**
@@ -256,5 +255,19 @@ public class InstantHouseManager {
 			autoRegNo = templateMap.get(template).getAutoRegNo();
 		}
 		return autoRegNo;
+	}
+	
+	/**
+	 * アイテムモデルを取得する
+	 * @param stack
+	 * @return
+	 */
+	public static String getItemModel(ItemStack stack) {
+		String itemModel = "";
+		String template = getTemplateName(stack);
+		if (!"".equals(template)) {
+			itemModel = templateMap.get(template).getItemModel();
+		}
+		return itemModel;
 	}
 }

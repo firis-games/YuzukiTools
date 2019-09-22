@@ -41,6 +41,14 @@ public class InstantHouseInfo {
 	}
 	
 	/**
+	 * アイテム表示名(モデル直接指定)
+	 */
+	private String item_model = "";
+	public String getItemModel() {
+		return this.item_model;
+	}
+	
+	/**
 	 * アイテム表示名
 	 */
 	private String display = "";
@@ -112,6 +120,7 @@ public class InstantHouseInfo {
 		
 		if (jsonInfo != null) {
 			this.display = jsonInfo.display;
+			this.item_model = jsonInfo.item_model;
 			
 			//この段階ではItemとBlockのインスタンスが生成されていないため
 			//json情報のまま保持する

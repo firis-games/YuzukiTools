@@ -1,5 +1,6 @@
 package firis.yuzukitools.common.instanthouse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,16 +13,21 @@ public class JsonInstantHouseInfo {
 	/**
 	 * 表示用アイコン設定
 	 */
-	public String item;
+	public String item = "";
+	
+	/**
+	 * 表示用アイコン設定モデル用
+	 */
+	public String item_model = "";
 	
 	/**
 	 * 表示名
 	 */
-	public String display;
+	public String display = "";
 	
 	/**
 	 * レシピ
 	 */
-	public List<String> recipes;
+	public List<String> recipes = new ArrayList<>();
 	
 }
