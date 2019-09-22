@@ -1,0 +1,19 @@
+{
+  "__comment": "config/yuzukitools/instant_houseに同名のnbtファイルとjsonファイルを設置して下さい。",
+  "__comment": "表示アイコンはitemまたはitem_modelで指定できます。",
+  "__comment": "itemは指定したitemidのアイテムの見た目となります。",
+  "__comment": "item_modelはassetsのjsonモデルを直接指定できます。",
+  "__comment": "item、item_modelを指定している場合はitem_modelが優先されます。",
+  "item": "yuzukitools:yuzuki_medal",
+  "item_model": "yuzukitools:cstm/instant_house_15",
+  "display": "Exampleハウス",
+  "recipes": [
+    "yuzukitools:yuzuki_medal",
+    "yuzukitools:yuzuki_medal",
+    "yuzukitools:yuzuki_medal",
+    "minecraft:bed:32767",
+    "minecraft:wool:0",
+    "minecraft:wool:1",
+    "minecraft:wool:2"
+  ]
+}
