@@ -4,6 +4,7 @@ import java.util.Map;
 
 import firis.yuzukitools.client.event.JetpackClientTickEventHandler;
 import firis.yuzukitools.client.event.KeyBindingHandler;
+import firis.yuzukitools.client.event.ModelBakeEventInstantHouseHandler;
 import firis.yuzukitools.client.event.TextureStitchEventHandler;
 import firis.yuzukitools.client.layer.YKBackPackLayer;
 import firis.yuzukitools.common.proxy.IProxy;
@@ -22,6 +23,7 @@ public class ClientProxy implements IProxy {
 		MinecraftForge.EVENT_BUS.register(JetpackClientTickEventHandler.class);
 		MinecraftForge.EVENT_BUS.register(KeyBindingHandler.class);
 		MinecraftForge.EVENT_BUS.register(TextureStitchEventHandler.class);
+		MinecraftForge.EVENT_BUS.register(ModelBakeEventInstantHouseHandler.class);
 	}
 	
 	@Override
