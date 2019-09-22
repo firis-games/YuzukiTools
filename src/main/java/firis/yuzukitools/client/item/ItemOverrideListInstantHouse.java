@@ -41,7 +41,15 @@ public class ItemOverrideListInstantHouse extends ItemOverrideList {
 		ItemStack icon = InstantHouseManager.getIconItemStack(stack);
 		
 		if (icon.isEmpty()) {
-			model = imm.getModelManager().getModel(defModelLocation);
+			int autoRegNo = InstantHouseManager.getAutoRegNo(stack);
+			if (0 <= autoRegNo && autoRegNo <= 15) {
+				ModelResourceLocation autoRegLoc = new ModelResourceLocation(
+						YuzukiTools.MODID + ":cstm/instant_house_" + autoRegNo, "inventory");
+				model = imm.getModelManager().getModel(autoRegLoc);
+			} else {
+				//デフォルト
+				model = imm.getModelManager().getModel(defModelLocation);
+			}
 		} else {
 			model = imm.getItemModel(icon);
 		}

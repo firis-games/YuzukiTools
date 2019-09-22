@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +45,7 @@ public class InstantHouseManager {
 	public static void init() {
 		
 		//Template初期化
-		InstantHouseManager.templateMap = new HashMap<>();
+		InstantHouseManager.templateMap = new LinkedHashMap<>();
 		
 		//標準の家を設定
 		setDefaultHouse();
@@ -53,6 +53,10 @@ public class InstantHouseManager {
 		Gson gson = new Gson();
 		
 		List<String> configList = ResourceHelper.getConfigFileList("instant_house");
+		
+		Map<String, InstantHouseInfo> autoRegTemplate = new LinkedHashMap<>();
+		Map<String, InstantHouseInfo> cstmRegTemplate = new LinkedHashMap<>();
+		int autoReg = 0;
 		
 		for (String path : configList) {
 			
@@ -82,10 +86,25 @@ public class InstantHouseManager {
 			Template template = new Template();
 			template.read(compound);
 			
-			InstantHouseInfo info = new InstantHouseInfo(template, json);
-			templateMap.put(name, info);
-
+			if (json != null) {
+				//CstmReg
+				InstantHouseInfo info = new InstantHouseInfo(template, json, -1);
+				cstmRegTemplate.put(name, info);
+				
+			} else if (autoReg <= 15){
+				//autoReg
+				InstantHouseInfo info = new InstantHouseInfo(template, json, autoReg);
+				autoRegTemplate.put(name, info);
+				autoReg++;
+			}
 		}
+		
+		//カスタムレシピを統合
+		templateMap.putAll(autoRegTemplate);
+		templateMap.putAll(cstmRegTemplate);
+		
+		autoRegTemplate = null;
+		cstmRegTemplate = null;
 	}
 	
 	/**
@@ -97,9 +116,8 @@ public class InstantHouseManager {
 		ResourceLocation rl = new ResourceLocation(YuzukiTools.MODID, name);
 		Template template = InstantHouseManager.getTemplateToJar(rl);
 		
-		InstantHouseInfo info = new InstantHouseInfo(template, null);
+		InstantHouseInfo info = new InstantHouseInfo(template, null, -1);
 		templateMap.put(name, info);
-		
 	}
 	
 	/**
@@ -212,7 +230,6 @@ public class InstantHouseManager {
 		
 	}
 	
-	
 	/**
 	 * ItemStackのrecipeを取得する
 	 * @param stack
@@ -222,8 +239,22 @@ public class InstantHouseManager {
 		List<ItemStack> recipes = new ArrayList<>();
 		String template = getTemplateName(stack);
 		if (!"".equals(template)) {
-			recipes = templateMap.get(template).getRecipes();
+			recipes = templateMap.get(template).createRecipes();
 		}
 		return recipes;
+	}
+	
+	/**
+	 * 自動登録番号を取得する
+	 * @param stack
+	 * @return
+	 */
+	public static int getAutoRegNo(ItemStack stack) {
+		int autoRegNo = -1;
+		String template = getTemplateName(stack);
+		if (!"".equals(template)) {
+			autoRegNo = templateMap.get(template).getAutoRegNo();
+		}
+		return autoRegNo;
 	}
 }

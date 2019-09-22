@@ -359,10 +359,6 @@ public class YuzukiTools
     	event.getRegistry().register(new YKItemBlockBackpack()
     			.setRegistryName(MODID, "backpack"));
     	
-    	//インスタントハウス
-    	event.getRegistry().register(new YKItemBlockInstantHouse()
-    			.setRegistryName(MODID, "instant_house"));
-    	
     	//レッドストーンインゴット
     	event.getRegistry().register(new Item()
     			.setRegistryName(MODID, "redstone_ingot")
@@ -456,7 +452,9 @@ public class YuzukiTools
     			.setRegistryName(MODID, "sky_garden_key")
     			.setUnlocalizedName("sky_garden_key"));
     	
-    	
+    	//インスタントハウス
+    	event.getRegistry().register(new YKItemBlockInstantHouse()
+    			.setRegistryName(MODID, "instant_house"));
     }
     
     /**
@@ -509,6 +507,12 @@ public class YuzukiTools
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				logger.info("registerModels Block error " + filed.getName());
 			}
+    	}
+    	
+    	//カスタムインスタントハウス
+    	for (int i = 0; i < 16; i++) {
+    		ModelLoader.setCustomModelResourceLocation(YKItems.INSTANT_HOUSE, i + 1,
+	    			new ModelResourceLocation("yuzukitools:cstm/instant_house_" + i, "inventory"));
     	}
 
     	//インスタントハウスTESR
