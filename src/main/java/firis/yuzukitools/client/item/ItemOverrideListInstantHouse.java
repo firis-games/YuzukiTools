@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import firis.yuzukitools.YuzukiTools;
+import firis.yuzukitools.common.instanthouse.InstantHouseManager;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemOverride;
@@ -35,8 +36,15 @@ public class ItemOverrideListInstantHouse extends ItemOverrideList {
 		ItemModelMesher imm = FMLClientHandler.instance().getClient().getRenderItem().getItemModelMesher();
 		
 		IBakedModel model = imm.getModelManager().getModel(defModelLocation);
-		//ダイヤモンド固定
-		//return imm.getItemModel(new ItemStack(Items.DIAMOND));
+		
+		//カスタムアイコン
+		ItemStack icon = InstantHouseManager.getIconItemStack(stack);
+		
+		if (icon.isEmpty()) {
+			model = imm.getModelManager().getModel(defModelLocation);
+		} else {
+			model = imm.getItemModel(icon);
+		}
 		return model;
     }
 

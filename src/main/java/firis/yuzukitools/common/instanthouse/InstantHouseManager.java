@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.Gson;
+
 import firis.core.common.helper.PathsHelper;
 import firis.core.common.helper.ResourceHelper;
 import firis.yuzukitools.YuzukiTools;
@@ -33,7 +35,7 @@ public class InstantHouseManager {
 	/**
 	 * テンプレート保存用マップ
 	 */
-	protected static Map<String, Template> templateMap;
+	protected static Map<String, InstantHouseInfo> templateMap;
 	
 	public static String DEFAULT_HOUSE = "house/ykt_default_house";
 	
@@ -48,25 +50,41 @@ public class InstantHouseManager {
 		//標準の家を設定
 		setDefaultHouse();
 		
+		Gson gson = new Gson();
+		
 		List<String> configList = ResourceHelper.getConfigFileList("instant_house");
 		
 		for (String path : configList) {
 			
+			//名前と拡張子に分割
+			String name = path.substring(0, path.length() - 4);
+			String ext = path.substring(path.length() - 4, path.length());
+			
+			//NBTの場合のみ処理を続行
+			if (!".nbt".equals(ext.toLowerCase())) continue;
+			
+			//NBTの取得
 			Path file = PathsHelper.getConfigPath(path);
 			NBTTagCompound compound = null;
 			try {
 				compound = CompressedStreamTools.readCompressed(Files.newInputStream(file));
 			} catch (IOException e) {
 			}
-			if (compound != null) {
-				
-				//拡張子除去
-				String name = path.substring(0, path.length() - 4);
-				
-				Template template = new Template();
-				template.read(compound);
-				templateMap.put(name, template);
-			}
+			
+			//NBT取得できない場合はスキップ
+			if (compound == null) continue;
+			
+			//Jsonの取得
+			String jsonFile = ResourceHelper.getConfigFileString(name + ".json");
+			JsonInstantHouseInfo json = gson.fromJson(jsonFile, JsonInstantHouseInfo.class);
+			
+			//テンプレート情報を生成
+			Template template = new Template();
+			template.read(compound);
+			
+			InstantHouseInfo info = new InstantHouseInfo(template, json);
+			templateMap.put(name, info);
+
 		}
 	}
 	
@@ -79,7 +97,8 @@ public class InstantHouseManager {
 		ResourceLocation rl = new ResourceLocation(YuzukiTools.MODID, name);
 		Template template = InstantHouseManager.getTemplateToJar(rl);
 		
-		templateMap.put(name, template);
+		InstantHouseInfo info = new InstantHouseInfo(template, null);
+		templateMap.put(name, info);
 		
 	}
 	
@@ -90,7 +109,7 @@ public class InstantHouseManager {
 	public static Template getTemplate(String path) {
 		Template template = null;
 		if (templateMap.containsKey(path)) {
-			template = templateMap.get(path);
+			template = templateMap.get(path).getTemplate();
 		}
 		return template;
 	}
@@ -126,11 +145,24 @@ public class InstantHouseManager {
 	 * @param path
 	 */
 	public static ItemStack getItemStack(String path) {
+		
 		ItemStack stack = ItemStack.EMPTY;
+		
 		if (templateMap.containsKey(path)) {
+			
+			InstantHouseInfo info = templateMap.get(path);
+			
 			stack = new ItemStack(YKItems.INSTANT_HOUSE);
 	    	NBTTagCompound nbt = new NBTTagCompound();
 	    	nbt.setString("template", path);
+	    	
+	    	//表示名が設定されている場合
+	    	if (!"".equals(info.getDisplay())) {
+	    		NBTTagCompound nameTag = new NBTTagCompound();
+	    		nameTag.setString("Name", info.getDisplay());
+	    		nbt.setTag("display", nameTag);
+	    	}
+	    	
 	    	stack.setTagCompound(nbt);
 		}
 		return stack;
@@ -146,5 +178,23 @@ public class InstantHouseManager {
 			list.add(getItemStack(key));
 		}
 		return list;
+	}
+	
+	/**
+	 * アイコン表示用のアイテムスタックを取得する
+	 * @param stack
+	 * @return
+	 */
+	public static ItemStack getIconItemStack(ItemStack stack) {
+		ItemStack iconStack = ItemStack.EMPTY;
+		
+		if (stack.hasTagCompound() && stack.getTagCompound().hasKey("template")) {
+			String template = stack.getTagCompound().getString("template");
+			if (templateMap.containsKey(template)) {
+				iconStack = templateMap.get(template).getIconItemStack();
+			}
+		}
+		return iconStack;
+		
 	}
 }
