@@ -1,10 +1,11 @@
 package firis.yuzukitools.common.network;
 
+import firis.yuzukitools.common.api.baubles.BaublesHelper;
 import firis.yuzukitools.common.item.YKItemBlockBackpack;
 import firis.yuzukitools.common.proxy.ModGuiHandler;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -23,8 +24,12 @@ public class PacketOpenGuiC2S implements IMessageHandler<PacketOpenGuiC2S.Messag
 		EntityPlayerMP player = ctx.getServerHandler().player;
 		
 		if (message.guiId == ModGuiHandler.BACKPACK_KEY) {
+
+			//胴装備アイテムを取得する
+			ItemStack bodyStack = BaublesHelper.getSlotFromArmorOrBaubles(player);
+
 			//チェストにバックパックがある場合のみバックパックを開く
-			YKItemBlockBackpack.openGui(player, player.inventory.armorInventory.get(EntityEquipmentSlot.CHEST.getIndex()), null);
+			YKItemBlockBackpack.openGui(player, bodyStack, null);
 		}
 		return null;
 	}

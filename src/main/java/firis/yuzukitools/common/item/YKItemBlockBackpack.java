@@ -3,8 +3,11 @@ package firis.yuzukitools.common.item;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import baubles.api.BaubleType;
+import baubles.api.IBauble;
 import firis.yuzukitools.YuzukiTools;
 import firis.yuzukitools.YuzukiTools.YKBlocks;
+import firis.yuzukitools.common.api.baubles.BaublesHelper;
 import firis.yuzukitools.common.capability.TileEntityItemStackHandler;
 import firis.yuzukitools.common.proxy.ModGuiHandler;
 import net.minecraft.block.state.IBlockState;
@@ -25,12 +28,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class YKItemBlockBackpack extends ItemBlock {
+@Optional.Interface(modid="baubles", iface="baubles.api.IBauble")
+public class YKItemBlockBackpack extends ItemBlock implements IBauble {
 
 	/**
 	 * アイテムのバックパック
@@ -48,6 +53,8 @@ public class YKItemBlockBackpack extends ItemBlock {
     @Override
     public boolean isValidArmor(ItemStack stack, EntityEquipmentSlot armorType, Entity entity)
     {
+    	//Baublesが導入されている場合は無効化
+    	if (BaublesHelper.isLoaded()) return false;
         return EntityEquipmentSlot.CHEST == armorType;
     }
     
@@ -58,6 +65,8 @@ public class YKItemBlockBackpack extends ItemBlock {
     @SideOnly(Side.CLIENT)
     public EntityEquipmentSlot getEquipmentSlot()
     {
+    	//Baublesが導入されている場合は無効化
+    	if (BaublesHelper.isLoaded()) return null;
         return EntityEquipmentSlot.CHEST;
     }
     
@@ -205,5 +214,18 @@ public class YKItemBlockBackpack extends ItemBlock {
     	
     	return true;
     }
+
+
+	/**
+	 * baubles用
+	 * バックパックを胴に装備できるようにする
+	 * @param
+	 * @return
+	 */
+	@Override
+	@Optional.Method(modid = "baubles")
+	public BaubleType getBaubleType(ItemStack arg0) {
+		return BaubleType.BODY;
+	}
 	
 }

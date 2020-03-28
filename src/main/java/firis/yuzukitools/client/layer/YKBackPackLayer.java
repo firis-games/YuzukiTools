@@ -1,13 +1,13 @@
 package firis.yuzukitools.client.layer;
 
 import firis.yuzukitools.YuzukiTools.YKBlocks;
+import firis.yuzukitools.common.api.baubles.BaublesHelper;
 import firis.yuzukitools.common.item.YKItemBlockBackpack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -48,6 +48,8 @@ public final class YKBackPackLayer implements LayerRenderer<EntityPlayer> {
 	
 	/**
 	 * 描画するかの判断を行う
+	 * 
+	 * Baublesが導入されている場合はBaublesのBODYスロットを確認する
 	 * @param player
 	 * @return
 	 */
@@ -55,8 +57,10 @@ public final class YKBackPackLayer implements LayerRenderer<EntityPlayer> {
 		
 		boolean ret = false;
 		
+		//胴装備アイテムを取得する
+		ItemStack stack = BaublesHelper.getSlotFromArmorOrBaubles(player);
+		
 		//チェスト枠をチェックする
-		ItemStack stack = player.inventory.armorInventory.get(EntityEquipmentSlot.CHEST.getIndex());
 		if (stack.getItem() instanceof YKItemBlockBackpack) {
 			ret = true;
 		}
