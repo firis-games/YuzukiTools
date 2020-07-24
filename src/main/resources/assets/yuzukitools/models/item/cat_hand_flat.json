@@ -1,0 +1,6 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "yuzukitools:items/cat_hand_flat"
+    }
+}

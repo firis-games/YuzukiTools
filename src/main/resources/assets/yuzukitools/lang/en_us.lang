@@ -81,3 +81,7 @@ item.sky_garden_key_13.name=Magenta Sky Garden Key
 item.sky_garden_key_14.name=Orange Sky Garden Key
 item.sky_garden_key_15.name=White Sky Garden Key
 
+item.cat_hand.name=Cat Hand
+item.cat_hand.info.normal=Horizontal Mode
+item.cat_hand.info.flat=Flat Mode
+

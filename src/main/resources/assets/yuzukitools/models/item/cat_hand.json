@@ -1,0 +1,14 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "yuzukitools:items/cat_hand"
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "flatmode": 1
+            },
+            "model": "yuzukitools:item/cat_hand_flat"
+        }
+    ]
+}
