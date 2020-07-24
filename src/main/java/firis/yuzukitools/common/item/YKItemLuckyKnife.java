@@ -2,7 +2,6 @@ package firis.yuzukitools.common.item;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.List;
 import java.util.Random;
 
 import com.google.common.collect.HashMultimap;
@@ -15,16 +14,10 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.LootTable;
+import net.minecraft.util.DamageSource;
 
 /**
  * 幸運のナイフ
@@ -61,37 +54,13 @@ public class YKItemLuckyKnife extends ItemSword {
 		for (int i = 1; i <= level; i++) {
 			rate += i * 10;
 		}
-		
 		//ドロップ判断
 		if (!attacker.world.isRemote && rand.nextInt(100) <= rate) {
-			
 			//アイテムドロップ処理
-			Method method = ReflectionHelper.findMethod(target.getClass(), "getLootTable", "func_184647_J");
-			ResourceLocation rlLootTable = null;
 			try {
-				rlLootTable = (ResourceLocation) method.invoke(target);
+				Method method = ReflectionHelper.findMethod(target.getClass(), "dropLoot", "func_184610_a", boolean.class, int.class, DamageSource.class);
+				method.invoke(target, true, 0, DamageSource.causeMobDamage(attacker));
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			}
-			
-			//アイテムをドロップさせる
-			if (rlLootTable != null) {
-				World world = attacker.world;
-				LootContext.Builder ctxBuild = new LootContext.Builder((WorldServer) world);
-				
-				//Player限定判定追加
-				if (attacker instanceof EntityPlayer) {
-					EntityPlayer player = (EntityPlayer) attacker;
-					ctxBuild.withPlayer(player).withLuck(player.getLuck());
-				}
-				
-				LootTable loottable = world
-						.getLootTableManager()
-						.getLootTableFromLocation(rlLootTable);
-				
-				List<ItemStack> resultList = loottable.generateLootForPools(rand, ctxBuild.build());
-				for (ItemStack result : resultList) {
-					InventoryHelper.spawnItemStack(attacker.world, target.posX, target.posY, target.posZ, result);
-				}
 			}
 		}
 		return super.hitEntity(stack, target, attacker);
