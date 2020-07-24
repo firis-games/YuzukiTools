@@ -21,6 +21,7 @@ import firis.yuzukitools.common.item.YKItemBlockBackpack;
 import firis.yuzukitools.common.item.YKItemBlockInstantHouse;
 import firis.yuzukitools.common.item.YKItemCatHand;
 import firis.yuzukitools.common.item.YKItemJetpack;
+import firis.yuzukitools.common.item.YKItemLuckyKnife;
 import firis.yuzukitools.common.item.YKItemRedstoneArmor;
 import firis.yuzukitools.common.item.YKItemRedstoneArmorWithJetpack;
 import firis.yuzukitools.common.item.YKItemRedstoneAxe;
@@ -157,8 +158,8 @@ public class YuzukiTools
     	public final static Item REDSTONE_SHIELD_SWORD = null;
     	public final static Item SKY_GARDEN_KEY = null;
     	public final static Item INSTANT_HOUSE = null;
-    	
     	public final static Item CAT_HAND = null;
+    	public final static Item LUCKY_KNIFE = null;
     }
     
     /**
@@ -463,6 +464,11 @@ public class YuzukiTools
     	event.getRegistry().register(new YKItemCatHand()
     			.setRegistryName(MODID, "cat_hand")
     			.setUnlocalizedName("cat_hand"));
+    	
+    	//幸運のナイフ
+    	event.getRegistry().register(new YKItemLuckyKnife()
+    			.setRegistryName(MODID, "lucky_knife")
+    			.setUnlocalizedName("lucky_knife"));
     	
     }
     

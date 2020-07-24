@@ -1,0 +1,19 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" x ",
+		" x ",
+		" y "
+	],
+	"key": {
+		"x": {
+			"item": "minecraft:gold_ingot"
+		},
+		"y": {
+			"item": "minecraft:diamond"
+		}
+	},
+	"result": {
+		"item": "yuzukitools:lucky_knife"
+	}
+}
