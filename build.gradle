@@ -25,9 +25,9 @@ repositories {
     }
 }
 
-version = "0.4.1"
+version = "0.5"
 group = "firis.yuzukitools" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "yuzukitools"
+archivesBaseName = "YuzukiTools"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {
