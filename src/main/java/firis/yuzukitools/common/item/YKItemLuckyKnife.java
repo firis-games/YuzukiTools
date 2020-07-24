@@ -29,14 +29,14 @@ public class YKItemLuckyKnife extends ItemSword {
 	private static Random rand = new Random();
 	
 	//ナイフの攻撃力
-	protected float knifeAttack = 1.0f;
+	protected float knifeAttack = 0.0f;
 	
 	/**
 	 * コンストラクタ
 	 */
 	public YKItemLuckyKnife() {
 		super(ToolMaterial.GOLD);
-		this.setMaxDamage(64);
+		this.setMaxDamage(48);
 		this.setCreativeTab(YuzukiTools.YKCreativeTab);
 	}
 	
