@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import firis.core.client.ShaderHelper;
 import firis.yuzukitools.client.tesr.YKTileInstantHouseSpRenderer;
 import firis.yuzukitools.client.tesr.YKTileKitchenGardenSpRenderer;
+import firis.yuzukitools.common.block.YKBlockAmuletStone;
 import firis.yuzukitools.common.block.YKBlockBackpack;
 import firis.yuzukitools.common.block.YKBlockElectricFurnace;
 import firis.yuzukitools.common.block.YKBlockInstantHouse;
@@ -44,6 +45,7 @@ import firis.yuzukitools.common.recipe.RecipeManager;
 import firis.yuzukitools.common.recipe.RecipeRedstoneToolEnchantment;
 import firis.yuzukitools.common.recipe.RecipesElectricFurnace;
 import firis.yuzukitools.common.recipe.develop.CreateJsonRecipe;
+import firis.yuzukitools.common.tileentity.YKTileAmuletStone;
 import firis.yuzukitools.common.tileentity.YKTileBackpack;
 import firis.yuzukitools.common.tileentity.YKTileElectricFurnace;
 import firis.yuzukitools.common.tileentity.YKTileInstantHouse;
@@ -174,6 +176,7 @@ public class YuzukiTools
     	public final static Block SOLAR_CHARGER = null;
     	public final static Block ELECTRIC_FURNACE = null;
     	public final static Block KITCHEN_GARDEN = null;
+    	public final static Block AMULET_STONE = null;
     }
     
     
@@ -203,6 +206,9 @@ public class YuzukiTools
         
         GameRegistry.registerTileEntity(YKTileKitchenGarden.class, 
         		new ResourceLocation(YuzukiTools.MODID, "te_kitchen_garden"));
+
+        GameRegistry.registerTileEntity(YKTileAmuletStone.class, 
+        		new ResourceLocation(YuzukiTools.MODID, "te_amulet_stone"));
         
         //ネットワーク登録
         NetworkHandler.init();
@@ -288,6 +294,13 @@ public class YuzukiTools
                 new YKBlockKitchenGarden()
                 .setRegistryName(MODID, "kitchen_garden")
                 .setUnlocalizedName("kitchen_garden")
+        );
+        
+        // 魔除けの石
+        event.getRegistry().register(
+                new YKBlockAmuletStone()
+                .setRegistryName(MODID, "amulet_stone")
+                .setUnlocalizedName("amulet_stone")
         );
     }
     
@@ -476,6 +489,10 @@ public class YuzukiTools
     	event.getRegistry().register(new YKItemPortableWorkbench()
     			.setRegistryName(MODID, "portable_workbench")
     			.setUnlocalizedName("portable_workbench"));
+    	
+    	//魔除けの石
+    	event.getRegistry().register(new ItemBlock(YKBlocks.AMULET_STONE)
+    			.setRegistryName(MODID, "amulet_stone"));
     }
     
     /**

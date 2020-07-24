@@ -1,0 +1,24 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"zyz",
+		"yxy",
+		"zyz"
+	],
+	"key": {
+		"x": {
+			"item": "minecraft:diamond"
+		},
+		"y": {
+			"item": "minecraft:stone",
+			"data": 32767
+		},
+		"z": {
+			"item": "minecraft:dye",
+			"data": 5
+		}
+	},
+	"result": {
+		"item": "yuzukitools:amulet_stone"
+	}
+}
