@@ -2,6 +2,7 @@ package firis.yuzukitools.common.proxy;
 
 import firis.core.common.inventory.CapabilityInventory;
 import firis.yuzukitools.client.gui.YKGuiContainerBackpack;
+import firis.yuzukitools.client.gui.YKGuiPortableWorkbench;
 import firis.yuzukitools.client.gui.YKGuiElectricFurnace;
 import firis.yuzukitools.client.gui.YKGuiKitchenGarden;
 import firis.yuzukitools.client.gui.YKGuiSolarCharger;
@@ -10,6 +11,7 @@ import firis.yuzukitools.common.container.YKContainerBackpack;
 import firis.yuzukitools.common.container.YKContainerElectricFurnace;
 import firis.yuzukitools.common.container.YKContainerKitchenGarden;
 import firis.yuzukitools.common.container.YKContainerSolarCharger;
+import firis.yuzukitools.common.container.YKContainerPortableWorkbench;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.EnumHand;
@@ -36,6 +38,9 @@ public class ModGuiHandler implements IGuiHandler {
 	
 	//家庭菜園
 	public final static int KITCHEN_GARDEN = 5;
+	
+	//手持ち作業台
+	public final static int PORTABLE_WORKBENCH = 6;
 	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -73,6 +78,10 @@ public class ModGuiHandler implements IGuiHandler {
 		case ModGuiHandler.KITCHEN_GARDEN :
 			inventory = new CapabilityInventory(world.getTileEntity(new BlockPos(x, y, z)));
 			return new YKContainerKitchenGarden(inventory, player.inventory);
+			
+		//家庭菜園
+		case ModGuiHandler.PORTABLE_WORKBENCH :
+			return new YKContainerPortableWorkbench(player.inventory, player.world);
 		}
 		
 		return null;
@@ -116,6 +125,10 @@ public class ModGuiHandler implements IGuiHandler {
 		case ModGuiHandler.KITCHEN_GARDEN :
 			inventory = new CapabilityInventory(world.getTileEntity(new BlockPos(x, y, z)));
 			return new YKGuiKitchenGarden(inventory, player.inventory);
+			
+		//家庭菜園
+		case ModGuiHandler.PORTABLE_WORKBENCH :
+			return new YKGuiPortableWorkbench(player.inventory, player.world);
 		}
 		
 		return null;

@@ -1,0 +1,20 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"yyy",
+		" x ",
+		"yyy"
+	],
+	"key": {
+		"x": {
+			"item": "minecraft:crafting_table",
+			"data": 0
+		},
+		"y": {
+			"item": "minecraft:stick"
+		}
+	},
+	"result": {
+		"item": "yuzukitools:portable_workbench"
+	}
+}
