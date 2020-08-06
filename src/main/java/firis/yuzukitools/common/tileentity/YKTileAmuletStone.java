@@ -1,6 +1,6 @@
 package firis.yuzukitools.common.tileentity;
 
-import firis.yuzukitools.common.event.AmuletStoneSpawnsEventHandler;
+import firis.yuzukitools.common.event.AmuletStoneSpawnEventHandler;
 import net.minecraft.util.ITickable;
 
 /**
@@ -17,7 +17,7 @@ public class YKTileAmuletStone extends AbstractTileEntity implements ITickable {
 	public void update() {
 		//リストに登録
 		if (!this.isInvalid()) {
-			AmuletStoneSpawnsEventHandler.AddBlock(this);
+			AmuletStoneSpawnEventHandler.AddBlock(this);
 		}
 	}
 	
@@ -27,7 +27,7 @@ public class YKTileAmuletStone extends AbstractTileEntity implements ITickable {
 	@Override
 	public void invalidate() {
 		super.invalidate();
-		AmuletStoneSpawnsEventHandler.removeBlock(this);
+		AmuletStoneSpawnEventHandler.removeBlock(this);
 	}
 
 }

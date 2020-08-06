@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  *
  */
 @EventBusSubscriber
-public class AmuletStoneSpawnsEventHandler {
+public class AmuletStoneSpawnEventHandler {
 
 	// スポーン停止エリア
 	protected static Set<TileEntity> nonSpawnsArea = new HashSet<>();
