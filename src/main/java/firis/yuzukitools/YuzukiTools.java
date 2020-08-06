@@ -12,6 +12,7 @@ import firis.yuzukitools.client.tesr.YKTileInstantHouseSpRenderer;
 import firis.yuzukitools.client.tesr.YKTileKitchenGardenSpRenderer;
 import firis.yuzukitools.common.block.YKBlockAmuletStone;
 import firis.yuzukitools.common.block.YKBlockBackpack;
+import firis.yuzukitools.common.block.YKBlockCursedStone;
 import firis.yuzukitools.common.block.YKBlockElectricFurnace;
 import firis.yuzukitools.common.block.YKBlockInstantHouse;
 import firis.yuzukitools.common.block.YKBlockKitchenGarden;
@@ -47,6 +48,7 @@ import firis.yuzukitools.common.recipe.RecipesElectricFurnace;
 import firis.yuzukitools.common.recipe.develop.CreateJsonRecipe;
 import firis.yuzukitools.common.tileentity.YKTileAmuletStone;
 import firis.yuzukitools.common.tileentity.YKTileBackpack;
+import firis.yuzukitools.common.tileentity.YKTileCursedStone;
 import firis.yuzukitools.common.tileentity.YKTileElectricFurnace;
 import firis.yuzukitools.common.tileentity.YKTileInstantHouse;
 import firis.yuzukitools.common.tileentity.YKTileKitchenGarden;
@@ -177,6 +179,7 @@ public class YuzukiTools
     	public final static Block ELECTRIC_FURNACE = null;
     	public final static Block KITCHEN_GARDEN = null;
     	public final static Block AMULET_STONE = null;
+    	public final static Block CURSED_STONE = null;
     }
     
     
@@ -209,6 +212,9 @@ public class YuzukiTools
 
         GameRegistry.registerTileEntity(YKTileAmuletStone.class, 
         		new ResourceLocation(YuzukiTools.MODID, "te_amulet_stone"));
+        
+        GameRegistry.registerTileEntity(YKTileCursedStone.class, 
+        		new ResourceLocation(YuzukiTools.MODID, "te_cursed_stone"));
         
         //ネットワーク登録
         NetworkHandler.init();
@@ -301,6 +307,13 @@ public class YuzukiTools
                 new YKBlockAmuletStone()
                 .setRegistryName(MODID, "amulet_stone")
                 .setUnlocalizedName("amulet_stone")
+        );
+        
+        // 呪いの石
+        event.getRegistry().register(
+                new YKBlockCursedStone()
+                .setRegistryName(MODID, "cursed_stone")
+                .setUnlocalizedName("cursed_stone")
         );
     }
     
@@ -493,6 +506,10 @@ public class YuzukiTools
     	//魔除けの石
     	event.getRegistry().register(new ItemBlock(YKBlocks.AMULET_STONE)
     			.setRegistryName(MODID, "amulet_stone"));
+    	
+    	//呪いの石
+    	event.getRegistry().register(new ItemBlock(YKBlocks.CURSED_STONE)
+    			.setRegistryName(MODID, "cursed_stone"));
     }
     
     /**

@@ -1,0 +1,22 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"zyz",
+		"yxy",
+		"zyz"
+	],
+	"key": {
+		"x": {
+			"item": "minecraft:diamond"
+		},
+		"y": {
+			"item": "minecraft:soul_sand"
+		},
+		"z": {
+			"item": "minecraft:rotten_flesh"
+		}
+	},
+	"result": {
+		"item": "yuzukitools:cursed_stone"
+	}
+}
