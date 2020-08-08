@@ -89,6 +89,10 @@ item.lucky_knife.name=幸運のナイフ
 item.portable_workbench.name=手持ち作業台
 
 tile.amulet_stone.name=魔除けの石
+tile.amulet_stone.info=魔物が忌避する聖なる石
+tile.amulet_stone.details=モンスターのスポーンを抑制する
 
 tile.cursed_stone.name=呪いの石
+tile.cursed_stone.info=魔物を引き寄せる呪われた石
+tile.cursed_stone.details=モンスターのスポーンを集中させる
 

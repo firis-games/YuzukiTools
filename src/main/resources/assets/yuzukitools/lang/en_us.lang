@@ -63,7 +63,6 @@ item.redstone_chestplate_jp.name=Redstone Chestplate[JP]
 item.redstone_hammeraxe.name=Redstone Hammeraxe
 item.redstone_shield_sword.name=Redstone Shield Sword
 
-item.sky_garden_key.name=Sky Garden Key
 item.sky_garden_key_0.name=Black Sky Garden Key
 item.sky_garden_key_1.name=Red Sky Garden Key
 item.sky_garden_key_2.name=Green Sky Garden Key
@@ -90,6 +89,10 @@ item.lucky_knife.name=Lucky Knife
 item.portable_workbench.name=Portable Workbench
 
 tile.amulet_stone.name=Amulet Stone
+tile.amulet_stone.info=Holy stones that monsters avoid
+tile.amulet_stone.details=Suppress monster spawn
 
 tile.cursed_stone.name=Cursed Stone
+tile.cursed_stone.info=Cursed Stone that attracts demons
+tile.cursed_stone.details=Concentrate monster spawn
 
