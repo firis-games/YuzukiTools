@@ -1,0 +1,20 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+	{
+		"item": "minecraft:book"
+	},
+	{
+		"item": "minecraft:feather"
+	},
+	{
+		"item": "minecraft:emerald"
+	},
+	{
+		"item": "minecraft:emerald"
+	}
+	],
+	"result": {
+		"item": "yuzukitools:villager_job_change"
+	}
+}

@@ -102,3 +102,6 @@ tile.cursed_stone.name=呪いの石
 tile.cursed_stone.info=魔物を引き寄せる呪われた石
 tile.cursed_stone.details=モンスターのスポーンを集中させる
 
+item.villager_job_change.name=村人転職の書
+item.villager_job_change.info=新しいお仕事
+

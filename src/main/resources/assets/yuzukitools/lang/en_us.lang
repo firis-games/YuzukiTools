@@ -102,3 +102,6 @@ tile.cursed_stone.name=Cursed Stone
 tile.cursed_stone.info=Cursed Stone that attracts demons
 tile.cursed_stone.details=Concentrate monster spawn
 
+item.villager_job_change.name=Villager Job Change
+item.villager_job_change.info=New job
+

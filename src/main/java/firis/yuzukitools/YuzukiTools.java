@@ -38,6 +38,7 @@ import firis.yuzukitools.common.item.YKItemRedstoneSword;
 import firis.yuzukitools.common.item.YKItemShieldSword;
 import firis.yuzukitools.common.item.YKItemSkyGardenKey;
 import firis.yuzukitools.common.item.YKItemToolHammeraxe;
+import firis.yuzukitools.common.item.YKItemVillagerJobChange;
 import firis.yuzukitools.common.network.NetworkHandler;
 import firis.yuzukitools.common.proxy.IProxy;
 import firis.yuzukitools.common.proxy.ModGuiHandler;
@@ -166,6 +167,7 @@ public class YuzukiTools
     	public final static Item CAT_HAND = null;
     	public final static Item LUCKY_KNIFE = null;
     	public final static Item PORTABLE_WORKBENCH = null;
+    	public final static Item VILLAGER_JOB_CHANGE = null;
     }
     
     /**
@@ -510,6 +512,11 @@ public class YuzukiTools
     	//呪いの石
     	event.getRegistry().register(new ItemBlock(YKBlocks.CURSED_STONE)
     			.setRegistryName(MODID, "cursed_stone"));
+    	
+    	//村人転職の書
+    	event.getRegistry().register(new YKItemVillagerJobChange()
+    			.setRegistryName(MODID, "villager_job_change")
+    			.setUnlocalizedName("villager_job_change"));
     }
     
     /**
