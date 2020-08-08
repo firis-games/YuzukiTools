@@ -1,5 +1,7 @@
 package firis.yuzukitools.common.item;
 
+import java.util.List;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -11,6 +13,8 @@ import firis.yuzukitools.common.api.baubles.BaublesHelper;
 import firis.yuzukitools.common.capability.TileEntityItemStackHandler;
 import firis.yuzukitools.common.proxy.ModGuiHandler;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -25,6 +29,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
@@ -104,6 +109,14 @@ public class YKItemBlockBackpack extends ItemBlock implements IBauble {
     		}
     	}
         return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
+    }
+    
+	/**
+	 * info設定
+	 */
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+		tooltip.add(TextFormatting.LIGHT_PURPLE + I18n.format("tile.backpack.info"));
     }
     
     /**

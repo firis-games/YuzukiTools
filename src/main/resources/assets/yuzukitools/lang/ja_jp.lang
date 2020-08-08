@@ -7,19 +7,23 @@ item.stone_hammeraxe.name=石のハンマーアックス
 item.iron_hammeraxe.name=鉄のハンマーアックス
 item.gold_hammeraxe.name=金のハンマーアックス
 item.diamond_hammeraxe.name=ダイヤモンドのハンマーアックス
+item.hammeraxe.info=いろいろ使える便利なツール
+item.hammeraxe.details=ツルハシ・斧・シャベル適正
 
 item.wood_shield_sword.name=木のシールドソード
 item.stone_shield_sword.name=石のシールドソード
 item.iron_shield_sword.name=鉄のシールドソード
 item.gold_shield_sword.name=金のシールドソード
 item.diamond_shield_sword.name=ダイヤモンドのシールドソード
+item.shield_sword.info=ガードもできる剣
+item.shield_sword.details=右クリックでガード
 
 tile.instant_house.name=インスタントハウス
 
 tile.backpack.name=バックパック
 gui.backpack.name=バックパック
-
 key.open_gui_backpack=バックパックを開く
+tile.backpack.info=背負って持って置いてよし
 
 item.stone_shears.name=石のハサミ
 
@@ -85,6 +89,8 @@ item.cat_hand.info.normal=よこおきも～ど
 item.cat_hand.info.flat=ひらおきも～ど
 
 item.lucky_knife.name=幸運のナイフ
+item.lucky_knife.info=アイテム運が上がるナイフ
+item.lucky_knife.details=確率でアイテムドロップ
 
 item.portable_workbench.name=手持ち作業台
 

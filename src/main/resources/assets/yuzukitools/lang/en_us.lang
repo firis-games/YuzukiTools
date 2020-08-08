@@ -7,19 +7,23 @@ item.stone_hammeraxe.name=Stone Hammeraxe
 item.iron_hammeraxe.name=Iron Hammeraxe
 item.gold_hammeraxe.name=Gold Hammeraxe
 item.diamond_hammeraxe.name=Diamond Hammeraxe
+item.hammeraxe.info=Convenient tool
+item.hammeraxe.details=Pickaxe/Axe/Shovel
 
 item.wood_shield_sword.name=Wood Shield Sword
 item.stone_shield_sword.name=Stone Shield Sword
 item.iron_shield_sword.name=Iron Shield Sword
 item.gold_shield_sword.name=Gold Shield Sword
 item.diamond_shield_sword.name=Diamond Shield Sword
+item.shield_sword.info=Swords that can be guarded
+item.shield_sword.details=Right click guard
 
 tile.instant_house.name=Instant House
 
 tile.backpack.name=Backpack
 gui.backpack.name=Backpack
-
 key.open_gui_backpack=Open Backpack
+tile.backpack.info=Shoulder/Have/Put
 
 item.stone_shears.name=Stone Shears
 
@@ -85,6 +89,8 @@ item.cat_hand.info.normal=Horizontal Mode
 item.cat_hand.info.flat=Flat Mode
 
 item.lucky_knife.name=Lucky Knife
+item.lucky_knife.info=Knife that increases item luck
+item.lucky_knife.details=Chance to drop items
 
 item.portable_workbench.name=Portable Workbench
 
