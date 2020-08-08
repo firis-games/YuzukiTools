@@ -8,7 +8,7 @@ import org.lwjgl.input.Keyboard;
 
 import firis.yuzukitools.client.sound.SoundJetpack;
 import firis.yuzukitools.common.event.JetpackPlayerTickEventHandler;
-import firis.yuzukitools.common.item.YKItemJetpack;
+import firis.yuzukitools.common.helpler.JetpackHelper;
 import firis.yuzukitools.common.network.NetworkHandler;
 import firis.yuzukitools.common.network.PacketJetpackKeyC2S;
 import net.minecraft.client.Minecraft;
@@ -78,7 +78,7 @@ public class JetpackClientTickEventHandler {
 		EntityPlayer player = Minecraft.getMinecraft().player;
 		
 		//Jetpack装備していない or 地上 or GUIを開いている
-		if (!YKItemJetpack.isActiveJetpack(player)
+		if (!JetpackHelper.isActiveJetpack(player)
 				|| player.onGround
 				|| Minecraft.getMinecraft().currentScreen != null) {
 			//キー入力がonの場合はリセット
@@ -133,7 +133,7 @@ public class JetpackClientTickEventHandler {
 		}
 		
 		//ブーストモード用
-		if (lastKeyBoost.getStat(player) && YKItemJetpack.isActiveJetpackBoost(player)) {
+		if (lastKeyBoost.getStat(player) && JetpackHelper.isActiveJetpackBoost(player)) {
 			Vec3d vec3d = player.getLookVec();
 			double boost = JetpackPlayerTickEventHandler.JETPACK_BOOST;
 			player.motionX += vec3d.x * 0.1D + (vec3d.x * 1.5D * boost - player.motionX) * 0.5D;

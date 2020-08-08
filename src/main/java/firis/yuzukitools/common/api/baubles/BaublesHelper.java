@@ -53,7 +53,7 @@ public class BaublesHelper {
 	 * @param player
 	 * @return
 	 */
-	private static ItemStack getSlotFromBody(EntityPlayer player) {
+	public static ItemStack getSlotFromBody(EntityPlayer player) {
 		return getSlot(player, BaubleType.BODY);
 	}
 	

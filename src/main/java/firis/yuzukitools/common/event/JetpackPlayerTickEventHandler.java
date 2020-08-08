@@ -4,14 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import firis.yuzukitools.common.item.YKItemJetpack;
+import firis.yuzukitools.common.helpler.JetpackHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3d;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
@@ -71,7 +67,7 @@ public class JetpackPlayerTickEventHandler {
 		EntityPlayer player = event.player;
 		boolean isGuiScreen = player.openContainer != player.inventoryContainer;
 		
-		if (!YKItemJetpack.isActiveJetpack(player) || player.onGround || isGuiScreen) {
+		if (!JetpackHelper.isActiveJetpack(player) || player.onGround || isGuiScreen) {
 			setJetpackBoostKey(player, false);
 			return;
 		}
@@ -88,13 +84,11 @@ public class JetpackPlayerTickEventHandler {
 			}
 			
 			//エネルギー消費
-			ItemStack chestplate = player.inventory.armorInventory.get(EntityEquipmentSlot.CHEST.getIndex());
-			IEnergyStorage storage = chestplate.getCapability(CapabilityEnergy.ENERGY, null);
-			storage.extractEnergy(YKItemJetpack.USE_ENERGY, false);
+			JetpackHelper.useJetpack(player);
 		}
 		
 		//ブースト処理
-		if (keyBoost && YKItemJetpack.isActiveJetpackBoost(player)) {
+		if (keyBoost && JetpackHelper.isActiveJetpackBoost(player)) {
 			
 			Vec3d vec3d = player.getLookVec();
 			double boost = JETPACK_BOOST;
@@ -102,9 +96,7 @@ public class JetpackPlayerTickEventHandler {
 			player.motionZ += vec3d.z * 0.1D + (vec3d.z * 1.5D * boost - player.motionZ) * 0.5D;
 			
 			//エネルギー消費
-			ItemStack chestplate = player.inventory.armorInventory.get(EntityEquipmentSlot.CHEST.getIndex());
-			IEnergyStorage storage = chestplate.getCapability(CapabilityEnergy.ENERGY, null);
-			storage.extractEnergy(YKItemJetpack.USE_BOOST_ENERGY, false);
+			JetpackHelper.useJetpackBoost(player);
 		}
 	}	
 }
