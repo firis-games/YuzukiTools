@@ -105,3 +105,7 @@ tile.cursed_stone.details=Concentrate monster spawn
 item.villager_job_change.name=Villager Job Change
 item.villager_job_change.info=New job
 
+tile.broken_mob_spawner.name=Broken Mob Spawner
+tile.broken_mob_spawner.info=Spawner who has lost his powers.
+tile.broken_mob_spawner.details=Spawn eggs to regain their power.
+

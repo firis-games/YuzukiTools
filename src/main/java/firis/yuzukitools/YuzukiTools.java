@@ -12,6 +12,7 @@ import firis.yuzukitools.client.tesr.YKTileInstantHouseSpRenderer;
 import firis.yuzukitools.client.tesr.YKTileKitchenGardenSpRenderer;
 import firis.yuzukitools.common.block.YKBlockAmuletStone;
 import firis.yuzukitools.common.block.YKBlockBackpack;
+import firis.yuzukitools.common.block.YKBlockBrokenMobSpawner;
 import firis.yuzukitools.common.block.YKBlockCursedStone;
 import firis.yuzukitools.common.block.YKBlockElectricFurnace;
 import firis.yuzukitools.common.block.YKBlockInstantHouse;
@@ -182,6 +183,7 @@ public class YuzukiTools
     	public final static Block KITCHEN_GARDEN = null;
     	public final static Block AMULET_STONE = null;
     	public final static Block CURSED_STONE = null;
+    	public final static Block BROKEN_MOB_SPAWNER = null;
     }
     
     
@@ -316,6 +318,13 @@ public class YuzukiTools
                 new YKBlockCursedStone()
                 .setRegistryName(MODID, "cursed_stone")
                 .setUnlocalizedName("cursed_stone")
+        );
+        
+        // 壊れたスポナー
+        event.getRegistry().register(
+                new YKBlockBrokenMobSpawner()
+                .setRegistryName(MODID, "broken_mob_spawner")
+                .setUnlocalizedName("broken_mob_spawner")
         );
     }
     
@@ -517,6 +526,10 @@ public class YuzukiTools
     	event.getRegistry().register(new YKItemVillagerJobChange()
     			.setRegistryName(MODID, "villager_job_change")
     			.setUnlocalizedName("villager_job_change"));
+    	
+    	//壊れたスポナー
+    	event.getRegistry().register(new ItemBlock(YKBlocks.BROKEN_MOB_SPAWNER)
+    			.setRegistryName(MODID, "broken_mob_spawner"));
     }
     
     /**
