@@ -109,3 +109,6 @@ tile.broken_mob_spawner.name=壊れたスポナー
 tile.broken_mob_spawner.info=力を失ったモンスタースポナー
 tile.broken_mob_spawner.details=スポーンエッグで元の力を取り戻す
 
+item.empty_egg.name=空のたまご
+item.empty_egg.info=モブに触れると染まる
+

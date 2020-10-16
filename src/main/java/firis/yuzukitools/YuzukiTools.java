@@ -23,6 +23,7 @@ import firis.yuzukitools.common.item.IItemMetadata;
 import firis.yuzukitools.common.item.YKItemBlockBackpack;
 import firis.yuzukitools.common.item.YKItemBlockInstantHouse;
 import firis.yuzukitools.common.item.YKItemCatHand;
+import firis.yuzukitools.common.item.YKItemEmptyEgg;
 import firis.yuzukitools.common.item.YKItemJetpack;
 import firis.yuzukitools.common.item.YKItemLuckyKnife;
 import firis.yuzukitools.common.item.YKItemPortableWorkbench;
@@ -169,6 +170,7 @@ public class YuzukiTools
     	public final static Item LUCKY_KNIFE = null;
     	public final static Item PORTABLE_WORKBENCH = null;
     	public final static Item VILLAGER_JOB_CHANGE = null;
+    	public final static Item EMPTY_EGG = null;
     }
     
     /**
@@ -530,6 +532,11 @@ public class YuzukiTools
     	//壊れたスポナー
     	event.getRegistry().register(new ItemBlock(YKBlocks.BROKEN_MOB_SPAWNER)
     			.setRegistryName(MODID, "broken_mob_spawner"));
+    	
+    	//空のたまご
+    	event.getRegistry().register(new YKItemEmptyEgg()
+    			.setRegistryName(MODID, "empty_egg")
+    			.setUnlocalizedName("empty_egg"));
     }
     
     /**
