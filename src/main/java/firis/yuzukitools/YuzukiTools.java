@@ -8,9 +8,6 @@ import java.util.List;
 import org.apache.logging.log4j.Logger;
 
 import firis.core.client.ShaderHelper;
-import firis.mobbottle.client.teisr.FTileMobBottleItemStackRenderer;
-import firis.mobbottle.client.tesr.FTileMobBottleSpRenderer;
-import firis.mobbottle.common.config.FirisConfig;
 import firis.yuzukitools.client.tesr.YKTileInstantHouseSpRenderer;
 import firis.yuzukitools.client.tesr.YKTileKitchenGardenSpRenderer;
 import firis.yuzukitools.common.block.YKBlockAmuletStone;
@@ -61,7 +58,7 @@ import firis.yuzukitools.common.tileentity.YKTileKitchenGarden;
 import firis.yuzukitools.common.tileentity.YKTileSolarCharger;
 import firis.yuzukitools.common.world.dimension.DimensionHandler;
 import firis.yuzukitools.common.world.dimension.skygarden.biome.BiomeSkyGarden;
-import firis.yuzukitools.mobbottle.client.event.YKMobBottlePlusModelBakeEventHandler;
+import firis.yuzukitools.mobbottle.common.MobBottleInit;
 import firis.yuzukitools.mobbottle.common.block.FBlockMobBottlePlus;
 import firis.yuzukitools.mobbottle.common.item.FItemMobBottlePlus;
 import firis.yuzukitools.mobbottle.common.tileentity.FTileEntityMobBottlePlus;
@@ -85,7 +82,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Loader;
@@ -654,18 +650,7 @@ public class YuzukiTools
     	
     	// モブボトル連携
     	if (isLoadedMobBottle) {
-        	//モブボトルTESR
-        	ClientRegistry.bindTileEntitySpecialRenderer(FTileEntityMobBottlePlus.class, new FTileMobBottleSpRenderer());
-        	
-        	if (FirisConfig.cfg_general_enable_mob_bottle_teisr) {
-        		
-    	    	//モブボトルのTEISR登録
-    	    	YKItems.MOB_BOTTLE_PLUS.setTileEntityItemStackRenderer(new FTileMobBottleItemStackRenderer());
-    	    	
-    			//モブボトルモデル登録
-    			MinecraftForge.EVENT_BUS.register(YKMobBottlePlusModelBakeEventHandler.class);
-    			
-        	}
+    		MobBottleInit.registerModelsMobBottle(event);
     	}
     }
     
