@@ -112,3 +112,6 @@ tile.broken_mob_spawner.details=Spawn eggs to regain their power.
 item.empty_egg.name=Empty Egg
 item.empty_egg.info=If you touch the mob.
 
+tile.mob_bottle_plus.name=Mob Spawner Bottle
+tile.mob_bottle_plus.info=Bottle with the power of a spawner
+

@@ -8,6 +8,9 @@ import java.util.List;
 import org.apache.logging.log4j.Logger;
 
 import firis.core.client.ShaderHelper;
+import firis.mobbottle.client.teisr.FTileMobBottleItemStackRenderer;
+import firis.mobbottle.client.tesr.FTileMobBottleSpRenderer;
+import firis.mobbottle.common.config.FirisConfig;
 import firis.yuzukitools.client.tesr.YKTileInstantHouseSpRenderer;
 import firis.yuzukitools.client.tesr.YKTileKitchenGardenSpRenderer;
 import firis.yuzukitools.common.block.YKBlockAmuletStone;
@@ -58,6 +61,10 @@ import firis.yuzukitools.common.tileentity.YKTileKitchenGarden;
 import firis.yuzukitools.common.tileentity.YKTileSolarCharger;
 import firis.yuzukitools.common.world.dimension.DimensionHandler;
 import firis.yuzukitools.common.world.dimension.skygarden.biome.BiomeSkyGarden;
+import firis.yuzukitools.mobbottle.client.event.YKMobBottlePlusModelBakeEventHandler;
+import firis.yuzukitools.mobbottle.common.block.FBlockMobBottlePlus;
+import firis.yuzukitools.mobbottle.common.item.FItemMobBottlePlus;
+import firis.yuzukitools.mobbottle.common.tileentity.FTileEntityMobBottlePlus;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -78,8 +85,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -108,7 +117,9 @@ public class YuzukiTools
     public static final String MODID = "yuzukitools";
     public static final String NAME = "Yuzuki Tools";
     public static final String VERSION = "0.7";
-    public static final String MOD_DEPENDENCIES = "required-after:forge@[1.12.2-14.23.5.2768,);after:jei@[1.12.2-4.13.1.220,)";
+    public static final String MOD_DEPENDENCIES = "required-after:forge@[1.12.2-14.23.5.2768,);"
+    		+ "after:jei@[1.12.2-4.13.1.220,);"
+    		+ "after:mobbottle@[1.0.0,)";
     public static final String MOD_ACCEPTED_MINECRAFT_VERSIONS = "[1.12.2]";
 
     public static Logger logger;
@@ -120,6 +131,10 @@ public class YuzukiTools
     		clientSide = "firis.yuzukitools.client.proxy.ClientProxy")
     public static IProxy proxy;
     
+	/**
+	 * モブボトルの読込チェック
+	 */
+	public static final boolean isLoadedMobBottle = Loader.isModLoaded("mobbottle");
     /**
      * クリエイティブタブ
      */
@@ -171,6 +186,7 @@ public class YuzukiTools
     	public final static Item PORTABLE_WORKBENCH = null;
     	public final static Item VILLAGER_JOB_CHANGE = null;
     	public final static Item EMPTY_EGG = null;
+    	public final static Item MOB_BOTTLE_PLUS = null;
     }
     
     /**
@@ -186,6 +202,7 @@ public class YuzukiTools
     	public final static Block AMULET_STONE = null;
     	public final static Block CURSED_STONE = null;
     	public final static Block BROKEN_MOB_SPAWNER = null;
+    	public final static Block MOB_BOTTLE_PLUS = null;
     }
     
     
@@ -236,6 +253,12 @@ public class YuzukiTools
     	
 		//インスタントハウスManager初期化
 		InstantHouseManager.init();
+		
+		//モブボトル連携
+		if (isLoadedMobBottle) {
+            GameRegistry.registerTileEntity(FTileEntityMobBottlePlus.class, 
+            		new ResourceLocation(YuzukiTools.MODID, "te_mob_bottle_plus"));        	
+        }
     }
     
     @EventHandler
@@ -328,6 +351,15 @@ public class YuzukiTools
                 .setRegistryName(MODID, "broken_mob_spawner")
                 .setUnlocalizedName("broken_mob_spawner")
         );
+        
+        //モブボトル連携
+		if (isLoadedMobBottle) {
+			event.getRegistry().register(
+	                new FBlockMobBottlePlus()
+	                .setRegistryName(MODID, "mob_bottle_plus")
+	                .setUnlocalizedName("mob_bottle_plus")
+	        );     	
+		}
     }
     
     /**
@@ -537,6 +569,13 @@ public class YuzukiTools
     	event.getRegistry().register(new YKItemEmptyEgg()
     			.setRegistryName(MODID, "empty_egg")
     			.setUnlocalizedName("empty_egg"));
+    	
+    	//モブボトル連携
+		if (isLoadedMobBottle) {
+			event.getRegistry().register(new FItemMobBottlePlus(YKBlocks.MOB_BOTTLE_PLUS)
+	    			.setRegistryName(MODID, "mob_bottle_plus")
+	    			.setUnlocalizedName("mob_bottle_plus"));
+		}
     }
     
     /**
@@ -611,6 +650,22 @@ public class YuzukiTools
 	    				"/assets/yuzukitools/shader/alpha.vert", 
 	    				"/assets/yuzukitools/shader/alpha.frag");
 	    	}
+    	}
+    	
+    	// モブボトル連携
+    	if (isLoadedMobBottle) {
+        	//モブボトルTESR
+        	ClientRegistry.bindTileEntitySpecialRenderer(FTileEntityMobBottlePlus.class, new FTileMobBottleSpRenderer());
+        	
+        	if (FirisConfig.cfg_general_enable_mob_bottle_teisr) {
+        		
+    	    	//モブボトルのTEISR登録
+    	    	YKItems.MOB_BOTTLE_PLUS.setTileEntityItemStackRenderer(new FTileMobBottleItemStackRenderer());
+    	    	
+    			//モブボトルモデル登録
+    			MinecraftForge.EVENT_BUS.register(YKMobBottlePlusModelBakeEventHandler.class);
+    			
+        	}
     	}
     }
     

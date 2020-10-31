@@ -1,0 +1,24 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"www",
+		"gdg",
+		"ggg"
+	],
+	"key": {
+		"g": {
+			"type": "forge:ore_dict",
+			"ore": "blockGlass"
+		},
+		"w": {
+			"type": "forge:ore_dict",
+			"ore": "slabWood"
+		},
+		"d": {
+			"item": "yuzukitools:broken_mob_spawner"
+		}
+	},
+	"result": {
+		"item": "yuzukitools:mob_bottle_plus"
+	}
+}

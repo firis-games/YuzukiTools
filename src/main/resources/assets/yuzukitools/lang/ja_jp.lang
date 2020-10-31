@@ -112,3 +112,6 @@ tile.broken_mob_spawner.details=スポーンエッグで元の力を取り戻す
 item.empty_egg.name=空のたまご
 item.empty_egg.info=モブに触れると染まる
 
+tile.mob_bottle_plus.name=モブスポナーボトル
+tile.mob_bottle_plus.info=スポナーの力を宿した小瓶
+
