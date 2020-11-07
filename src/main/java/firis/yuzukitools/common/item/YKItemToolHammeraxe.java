@@ -54,7 +54,17 @@ public class YKItemToolHammeraxe extends ItemTool {
 	 */
 	public static final float[] ATTACK_DAMAGES = new float[] {6.0F, 8.0F, 8.0F, 8.0F, 6.0F};
     public static final float[] ATTACK_SPEEDS = new float[] { -3.2F, -3.2F, -3.1F, -3.0F, -3.0F};
+    
+    /**
+     * リーチの設定
+     */
+    public static final float[] REACH_DISTANCE = new float[] {1.0F, 1.0F, 2.0F, 3.0F, 3.0F};
 	
+    /**
+     * ツールのリーチ
+     */
+    protected float reachDistance;
+    
 	/**
 	 * コンストラクタ
 	 * @param materialIn
@@ -72,9 +82,10 @@ public class YKItemToolHammeraxe extends ItemTool {
 		
 		this.setCreativeTab(YuzukiTools.YKCreativeTab);
 		
-		//攻撃力と速度を設定
+		//攻撃力と速度とリーチを設定
 		this.attackDamage = ATTACK_DAMAGES[material.ordinal()];
         this.attackSpeed = ATTACK_SPEEDS[material.ordinal()];
+        this.reachDistance = REACH_DISTANCE[material.ordinal()];
 	}
 	
 	/**
@@ -92,7 +103,7 @@ public class YKItemToolHammeraxe extends ItemTool {
         	//リーチを伸ばす
             multimap.put(EntityPlayer.REACH_DISTANCE.getName(), 
             		new AttributeModifier(REASH_MODIFIER, 
-            				"Tool modifier", 1.0F, 0));
+            				"Tool modifier", this.reachDistance, 0));
         }
         return multimap;
     }

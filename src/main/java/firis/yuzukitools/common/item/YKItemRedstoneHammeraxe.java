@@ -86,7 +86,7 @@ public class YKItemRedstoneHammeraxe extends AbstractEnergyItemTool {
         	//リーチを伸ばす
             multimap.put(EntityPlayer.REACH_DISTANCE.getName(), 
             		new AttributeModifier(REASH_MODIFIER, 
-            				"Tool modifier", 1.0F, 0));
+            				"Tool modifier", 2.0F, 0));
         }
         return multimap;
     }
