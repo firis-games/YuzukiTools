@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @EventBusSubscriber
-public class HarvestDropsEventHandler {
+public class BlockMobSpawnerDropEventHandler {
 
 	/**
 	 * 壊れたスポナーのドロップイベント
