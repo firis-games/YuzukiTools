@@ -1,16 +1,26 @@
 package firis.yuzukitools.common.block;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import firis.yuzukitools.YuzukiTools;
 import firis.yuzukitools.common.proxy.ModGuiHandler;
 import firis.yuzukitools.common.tileentity.YKTileSolarCharger;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class YKBlockSolarCharger extends AbstractBlockContainer {
 
@@ -40,6 +50,15 @@ public class YKBlockSolarCharger extends AbstractBlockContainer {
 					worldIn, pos.getX(), pos.getY(), pos.getZ());
 		}
     	return true;
+    }
+	
+	/**
+	 * info設定
+	 */
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+		tooltip.add(TextFormatting.LIGHT_PURPLE + I18n.format("tile.solar_charger.info"));
+		tooltip.add(TextFormatting.DARK_AQUA.toString() + TextFormatting.ITALIC.toString() + I18n.format("tile.solar_charger.details"));
     }
 
 }

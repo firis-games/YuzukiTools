@@ -108,6 +108,7 @@ public class YKItemLuckyKnife extends ItemSword {
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
 		tooltip.add(TextFormatting.LIGHT_PURPLE + I18n.format("item.lucky_knife.info"));
 		tooltip.add(TextFormatting.DARK_AQUA.toString() + TextFormatting.ITALIC.toString() + I18n.format("item.lucky_knife.details"));
+		tooltip.add(TextFormatting.DARK_AQUA.toString() + TextFormatting.ITALIC.toString() + I18n.format("item.lucky_knife.details2"));
     }
 
 }

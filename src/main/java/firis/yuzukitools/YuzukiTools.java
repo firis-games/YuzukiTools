@@ -5,6 +5,8 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import org.apache.logging.log4j.Logger;
 
 import firis.core.client.ShaderHelper;
@@ -66,7 +68,9 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.resources.SimpleReloadableResourceManager;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Blocks;
@@ -79,6 +83,8 @@ import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -365,7 +371,12 @@ public class YuzukiTools
     protected static void registerItems(RegistryEvent.Register<Item> event)
     {
     	//結月メダル
-    	event.getRegistry().register(new Item()
+    	event.getRegistry().register(new Item() {
+		    	    @SideOnly(Side.CLIENT)
+		    	    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+		    			tooltip.add(TextFormatting.LIGHT_PURPLE + I18n.format("item.yuzuki_medal.info"));
+		    	    }
+		    	}
     			.setRegistryName(MODID, "yuzuki_medal")
     			.setUnlocalizedName("yuzuki_medal")
     			.setCreativeTab(YKCreativeTab)

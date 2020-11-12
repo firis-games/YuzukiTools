@@ -1,5 +1,7 @@
 package firis.yuzukitools.common.item;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 import com.google.common.collect.Multimap;
@@ -7,6 +9,8 @@ import com.google.common.collect.Multimap;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -22,6 +26,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
@@ -232,4 +237,22 @@ public class YKItemRedstoneSword extends AbstractEnergyItem {
 		if (capability.getEnergyStored() < active_energy) return false;
 		return true;
 	}
+	
+	/**
+	 * info設定
+	 */
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+    	this.addInformationSword(stack, player, tooltip, advanced);
+    	super.addInformation(stack, player, tooltip, advanced);
+    }
+    
+    /**
+     * レッドストーンの剣用ツールチップ
+     */
+    @SideOnly(Side.CLIENT)
+    public void addInformationSword(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+		tooltip.add(TextFormatting.LIGHT_PURPLE + I18n.format("item.redstone_sword.info"));
+		tooltip.add(TextFormatting.DARK_AQUA.toString() + TextFormatting.ITALIC.toString() + I18n.format("item.redstone_sword.details"));    	
+    }
 }

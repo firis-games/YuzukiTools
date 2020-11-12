@@ -1,6 +1,7 @@
 itemGroup.tabYuzukiTools=ゆづきツールズ
 
 item.yuzuki_medal.name=結月メダル
+item.yuzuki_medal.info=ゆかりさんのお手製
 
 item.wood_hammeraxe.name=木のハンマーアックス
 item.stone_hammeraxe.name=石のハンマーアックス
@@ -33,15 +34,20 @@ item.redstone_pickaxe.name=レッドストーンのツルハシ
 item.redstone_axe.name=レッドストーンの斧
 item.redstone_shovel.name=レッドストーンのシャベル
 item.redstone_hoe.name=レッドストーンのクワ
+item.redstone_tools.info=電気の力で動くツール
 
 info.energy_battery.name=エナジー：
 info.energy_unit.name=YF
 
 tile.solar_charger.name=ソーラー充電器
 gui.solar_charger.name=ソーラー充電器
+tile.solar_charger.info=発電できる充電器
+tile.solar_charger.details=太陽の力をエネルギーに変える
 
 tile.electric_furnace.name=電気炉
 gui.electric_furnace.name=電気炉
+tile.electric_furnace.info=高熱で材料を溶解するアーク炉
+tile.electric_furnace.details=鉱石を効率よく溶かせる
 
 yuzukitools.jei.electric_furnace.title=電気炉
 
@@ -49,16 +55,25 @@ item.redstone_helmet.name=レッドストーンのヘルメット
 item.redstone_chestplate.name=レッドストーンのチェストプレート
 item.redstone_leggings.name=レッドストーンのレギンス
 item.redstone_boots.name=レッドストーンのブーツ
+item.redstone_armor.info=電動式の防具
+item.redstone_armor.details=全身装備で防御能力が大幅アップ
 
 item.redstone_sword.name=レッドストーンの剣
+item.redstone_sword.info=切替式の電動剣
+item.redstone_sword.details=紫色は高火力、赤色は省エネ
 
 item.redstone_crystal.name=レッドストーンクリスタル
+item.redstone_crystal.info=携帯型のバッテリー
 
 item.jetpack.name=ジェットパック
+item.jetpack.info=背負うと飛べます
+item.jetpack.details=ブーストで高速移動
 key.jetpack_boost=ジェットパックブースト
 
 tile.kitchen_garden.name=家庭菜園
 gui.kitchen_garden.name=家庭菜園
+tile.kitchen_garden.info=電気の力で植物を育てるプランター
+tile.kitchen_garden.details=水の入った大釜から自動給水
 
 yuzukitools.jei.kitchen_garden.title=家庭菜園
 
@@ -83,6 +98,7 @@ item.sky_garden_key_12.name=空色の空中庭園の鍵
 item.sky_garden_key_13.name=赤紫の空中庭園の鍵
 item.sky_garden_key_14.name=橙の空中庭園の鍵
 item.sky_garden_key_15.name=白の空中庭園の鍵
+item.sky_garden_key.info=お空のお庭にご招待
 
 item.cat_hand.name=ネコの手
 item.cat_hand.info.normal=よこおきも～ど
@@ -91,6 +107,7 @@ item.cat_hand.info.flat=ひらおきも～ど
 item.lucky_knife.name=幸運のナイフ
 item.lucky_knife.info=アイテム運が上がるナイフ
 item.lucky_knife.details=確率でアイテムドロップ
+item.lucky_knife.details2=ドロップ増加で確率アップ
 
 item.portable_workbench.name=手持ち作業台
 

@@ -1,6 +1,7 @@
 itemGroup.tabYuzukiTools=Yuzuki Tools
 
 item.yuzuki_medal.name=Yuzuki Medal
+item.yuzuki_medal.info=Yukari handmade
 
 item.wood_hammeraxe.name=Wood Hammeraxe
 item.stone_hammeraxe.name=Stone Hammeraxe
@@ -33,15 +34,20 @@ item.redstone_pickaxe.name=Redstone Pickaxe
 item.redstone_axe.name=Redstone Axe
 item.redstone_shovel.name=Redstone Shovel
 item.redstone_hoe.name=Redstone Hoe
+item.redstone_tools.info=Electric tool
 
 info.energy_battery.name=Battery:
 info.energy_unit.name=YF
 
 tile.solar_charger.name=Solar Charger
 gui.solar_charger.name=Solar Charger
+tile.solar_charger.info=Charger that can generate electricity
+tile.solar_charger.details=Converting the power of the sun into energy
 
 tile.electric_furnace.name=Electric Furnace
 gui.electric_furnace.name=Electric Furnace
+tile.electric_furnace.info=An arc furnace that melts materials with high heat
+tile.electric_furnace.details=Efficiently melts ore
 
 yuzukitools.jei.electric_furnace.title=Electric Furnace
 
@@ -49,16 +55,25 @@ item.redstone_helmet.name=Redstone Helmet
 item.redstone_chestplate.name=Redstone Chestplate
 item.redstone_leggings.name=Redstone Leggings
 item.redstone_boots.name=Redstone Boots
+item.redstone_armor.info=Electric armor
+item.redstone_armor.details=Full-body equipment greatly improves defense ability
 
 item.redstone_sword.name=Redstone Sword
+item.redstone_sword.info=Switchable electric sword
+item.redstone_sword.details=Purple is high heat, red is low fuel consumption
 
 item.redstone_crystal.name=Redstone Crystal
+item.redstone_crystal.info=Portable battery
 
 item.jetpack.name=Jetpack
+item.jetpack.info=You can fly if you carry it on your back
+item.jetpack.details=Fast movement with boost
 key.jetpack_boost=Jetpack Boost
 
 tile.kitchen_garden.name=Kitchen Garden
 gui.kitchen_garden.name=Kitchen Garden
+tile.kitchen_garden.info=Planter that grows plants with the power of electricity
+tile.kitchen_garden.details=Automatic water supply from a cauldron filled with water
 
 yuzukitools.jei.kitchen_garden.title=Kitchen Garden
 
@@ -83,6 +98,7 @@ item.sky_garden_key_12.name=Sky Blue Sky Garden Key
 item.sky_garden_key_13.name=Magenta Sky Garden Key
 item.sky_garden_key_14.name=Orange Sky Garden Key
 item.sky_garden_key_15.name=White Sky Garden Key
+item.sky_garden_key.info=Invitation to the garden in the sky
 
 item.cat_hand.name=Cat Hand
 item.cat_hand.info.normal=Horizontal Mode
@@ -91,6 +107,7 @@ item.cat_hand.info.flat=Flat Mode
 item.lucky_knife.name=Lucky Knife
 item.lucky_knife.info=Knife that increases item luck
 item.lucky_knife.details=Chance to drop items
+item.lucky_knife.details2=Enchanting looting drop Chance up
 
 item.portable_workbench.name=Portable Workbench
 

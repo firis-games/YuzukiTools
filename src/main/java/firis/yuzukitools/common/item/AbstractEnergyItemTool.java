@@ -1,11 +1,16 @@
 package firis.yuzukitools.common.item;
 
+import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nullable;
 
 import com.google.common.collect.Multimap;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -13,7 +18,10 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class AbstractEnergyItemTool extends AbstractEnergyItem {
 	
@@ -123,4 +131,12 @@ public abstract class AbstractEnergyItemTool extends AbstractEnergyItem {
 		return super.getHarvestLevel(stack, toolClass,  player, blockState);
     }
 	
+	/**
+	 * info設定
+	 */
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+		tooltip.add(TextFormatting.LIGHT_PURPLE + I18n.format("item.redstone_tools.info"));
+    	super.addInformation(stack, player, tooltip, advanced);
+    }
 }
