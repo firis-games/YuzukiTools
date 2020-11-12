@@ -40,6 +40,11 @@ public class RecipesElectricFurnace {
 				new ItemStack(Blocks.DIAMOND_ORE), 
 				new ItemStack(Items.DIAMOND, 5));
 		
+		//エメラルド鉱石増量
+		RecipesElectricFurnace.register(
+				new ItemStack(Blocks.EMERALD_ORE), 
+				new ItemStack(Items.EMERALD, 5));
+		
 		//レッドストーン鉱石増量
 		RecipesElectricFurnace.register(
 				new ItemStack(Blocks.REDSTONE_ORE), 
@@ -49,6 +54,16 @@ public class RecipesElectricFurnace {
 		RecipesElectricFurnace.register(
 				new ItemStack(Blocks.LAPIS_ORE), 
 				new ItemStack(Items.DYE, 10, 4));
+		
+		//ネザークォーツ鉱石増量
+		RecipesElectricFurnace.register(
+				new ItemStack(Blocks.QUARTZ_ORE), 
+				new ItemStack(Items.QUARTZ, 5));
+		
+		//グロウストーン増量
+		RecipesElectricFurnace.register(
+				new ItemStack(Blocks.GLOWSTONE), 
+				new ItemStack(Items.GLOWSTONE_DUST, 5));
 		
 		//鉄の斧
 		RecipesElectricFurnace.register(
@@ -301,6 +316,15 @@ public class RecipesElectricFurnace {
 		doublingOreList.add("Aluminum");
 		//オスミウム鉱石
 		doublingOreList.add("Osmium");
+		
+		//レア扱いの鉱石
+		//プラチナ鉱石
+		doublingOreList.add("Platinum");
+		//イリジウム鉱石
+		doublingOreList.add("Iridium");
+		//ミスリル鉱石
+		doublingOreList.add("Mithril");
+		
 		for (String doublingOre : doublingOreList) {
 			//2倍化
 			RecipesElectricFurnace.register(
