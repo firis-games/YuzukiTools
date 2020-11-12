@@ -421,7 +421,7 @@ public class YKTileKitchenGarden extends AbstractTileEntity implements ITickable
 				Comparable<?> level = state.getProperties().get(BlockCauldron.LEVEL);
 				if ("3".equals(level.toString())) {
 					//大釜が満タンの場合
-					this.fluid.fill(new FluidStack(FluidRegistry.getFluid("water"), 100), true);
+					this.fluid.fill(new FluidStack(FluidRegistry.getFluid("water"), 200), true);
 					//クールタイム10秒
 					waterCoolTime = 20 * 10;
 					break;
