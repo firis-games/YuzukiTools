@@ -344,11 +344,22 @@ public class RecipesElectricFurnace {
 	 */
 	public static void register(String inOreName, String outOreName, int outCount, int burnTime) {
 		//outputが存在する場合のみレシピ登録する
-		NonNullList<ItemStack> oreList = OreDictionary.getOres(outOreName);
-		if(oreList.size() > 0) {
-			ItemStack outputStack = oreList.get(0).copy();
-			outputStack.setCount(outCount);
-			commonRegister(inOreName, outputStack, burnTime);
+		NonNullList<ItemStack> inList = OreDictionary.getOres(inOreName);
+		NonNullList<ItemStack> outList = OreDictionary.getOres(outOreName);
+		if(inList.size() > 0 && outList.size() > 0) {
+			for (ItemStack inStack : inList) {
+				ItemStack retStack = outList.get(0).copy();
+				//一致するリスト検索
+				for (ItemStack outStack : outList) {
+					if (inStack.getItem().getRegistryName().getResourceDomain()
+							.equals(outStack.getItem().getRegistryName().getResourceDomain())) {
+						retStack = outStack.copy();
+						break;
+					}
+				}
+				retStack.setCount(outCount);
+				commonRegister(inStack.copy(), retStack, burnTime);
+			}
 		}
 	}
 	
