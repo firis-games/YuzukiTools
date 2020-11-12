@@ -346,7 +346,7 @@ public class RecipesElectricFurnace {
 		//outputが存在する場合のみレシピ登録する
 		NonNullList<ItemStack> oreList = OreDictionary.getOres(outOreName);
 		if(oreList.size() > 0) {
-			ItemStack outputStack = oreList.get(0);
+			ItemStack outputStack = oreList.get(0).copy();
 			outputStack.setCount(outCount);
 			commonRegister(inOreName, outputStack, burnTime);
 		}
