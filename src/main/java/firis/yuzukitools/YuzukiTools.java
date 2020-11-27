@@ -58,6 +58,7 @@ import firis.yuzukitools.common.tileentity.YKTileElectricFurnace;
 import firis.yuzukitools.common.tileentity.YKTileInstantHouse;
 import firis.yuzukitools.common.tileentity.YKTileKitchenGarden;
 import firis.yuzukitools.common.tileentity.YKTileSolarCharger;
+import firis.yuzukitools.common.world.YKLoadingCallback;
 import firis.yuzukitools.common.world.dimension.DimensionHandler;
 import firis.yuzukitools.common.world.dimension.skygarden.biome.BiomeSkyGarden;
 import firis.yuzukitools.mobbottle.common.MobBottleInit;
@@ -88,6 +89,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Loader;
@@ -289,6 +291,9 @@ public class YuzukiTools
     	
     	//Jsonレシピ生成処理
 		CreateJsonRecipe.create();
+		
+		//チャンクロード制御用
+		ForgeChunkManager.setForcedChunkLoadingCallback(YuzukiTools.INSTANCE, new YKLoadingCallback());
     	
     }
     

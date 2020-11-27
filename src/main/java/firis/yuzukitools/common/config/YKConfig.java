@@ -30,4 +30,11 @@ public class YKConfig {
 	 */
 	@Comment({"YuzukiTools Spawn Particle", "default:true"})
 	public static boolean SPAWN_PARTICLE = true;
+	
+	
+	/**
+	 * チャンクロード設定
+	 */
+	@Comment({"YuzukiTools Sky Garden Always Chunk Load", "default:true"})
+	public static boolean SKY_GARDEN_CHUNK_LOAD = true;
 }

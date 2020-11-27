@@ -14,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
@@ -359,6 +360,25 @@ public class SkyGardenManager {
 				pos.getX() + 0.5D, 
 				pos.getY() + 0.0D, 
 				pos.getZ() + 0.5D);
+	}
+	
+	/**
+	 * 浮島チャンクの判断
+	 * @return
+	 */
+	public boolean isChunkFloatingIsland(ChunkPos pos) {
+		
+		//3x3範囲
+		int range = 1;
+		
+		for (Vec3i vec : chunkCoordList) {
+			//浮島チャンクを中心に3×3であること
+			if (pos.x - range <= vec.getX() && vec.getX() <= pos.x + range
+					&& pos.z - range <= vec.getZ() && vec.getZ() <= pos.z + range) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
