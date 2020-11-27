@@ -367,16 +367,26 @@ public class SkyGardenManager {
 	 * @return
 	 */
 	public boolean isChunkFloatingIsland(ChunkPos pos) {
-		
-		//3x3範囲
-		int range = 1;
-		
-		for (Vec3i vec : chunkCoordList) {
-			//浮島チャンクを中心に3×3であること
-			if (pos.x - range <= vec.getX() && vec.getX() <= pos.x + range
-					&& pos.z - range <= vec.getZ() && vec.getZ() <= pos.z + range) {
+		for (int meta = 0; meta < chunkCoordList.size(); meta++) {
+			if (isChunkFloatingIsland(pos, meta)) {
 				return true;
 			}
+		}
+		return false;
+	}
+	
+	/**
+	 * 色単位で浮島チャンク判断
+	 * @return
+	 */
+	public boolean isChunkFloatingIsland(ChunkPos pos, int meta) {
+		//3x3範囲
+		int range = 1;
+		Vec3i vec = this.chunkCoordList.get(meta);
+		//浮島チャンクを中心に3×3であること
+		if (pos.x - range <= vec.getX() && vec.getX() <= pos.x + range
+				&& pos.z - range <= vec.getZ() && vec.getZ() <= pos.z + range) {
+			return true;
 		}
 		return false;
 	}

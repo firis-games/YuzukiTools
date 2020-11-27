@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import firis.yuzukitools.YuzukiTools;
+import firis.yuzukitools.common.world.dimension.DimensionHandler;
 import firis.yuzukitools.common.world.dimension.skygarden.SkyGardenManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -16,6 +17,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -76,5 +78,22 @@ public class YKItemSkyGardenKey extends Item implements IItemMetadata {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
 		tooltip.add(TextFormatting.LIGHT_PURPLE + I18n.format("item.sky_garden_key.info"));
+    }
+    
+    /**
+     * エリア内の場合は光る
+     */
+    @SideOnly(Side.CLIENT)
+    public boolean hasEffect(ItemStack stack)
+    {
+    	EntityPlayer player = YuzukiTools.proxy.getClientPlayer();
+    	if (player == null) return false;
+    	if (player.getEntityWorld().provider.getDimension()
+    			!= DimensionHandler.dimensionSkyGarden.getId()) return false;
+    	if (SkyGardenManager.getInstance().isChunkFloatingIsland(
+    			new ChunkPos(player.getPosition()), stack.getMetadata())) {
+    		return true;
+    	}
+        return false;
     }
 }

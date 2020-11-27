@@ -10,6 +10,7 @@ import firis.yuzukitools.client.layer.YKBackPackLayer;
 import firis.yuzukitools.common.proxy.IProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderPlayer;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -64,5 +65,10 @@ public class ClientProxy implements IProxy {
 				
 			}
 		}
+	}
+
+	@Override
+	public EntityPlayer getClientPlayer() {
+		return Minecraft.getMinecraft().player;
 	}
 }
