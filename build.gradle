@@ -25,7 +25,7 @@ repositories {
     }
 }
 
-version = "0.7.3"
+version = "0.7.4"
 group = "firis.yuzukitools" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "YuzukiTools"
 
