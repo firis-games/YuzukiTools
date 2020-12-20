@@ -64,10 +64,21 @@ public class YKItemVillagerJobChange extends Item {
 	 */
 	public boolean procJobChange(ItemStack stack, EntityPlayer player, Entity target) {
 		if (target instanceof EntityVillager) {
-			VillagerRegistry.setRandomProfession((EntityVillager) target, rand);
+			EntityVillager villager = (EntityVillager) target;
+			
+			//職業初期化
+			VillagerRegistry.setRandomProfession(villager, rand);
+			villager.buyingList = null;
+			villager.careerId = 0;
+			villager.careerLevel = 0;
+			villager.setAdditionalAItasks();
+			villager.populateBuyingList();
+			
+			//アイテム消費
 			if (!player.capabilities.isCreativeMode) {
 				stack.shrink(1);
 			}
+			
 			return true;
 		}
 		return false;
